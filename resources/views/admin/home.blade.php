@@ -3,5 +3,5 @@
 @section('title', 'home')
 
 @section('content_header')
-    <h1>Principal</h1>
+    <h1>Principal home</h1>
 @stop
