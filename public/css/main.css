@@ -1,0 +1,13 @@
+.containers {
+    background-color: #d1d1d1;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.tables {
+    margin: .5rem;
+    padding: 1rem;
+    border: 1px solid;
+    background-color: #fff;
+}

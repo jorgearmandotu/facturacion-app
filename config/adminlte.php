@@ -150,7 +150,7 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
@@ -312,17 +312,46 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Facturar',
-            'url'         => 'admin/facturation',
+            'text'        => 'Facturación',
+            //'url'         => 'admin/facturation',
             'icon'        => 'fas fa-fw fa-file-invoice-dollar',
-            //'label'       => 4,
-            //'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text'  => 'Factura Credito',
+                    'icon'  => 'fas fa-file-invoice',
+                    'url'   => '#'
+                ],
+                [
+                    'text'  => 'Factura Contado',
+                    'icon'  => 'fas fa-cash-register',
+                    'label' => '$',
+                    'label_color' => 'success',
+                    'url'   => '#'
+                ],
+                [
+                    'text'  => 'Clientes',
+                    'icon'  => 'fas fa-user-friends',
+                    'url'   => '#'
+                ],
+            ]
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'Administración'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Iventarios',
+            //'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-boxes',
+            'submenu' => [
+                [
+                'text' => 'Productos',
+                'url' => 'admin/products',
+                'icon' => 'fas fa-tshirt',
+                ],
+                [
+                    'text' => 'Gestion Inventario',//lineas, grupos, ubicaciones
+                    'url' => 'admin/gestion-inventario',
+                    'icon' => 'fas fa-truck-loading',
+                ],
+            ],
         ],
         [
             'text' => 'change_password',
@@ -466,7 +495,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

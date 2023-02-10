@@ -11,6 +11,7 @@ class Group extends Model
 
     protected $fillable = [
         'name',
+        'line_id',
         'cstate_id',
     ];
 }
