@@ -17,7 +17,7 @@
         {{-- <div class="row">
             @livewire('lineas-create')
         </div> --}}
-        <div class="container tables">
+        <div class="container col-md-8 tables">
             <table id="linesTable" class="table table-striped table-bordered bg-light" style="width:100%">
                 <thead>
                     <tr>
@@ -33,7 +33,7 @@
 <div class="container-fluid containers">
     <h1>Grupos</h1>
     <x-admin.form-modalproperties-inventario id="modalGroup" formId="formGroup" title="Crear Grupo" buttonText="Crear Grupo" placeholder="Nombre Grupo" event="save('/admin/groups', 'formGroup')" />
-    <div class="container tables">
+    <div class="container col-md-8 tables">
         <table id="groupsTable" class="table table-striped table-bordered bg-light" style="width:100%">
             <thead>
                 <tr>
@@ -51,7 +51,7 @@
     <h1>Ubicaciones</h1>
     <x-admin.form-modalproperties-inventario id="modalLocation" formId="formLocation" title="Crear Ubicación" buttonText="Crear Ubicación" placeholder="Nombre Ubicación" event="save('/admin/locations', 'formLocation')" />
 
-    <div class="container tables">
+    <div class="container col-md-8 tables">
         <table id="locationsTable" class="table table-striped table-bordered bg-light" style="width:100%">
             <thead>
                 <tr>

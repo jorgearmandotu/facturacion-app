@@ -17,7 +17,7 @@
                 @csrf
                 <div class="form-group row">
                     <label for="name">Nombre</label>
-                    <input type="text" class="form-control" placeholder="{{ $placeholder }}" name="name">
+                    <input type="text" class="form-control data-autofocus" placeholder="{{ $placeholder }}" name="name" id="inputName" >
                 </div>
                 @if($formId == 'formGroup')
                     <livewire:select-line />

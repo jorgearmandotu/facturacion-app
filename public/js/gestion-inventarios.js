@@ -263,3 +263,8 @@ function recargarTablas(id){
             locationsTable.ajax.reload(null, false);
     }
 }
+
+$('.modal').on('shown.bs.modal', function (e) {
+    //const a = e.target;
+    document.getElementById("inputName").focus();
+  })

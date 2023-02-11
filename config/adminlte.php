@@ -347,6 +347,11 @@ return [
                 'icon' => 'fas fa-tshirt',
                 ],
                 [
+                'text' => 'Crear Productos',
+                'url' => 'admin/products/create',
+                'icon' => 'far fa-plus-square',
+                ],
+                [
                     'text' => 'Gestion Inventario',//lineas, grupos, ubicaciones
                     'url' => 'admin/gestion-inventario',
                     'icon' => 'fas fa-truck-loading',
