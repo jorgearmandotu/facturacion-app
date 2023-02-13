@@ -343,7 +343,7 @@ return [
             'submenu' => [
                 [
                 'text' => 'Productos',
-                'url' => 'admin/products',
+                'url' => 'admin/products-list',
                 'icon' => 'fas fa-tshirt',
                 ],
                 [

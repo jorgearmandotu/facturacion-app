@@ -23,5 +23,6 @@ Route::middleware([
     Route::resource('lines', LinesController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('locations', LocationController::class);
-    Route::resource('products', ProductsController::class);
+    Route::get('products-list', [ProductsController::class, 'viewProducts'])->name('viewProducts', 'products-list');
+    Route::resource('products', ProductsController::class)->name('store','products');
 });

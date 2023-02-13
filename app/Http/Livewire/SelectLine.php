@@ -12,7 +12,10 @@ class SelectLine extends Component
     protected $listeners = ['lineAdded' => 'refreshLines'];
 
     public function mount(){
-        $this->lines = Line::all();
+        $this->lines = Line::join('cstates', 'cstate_id', '=', 'cstates.id')
+                ->select('lines.id as id', 'name')
+                ->where('value', 'Activo')->get();
+                //dd($this->lines);
     }
 
     public function render()
@@ -21,6 +24,7 @@ class SelectLine extends Component
     }
 
     public function refreshLines(){
-        $this->lines = Line::all();
+        $this->lines = Line::join('cstates', 'cstate_id', '=', 'cstates.id')
+        ->where('value', 'Activo')->get();
     }
 }

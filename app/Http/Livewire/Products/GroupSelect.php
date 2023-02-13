@@ -14,7 +14,9 @@ class GroupSelect extends Component
     public $group;
 
     public function mount(){
-        $this->lines = Line::all();
+        $this->lines = Line::join('cstates', 'cstates.id', '=', 'cstate_id')
+                        ->where('value', 'Activo')
+                        ->select('lines.id as id', 'name')->get();
         $this->groups = [];
         //$this->line = -1;
         // $this->groups = Group::join('cstates', 'cstate_id', '=', 'cstates.id')
@@ -29,7 +31,8 @@ class GroupSelect extends Component
     public function reloadGroup(){
         $this->groups = Group::join('cstates', 'cstate_id', '=', 'cstates.id')
                         ->where('line_id', $this->line)
-                        ->where('value', 'Activo')->get();
+                        ->where('value', 'Activo')
+                        ->select('groups.id as id', 'name')->get();
                         $this->group = -1;
     }
 }

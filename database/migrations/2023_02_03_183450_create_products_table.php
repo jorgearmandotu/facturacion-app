@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PhpParser\Node\NullableType;
 
 return new class extends Migration
 {
@@ -19,9 +20,10 @@ return new class extends Migration
             $table->foreignId('group_id')->references('id')->on('groups');
             $table->string('code', 20);
             $table->string('name', 20);
-            $table->string('bar_code', 20);
-            $table->string('reference', 20);
+            $table->string('bar_code', 20)->nullable();
+            $table->string('reference', 20)->nullable();
             $table->decimal('costo')->default(0);
+            $table->decimal('profit')->default(0);
             $table->decimal('price')->default(0);
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->date('date');

@@ -13,25 +13,28 @@
 @section('content')
     <h1>Crear Producto</h1>
 
+    <x-messages_flash />
+
     <div class=" container-fuid col-md-8 containers">
-        <form action="/admin/products" method="POST">
+        <form method="POST" action="{{route('products')}}" >
+            @csrf
             <div>
                 <livewire:products.group-select />
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="code">Codigo</label>
-                    <input type="text" class="form-control" name="code" required/>
+                    <input type="text" class="form-control" name="code" />
                 </div>
                 <div class="form-group col-md-6">
                     <label for="name">Nombre</label>
-                    <input type="text" class="form-control" name="name" required />
+                    <input type="text" class="form-control" name="name"  />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="costo">Costo</label>
-                    <input type="number" class="form-control" name="costo" required id="costo" onchange="change()" />
+                    <input type="number" class="form-control" name="costo"  id="costo" onchange="changeCosto()" />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="impuesto">Iva</label>
@@ -42,12 +45,12 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="percent">% utilidad</label>
-                    <input type="number" class="form-control" name="percent" id="percent" placeholder="%" onchange="change()" />
+                    <label for="profit">% utilidad</label>
+                    <input type="number" class="form-control" name="profit" id="percent" placeholder="%" onchange="changePercent()" />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="price">Precio</label>
-                    <input type="number" class="form-control" name="price" id="price" placeholder="$" required/>
+                    <input type="number" class="form-control" name="price" id="price" placeholder="$" onchange="changePrice()" />
                 </div>
             </div>
             <div class="form-row">
@@ -56,8 +59,8 @@
                     <input type="text" name="reference" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="codeBar">Cod Barras</label>
-                    <input type="text" name="codeBar" class="form-control">
+                    <label for="bar_code">Cod Barras</label>
+                    <input type="text" name="bar_code" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="state">Estado</label>
@@ -69,7 +72,7 @@
                 </div>
             </div>
             <div class="form-row justify-content-center">
-                <button type="button" class="btn btn-success">Guardar</button>
+                <button type="submit" class="btn btn-success">Guardar</button>
             </div>
         </form>
     </div>
@@ -81,6 +84,6 @@
 
 @section('plugins.Datatables', true)
 @section('js')
-    <script src="../../js/products-create.js"></script>
+    <script src="../../js/products.js"></script>
     @livewireScripts
 @stop

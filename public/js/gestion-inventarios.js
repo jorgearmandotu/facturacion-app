@@ -241,6 +241,7 @@ async function state(uri, table){
         }
         const res = await response.json();
         if(res.status == 200){
+            Livewire.emit('lineAdded')
             messages('success', res.msg, false, 1500);
             recargarTablas(table);
         }else{

@@ -16,7 +16,7 @@ class TaxesSeeder extends Seeder
     public function run()
     {
         DB::table('taxes')->insert([
-            'name' => 'Excento',
+            'name' => 'Exento',
             'value' => '0',
             'description' => 'Exento Iva',
         ]);
