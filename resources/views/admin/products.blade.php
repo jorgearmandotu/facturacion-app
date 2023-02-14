@@ -31,6 +31,8 @@
     </table>
 </div>
 
+<x-admin.form-modal-edit-product />
+
 @stop
 
 @section('footer')

@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Redirect;
 class ProductsController extends Controller
 {
     public function index() {
+        // $products = Product::all();
+        // $list = [];
+        // foreach($products as $product){
+        //     $list[] = $product->groups->lines;
+        // }
+        // return $list;
         // $products = DB::select('select p.id as id, p.name as name, l.name as line, g.name as "group", p.code as code, c.value as state, reference , costo, price, profit from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id join cstates c on p.cstate_id = c.id ');
 
         $products = DB::select('select * from products_list_view');
@@ -24,7 +30,8 @@ class ProductsController extends Controller
     }
 
     public function viewProducts(){
-        return view('admin.products');
+        $taxes = Tax::all();
+        return view('admin.products', compact('taxes'));
     }
 
     public function store(StoreProductRequest $request) {
@@ -62,5 +69,25 @@ class ProductsController extends Controller
         $lines = Line::all();
         $taxes = Tax::all();
         return view('admin.create_products',compact('lines', 'taxes'));
+    }
+
+    public function update(Product $product) {
+        try {
+            //$product = Product::find($product);
+            if($product){
+                $state = ($product->cstates->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                //$state = $product->cstates;//Cstate::find($product->cstate_id);
+                //$state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                $product->cstate_id = $state->id;
+                $product->save();
+                return response()->json(['msg' => 'Operacion exitosa', 'status' => 200], 200);
+            }
+        }catch(Exception $e){
+            return response()->json(['msg' => 'Error en servidor contacte al administrador: '.$e ], 400);
+        }
+    }
+
+    public function show (Product $product){
+        return response()->json($product);
     }
 }

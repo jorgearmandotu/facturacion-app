@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'line_id',
+        //'line_id',
         'group_id',
         'code',
         'name',
@@ -21,4 +21,12 @@ class Product extends Model
         'price',
         'cstate_id',
     ];
+
+    public function groups() {
+        return $this->belongsTo(Group::class, 'group_id');
+    }
+
+    public function cstates(){
+        return $this->belongsTo(Cstate::class, 'cstate_id');
+    }
 }

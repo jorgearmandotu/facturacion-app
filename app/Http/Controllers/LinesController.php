@@ -46,8 +46,9 @@ class LinesController extends Controller
         try {
             $line = Line::find($line);
             if($line){
-                $state = Cstate::find($line->cstate_id);
-                $state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                $state = ($line->cstates->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                //$state = $line->cstates; //Cstate::find($line->cstate_id);
+                //$state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
                 $line->cstate_id = $state->id;
                 $line->save();
                 return response()->json(['msg' => 'Operacion exitosa', 'status' => 200], 200);

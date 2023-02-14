@@ -13,4 +13,8 @@ class Location extends Model
         'name',
         'cstate_id',
     ];
+
+    public function cstates(){
+        return $this->belongsTo(Cstate::class, 'cstate_id');
+    }
 }

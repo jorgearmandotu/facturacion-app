@@ -12,4 +12,20 @@ class Cstate extends Model
     protected $fillable = [
         'value',
     ];
+
+    public function groups(){
+        return $this->hasMany(Group::class);
+    }
+
+    public function lines(){
+        return $this->hasMany(Line::class);
+    }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+
+    public function locations(){
+        return $this->hasMany(Location::class);
+    }
 }

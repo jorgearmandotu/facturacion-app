@@ -44,8 +44,9 @@ class LocationController extends Controller
         try {
             $location = Location::find($location);
             if($location){
-                $state = Cstate::find($location->cstate_id);
-                $state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                $state = ($location->cstates->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                //$state = Cstate::find($location->cstate_id);
+                //$state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
                 $location->cstate_id = $state->id;
                 $location->save();
                 return response()->json(['msg' => 'Operacion exitosa', 'status' => 200], 200);

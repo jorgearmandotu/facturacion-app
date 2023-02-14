@@ -47,8 +47,9 @@ class GroupController extends Controller
         try {
             $group = Group::find($group);
             if($group){
-                $state = Cstate::find($group->cstate_id);
-                $state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                $state = ($group->cstates->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+                //$state = $group->cstates; //Cstate::find($group->cstate_id);
+                //$state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
                 $group->cstate_id = $state->id;
                 $group->save();
                 return response()->json(['msg' => 'Operacion exitosa', 'status' => 200], 200);

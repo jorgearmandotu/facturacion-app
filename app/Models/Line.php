@@ -13,4 +13,13 @@ class Line extends Model
         'name',
         'cstate_id',
     ];
+
+    public function cstates(){
+        return $this->belongsTo(Cstate::class, 'cstate_id');
+    }
+
+    public function groups(){
+        return $this->hasMany(Group::class);
+    }
+
 }

@@ -27,6 +27,7 @@ class StoreProductRequest extends FormRequest
             'name' => 'required|unique:products|max:50',
             'code' => 'required',
             'costo' => 'required',
+            'bar_code' => 'unique:products',
             //'line' => 'exists:lines,id',
             'group' => 'exists:groups,id',
         ];
@@ -39,6 +40,7 @@ class StoreProductRequest extends FormRequest
         'name.unique' => 'El nombre de producto ya esta en uso',
         'name.max' => 'El nombre de producto solo puede contener 50 caracteres',
         'code.required' => 'El código de producto es requerido',
+        'bar_code' => 'El codigo de barras ya esta en uso',
         //'code.unique' => 'El código de producto ya esta en uso',
         'costo.required' => 'El costo es requerido',
         'group.exists' => 'La linea y el grupo son requeridos',
