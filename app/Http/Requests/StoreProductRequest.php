@@ -27,7 +27,7 @@ class StoreProductRequest extends FormRequest
             'name' => 'required|unique:products|max:50',
             'code' => 'required',
             'costo' => 'required',
-            'bar_code' => 'unique:products',
+            'bar_code' => 'nullable|unique:products',
             //'line' => 'exists:lines,id',
             'group' => 'exists:groups,id',
         ];

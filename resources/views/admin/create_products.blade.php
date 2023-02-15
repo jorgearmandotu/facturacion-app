@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="impuesto">Iva</label>
-                    <select name="impuesto" class="form-control" id="impuesto" >
+                    <select name="tax" class="form-control" id="impuesto" >
                         @foreach($taxes as $tax)
                         <option value="{{$tax->id}}">{{$tax->name}}</option>
                         @endforeach

@@ -6,9 +6,11 @@ use App\Http\Requests\StoreProductRequest;
 use App\Models\Cstate;
 use App\Models\Line;
 use App\Models\Product;
+use App\Models\ProductsTaxes;
 use App\Models\Tax;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -35,6 +37,7 @@ class ProductsController extends Controller
     }
 
     public function store(StoreProductRequest $request) {
+        DB::beginTransaction();
         try{
             $product = Product::where('group_id', $request->group)
                                 ->where('code', $request->code)->first();
@@ -56,9 +59,15 @@ class ProductsController extends Controller
             //echo $now->format('d-m-Y H:i:s');
             $product->date = Carbon::now()->format('Y-m-d');
             $product->save();
+            $product_taxes = new ProductsTaxes();
+            $product_taxes->product_id = $product->id;
+            $product_taxes->tax_id = $request->tax;
+            $product_taxes->save();
+            DB::commit();
             return back()->with('success', 'Ingreso exitoso');
 
         }catch (Exception $e){
+            DB::rollBack();
             return redirect()->back()->withErrors('No fue posible crearRegistro. '.$e);
         }
         //return redirect(route('admin/products/create'))->with('success', 'Ingreso exitoso');
@@ -71,23 +80,55 @@ class ProductsController extends Controller
         return view('admin.create_products',compact('lines', 'taxes'));
     }
 
-    public function update(Product $product) {
+    public function update(Product $product, Request $request) {
+        //return response()->json(['msg' => $request->changeState, 'status' => 200], 200);
+        DB::beginTransaction();
         try {
-            //$product = Product::find($product);
-            if($product){
+            if(!$product){
+                return response()->json(['msg' => 'Producto no encontrado o no existe: '], 400);
+            }
+            //se valida si solo es un cambio de estado
+            if($product && $request->changeState == 'true'){
                 $state = ($product->cstates->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
                 //$state = $product->cstates;//Cstate::find($product->cstate_id);
                 //$state = ($state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
                 $product->cstate_id = $state->id;
                 $product->save();
+                DB::commit();
+
                 return response()->json(['msg' => 'Operacion exitosa', 'status' => 200], 200);
             }
+
+            //$product->line = $request->line;
+            $product->group_id = $request->group;
+            $product->code = $request->code;
+            $product->name = $request->name;
+            $product->bar_code = $request->bar_code;
+            $product->reference = $request->reference;
+            $product->costo = $request->costo;
+            $product->profit = $request->profit;
+            $product->price = $request->price;
+            $state = (!$request->state) ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
+            $product->cstate_id = $state->id;
+            $product->save();
+            $product_taxes = ProductsTaxes::where('product_id', $product->id)->first();
+            $product_taxes->product_id = $product->id;
+            $product_taxes->tax_id = $request->tax;
+            $product_taxes->save();
+            DB::commit();
+            return response()->json(['msg' => 'Operacion exitosa', 'status' => 200], 200);
         }catch(Exception $e){
+            DB::rollBack();
             return response()->json(['msg' => 'Error en servidor contacte al administrador: '.$e ], 400);
         }
     }
 
-    public function show (Product $product){
+    public function show ($product){
+        $product = Product::join('products_taxes', 'product_id', 'products.id')
+                    ->join('taxes', 'tax_id', 'taxes.id')
+                    ->join('cstates', 'products.cstate_id', 'cstates.id')
+                    ->where('products.id', $product)
+                    ->select('products.id as id', 'products.name as name', 'products.name as name', 'code', 'costo', 'profit', 'price', 'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group')->first();
         return response()->json($product);
     }
 }

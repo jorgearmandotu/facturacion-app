@@ -1,18 +1,18 @@
-let costoInput = document.getElementById('costo');
-let percentInput = document.getElementById('percent');
-let priceInput = document.getElementById('price');
+let costoInput = document.getElementById('inputCosto');
+let percentInput = document.getElementById('inputProfit');
+let priceInput = document.getElementById('inputPrice');
 let productsTable;
 
 function changePercent(){
     let costo = costoInput.value;
     let percent = percentInput.value;
-    priceInput.value = Number(costo)+costo*percent/100;
+    priceInput.value = (Number(costo)+costo*percent/100).toFixed(0);
 }
 
 function changePrice(){
     let costo = costoInput.value;
     let price = priceInput.value;
-    percentInput.value = Number(price-costo)/costo*100;
+    percentInput.value = (Number(price-costo)/costo*100).toFixed(2);
 }
 
 function changeCosto(){
@@ -75,13 +75,18 @@ $(document).ready(function () {
 });
 
 async function state(uri, table){
-    const token = document.querySelector('input[name="_token"]').value;
+    //const token = document.querySelector('input[name="_token"]').value;
     let url = uri;
+    let data = new FormData();
+    data.append('changeState', 'true');
+    data.append('_method', 'PUT');
     try{
         const response = await fetch(url, {
-            method: 'PUT',
+            method: 'POST',
+            body: data,
             headers: {
-                "X-CSRF-TOKEN": token,
+                //"X-CSRF-TOKEN": token,
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             },
         });
         if (!response.ok) {
@@ -98,7 +103,6 @@ async function state(uri, table){
         }
 
     }catch(error) {
-        console.log(error);
         console.error(error);
         messages('error', 'Algo salió mal contacté con el administrador del sistema', true);
     }
@@ -114,23 +118,65 @@ async function edit(id){
       }
 
     const product = await response.json();
-    console.log(product);
+    Livewire.emit(`loadGroup`, product.group);
     let inputCode = document.getElementById('inputCode');
     let inputName = document.getElementById('inputName');
     let inputCosto = document.getElementById('inputCosto');
     let inputProfit = document.getElementById('inputProfit');
     let inputPrice = document.getElementById('inputPrice');
     let inputReference = document.getElementById('inputReference');
-    let inputCodeBar = document.getElementById('inputCodeBar');
+    let inputBarCode = document.getElementById('inputBarCode');
+    let inputId = document.getElementById('inputId');
+    let selectTax = document.getElementById('selectTax');
+    let checkActivo = document.getElementById('checkState');
     inputCode.value = product.code;
     inputName.value = product.name;
     inputCosto.value = product.costo;
     inputProfit.value = product.profit;
     inputPrice.value = product.price;
-    inputReference.value = product.reference;
-    inputCodeBar.value = product.codeBar;
+    inputReference.value = (product.reference ) ? product.reference : '';
+    inputBarCode.value = (product.bar_code) ? product.bar_code : '';
+    inputId.value = product.id;
+    selectTax.value = product.tax;
+    (product.state === 'Activo') ? checkActivo.checked = true : checkActivo.checked = false;
+
 
     $('#editProduct').modal('show');
+}
+
+async function updateProduct(e){
+    e.preventDefault();
+    let form = document.querySelector('#formProduct');
+    let data = new FormData(form);
+    const values = Object.fromEntries(data.entries());
+    try{
+        const response = await fetch(`/admin/products/${values.id}`,{
+            method: 'POST',
+            body: data,
+            headers: {
+                //"X-CSRF-TOKEN": values._token,
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+        const res = await response.json();
+
+        if(res.status == 200){
+            //Livewire.emit('lineAdded')
+            messages('success', res.msg, false, 1500);
+            productsTable.ajax.reload(null, false);
+            //recargarTablas(table);
+        }else{
+            messages('error', res.msg, true);
+        }
+    }catch(error){
+        console.error(error);
+        messages('error', 'Ocurio un error al procesar la solicitud', true);
+    }
 }
 
 function messages(icon, title, button, timer){

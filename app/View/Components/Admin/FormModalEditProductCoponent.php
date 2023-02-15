@@ -1,21 +1,21 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\admin;
 
 use App\Models\Tax;
-use Database\Seeders\TaxesSeeder;
 use Illuminate\View\Component;
 
-class admin.form-modal-edit-product extends Component
+class FormModalEditProductCoponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
+    public $taxes;
     public function __construct()
     {
-        //
+        $this->taxes = Tax::all();
     }
 
     /**
@@ -25,7 +25,6 @@ class admin.form-modal-edit-product extends Component
      */
     public function render()
     {
-        $taxes = Tax::all();
-        return view('components.admin.form-modal-edit-product', compact('taxes'));
+        return view('components.admin.form-modal-edit-product-coponent');
     }
 }

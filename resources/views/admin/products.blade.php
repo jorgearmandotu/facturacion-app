@@ -30,8 +30,7 @@
         </thead>
     </table>
 </div>
-
-<x-admin.form-modal-edit-product />
+<x-admin.form-modal-edit-product-coponent />
 
 @stop
 
@@ -41,5 +40,5 @@
 @section('plugins.Datatables', true)
 @section('js')
     <script src="../../js/products.js"></script>
-@livewireScripts
+    @livewireScripts
 @stop

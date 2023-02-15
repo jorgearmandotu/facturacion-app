@@ -29,4 +29,8 @@ class Product extends Model
     public function cstates(){
         return $this->belongsTo(Cstate::class, 'cstate_id');
     }
+
+    public function taxes(){
+        return $this->belongsToMany(Tax::class, 'products_taxes', 'product_id', 'tax_id');
+    }
 }

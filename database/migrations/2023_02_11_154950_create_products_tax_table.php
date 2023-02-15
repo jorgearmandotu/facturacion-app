@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('products_taxes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('products_id')->references('id')->on('products');
+            $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('tax_id')->references('id')->on('taxes');
             $table->timestamps();
         });
