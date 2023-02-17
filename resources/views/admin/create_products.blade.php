@@ -82,7 +82,7 @@
 @section('footer')
 @stop
 
-@section('plugins.Datatables', true)
+{{-- @section('plugins.Datatables', true) --}}
 @section('js')
     <script src="../../js/products.js"></script>
     @livewireScripts

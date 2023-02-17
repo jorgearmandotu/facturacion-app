@@ -7,6 +7,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LinesController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ShoppingInvoiceController;
+use App\Http\Controllers\SupplierController;
+use App\Models\Supplier;
 
 Route::middleware([
     'auth:sanctum',
@@ -25,4 +28,8 @@ Route::middleware([
     Route::resource('locations', LocationController::class);
     Route::get('products-list', [ProductsController::class, 'viewProducts'])->name('viewProducts', 'products-list');
     Route::resource('products', ProductsController::class)->name('store','products');
+    Route::get('suppliers-list', [SupplierController::class, 'list'])->name('proveedores');
+    Route::resource('suppliers', SupplierController::class);
+    //Route::get('shooping-nvoice', [ShoppingInvoiceController::class, 'main']);
+    Route::resource('shopping-invoices', ShoppingInvoiceController::class);
 });

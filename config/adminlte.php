@@ -317,12 +317,12 @@ return [
             'icon'        => 'fas fa-fw fa-file-invoice-dollar',
             'submenu' => [
                 [
-                    'text'  => 'Factura Credito',
+                    'text'  => 'Remisión',
                     'icon'  => 'fas fa-file-invoice',
                     'url'   => '#'
                 ],
                 [
-                    'text'  => 'Factura Contado',
+                    'text'  => 'Facturar',
                     'icon'  => 'fas fa-cash-register',
                     'label' => '$',
                     'label_color' => 'success',
@@ -355,6 +355,22 @@ return [
                     'text' => 'Gestion Inventario',//lineas, grupos, ubicaciones
                     'url' => 'admin/gestion-inventario',
                     'icon' => 'fas fa-truck-loading',
+                ],
+            ],
+        ],
+        [
+            'text'  => 'Ingresos',
+            'icon'  => 'fas fa-truck',
+            'submenu' => [
+                [
+                    'text' => 'Proveedores',
+                    'icon_color' => 'blue',
+                    'url' => 'admin/suppliers',
+                ],
+                [
+                    'text' => 'Carge de facturas',
+                    'icon_color' => 'yellow',
+                    'url' => 'admin/shopping-invoices/create'
                 ],
             ],
         ],
