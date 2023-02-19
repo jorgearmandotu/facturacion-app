@@ -34,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="costo">Costo</label>
-                    <input type="number" class="form-control" name="costo"  id="costo" onchange="changeCosto()" />
+                    <input type="number" class="form-control" name="costo"  id="inputCosto" onchange="changeCosto()" />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="impuesto">Iva</label>
@@ -46,11 +46,11 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="profit">% utilidad</label>
-                    <input type="number" class="form-control" name="profit" id="percent" placeholder="%" onchange="changePercent()" />
+                    <input type="number" class="form-control" name="profit" id="inputProfit" placeholder="%" onchange="changePercent()" />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="price">Precio</label>
-                    <input type="number" class="form-control" name="price" id="price" placeholder="$" onchange="changePrice()" />
+                    <input type="number" class="form-control" name="price" id="inputPrice" placeholder="$" onchange="changePrice()" />
                 </div>
             </div>
             <div class="form-row">

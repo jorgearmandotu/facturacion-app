@@ -110,6 +110,15 @@
                             </div>
                         </div> --}}
                 </div>
+                <div class="form-row justify-content-end">
+                    <div class="col-md-2 border border-dark p-0">
+                        <label for="">Total:</label>
+                    </div>
+                    <div class="col-md-2 border border-dark p-0">
+                        <input type="text" class="form-control col-md-12" id="inputValueTotal" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
             </div>
             <div class="form-row justify-content-center m-3">
                 <button class="btn btn-success" onclick="send()">Guardar Compra</button>

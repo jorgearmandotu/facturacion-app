@@ -3,8 +3,11 @@ let inputQuantity = document.getElementById('inputQuantity');
 let inputVlrUnit = document.getElementById('inputVlrUnitario');
 let inputVlrTotal = document.getElementById('inputVlrTotal');
 let formProducts = document.getElementById('formProducts');
+let inputTotalInvoice = document.getElementById('inputValueTotal');
 let itemsTotal = 0;
 let itemsView = 0;
+let totalInvoice = 0;
+inputTotalInvoice.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(totalInvoice);
 
 let formProductsList = new FormData();
 
@@ -46,14 +49,14 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
     divUnit.setAttribute('class', 'col-md-2 border border-dark p-0');
     const inputUnit = document.createElement('input');
     inputUnit.setAttribute('type', 'text');
-    inputUnit.setAttribute('value', vlrUnit);
+    inputUnit.setAttribute('value', new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(vlrUnit));
     inputUnit.setAttribute('class', 'form-control col-md-12 inputDisabled');
     inputUnit.setAttribute('disabled', '');
     const divTotal = document.createElement('div');
     divTotal.setAttribute('class', 'col-md-2 border border-dark p-0');
     const inputTotal = document.createElement('input');
     inputTotal.setAttribute('type', 'text');
-    inputTotal.setAttribute('value', VlrTotal);
+    inputTotal.setAttribute('value', new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(VlrTotal));
     inputTotal.setAttribute('class', 'form-control col-md-12 inputDisabled');
     inputTotal.setAttribute('disabled', '');
     const divOptions = document.createElement('div');
@@ -61,7 +64,7 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
     const buttonPlus = document.createElement('button');
     buttonPlus.setAttribute('class', 'btn btn-danger');
     buttonPlus.setAttribute('type', 'button');
-    buttonPlus.setAttribute('onclick', `rowRemove(${item})`);
+    buttonPlus.setAttribute('onclick', `rowRemove(${item}, ${VlrTotal})`);
     const icon = document.createElement('i');
     icon.setAttribute('class', 'far fa-trash-alt');
     buttonPlus.appendChild(icon);
@@ -82,6 +85,12 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
     row.appendChild(divRow);
 
     rowForm.appendChild(row);
+    totalInvoice += quantity*vlrUnit;
+    new Intl.NumberFormat("es-CO", {
+        style: "currency",
+        currency: "COP",
+    }).format(row.precio);
+    inputTotalInvoice.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(totalInvoice);
 }
 
 function messages(icon, title, button, timer){
@@ -129,18 +138,18 @@ function add(){
         $('#selectProducts').val(null).trigger('change');
 
 
-        const values = Object.fromEntries(formProductsList.entries());
-        console.log(values);
     }
 }
 
-function rowRemove(item){
+function rowRemove(item, valueTotal){
     formProductsList.delete(`item${item}`);
     formProductsList.delete(`product${item}`);
     formProductsList.delete(`cant${item}`);
     formProductsList.delete(`vlrUnit${item}`);
     itemsTotal--;
     formProductsList.append('totalItems', itemsTotal)
+    totalInvoice -= valueTotal;
+    inputTotalInvoice.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(totalInvoice);
 
     let row = document.getElementById(`row${item}`);
     rowForm.removeChild(row);
@@ -154,8 +163,6 @@ function rowRemove(item){
         }
     }
 
-    const values = Object.fromEntries(formProductsList.entries());
-        console.log(values);
 }
 
 function send(){
@@ -168,6 +175,57 @@ function send(){
       if(values.date == '' || values.numberInvoice == '' || values.supplier < 1){
         return messages('error', 'Verifique Proveedor, numero de factura y fecha', true)
       }
-      console.log('despues de if');
-      console.log(values);
+
+      if(itemsTotal < 1 || values.totalItems < 1){
+        return messages('error', 'Ingrese productos de factura', true)
+      }
+
+      //enviar a servidor factura
+      sendInvoice(formProductsList);
+}
+
+async function sendInvoice(data){//recibo formData
+    try{
+        const response = await fetch('/admin/shopping-invoices', {
+            method: 'Post',
+            body: data,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            }
+        });
+        if (!response.ok) {
+            messages('error', 'Ocurio un error interno contacte al administrador del sistema', true)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const res = await response.json();
+
+        if(res.status == 200){
+            //Livewire.emit('lineAdded')
+            messages('success', res.msg, false, 1500);
+            //productsTable.ajax.reload(null, false);
+            //recargarTablas(table);
+        }else{
+            messages('error', res.msg, true);
+        }
+        //reset a formulario encabezados
+        document.querySelector('#formSupplier').reset();
+        $('#selectSupplier').val(null).trigger('change');
+        //elimino listado de productos
+        const listProducts = document.getElementById('rowForm');
+        while (listProducts.firstChild) {
+            listProducts.removeChild(listProducts.firstChild);
+          }
+
+          itemsTotal = 0;
+          itemsView = 0;
+          totalInvoice = 0;
+          inputTotalInvoice.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(totalInvoice);
+        // for(let i=0; i<itemsView){
+
+        // }
+    }catch(error){
+        console.error(error);
+        return messages('error', 'Ocurio un error inesperado contacte al administrador del sistema', true)
+    }
 }

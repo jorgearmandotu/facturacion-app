@@ -15,7 +15,11 @@
 #inputVlrTotal:disabled {
     opacity: 1;
     background-color: #fff;
-    cursor: not-allowed;
+    /* cursor: not-allowed; */
+}
+#inputValueTotal:disabled {
+    opacity: 1;
+    background-color: #fff;
 }
 
 .inputDisabled:disabled{

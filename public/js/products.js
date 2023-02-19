@@ -16,7 +16,7 @@ function changePrice(){
 }
 
 function changeCosto(){
-    let costo = costoInput.value;
+    //let costo = costoInput.value;
     let percent = percentInput.value;
     let price = priceInput.value;
     if(percent === "" && price!== ""){
@@ -27,51 +27,59 @@ function changeCosto(){
 }
 
 $(document).ready(function () {
-    productsTable = $('#productsTable').DataTable({
-        ajax: '/admin/products',
-        responsive: true,
-        autoWidth: false,
-        language: {
-            lengthMenu: "Mostrar _MENU_ registro por página",
-            zeroRecords: "No se encontraron registros",
-            info: "Mostrando la página _PAGE_ de _PAGES_",
-            search: "Buscar",
-            paginate: {
-                previous: "Anterior",
-                next: "Siguiente",
-            },
-            loadingRecords: "Leyendo información...",
-            infoEmpty: "No hay coincidencias",
-            infoFiltered: "(Filtrado de _MAX_ registros totales)",
-        },
-        lengthMenu: [
-            [5, 10, 15],//-1 para all
-            //[5, 10, 50, "All"],
-            [5, 10, 15],
-        ],
-        columns: [
-            {data: 'name'},
-            {data: 'reference'},
-            {data: 'costo'},
-            {data: 'price'},
-            {data: 'profit'},
-            {data: 'line'},
-            {data: 'group'},
-            {data: 'code'},
-            {data: 'state'},
-            {
-                data: null,
-                render: (data, type, row) => {
-                    const isActivo = row.state == 'Activo';
-                    const classBtn = isActivo ? 'btn-success' : 'btn-danger';
-                    const icon = isActivo ? 'fa-check' : 'fa-times';
-                    //const text = isActivo ? "Activo" : "Inactivo";
-                    return `<div class="row"><button class='jsgrid-button btn ${classBtn}' onclick="state('/admin/products/${row.id}', 'productsTable')"> <i class='fas ${icon}'></i></button>
-                    <button class='jsgrid-button btn btn-warning ml-1' onclick="edit(${row.id})" > <i class='far fa-edit'></i></button></div>`;
-                }
-            },
-        ],
-    });
+    productsTable = $('#productsTable');
+    try{
+
+        if(productsTable !== null){
+            productsTable.DataTable({
+                ajax: '/admin/products',
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    lengthMenu: "Mostrar _MENU_ registro por página",
+                    zeroRecords: "No se encontraron registros",
+                    info: "Mostrando la página _PAGE_ de _PAGES_",
+                    search: "Buscar",
+                    paginate: {
+                        previous: "Anterior",
+                        next: "Siguiente",
+                    },
+                    loadingRecords: "Leyendo información...",
+                    infoEmpty: "No hay coincidencias",
+                    infoFiltered: "(Filtrado de _MAX_ registros totales)",
+                },
+                lengthMenu: [
+                    [5, 10, 15],//-1 para all
+                    //[5, 10, 50, "All"],
+                    [5, 10, 15],
+                ],
+                columns: [
+                    {data: 'name'},
+                    {data: 'reference'},
+                    {data: 'costo'},
+                    {data: 'price'},
+                    {data: 'profit'},
+                    {data: 'line'},
+                    {data: 'group'},
+                    {data: 'code'},
+                    {data: 'state'},
+                    {
+                        data: null,
+                        render: (data, type, row) => {
+                            const isActivo = row.state == 'Activo';
+                            const classBtn = isActivo ? 'btn-success' : 'btn-danger';
+                            const icon = isActivo ? 'fa-check' : 'fa-times';
+                            //const text = isActivo ? "Activo" : "Inactivo";
+                            return `<div class="row"><button class='jsgrid-button btn ${classBtn}' onclick="state('/admin/products/${row.id}', 'productsTable')"> <i class='fas ${icon}'></i></button>
+                            <button class='jsgrid-button btn btn-warning ml-1' onclick="edit(${row.id})" > <i class='far fa-edit'></i></button></div>`;
+                        }
+                    },
+                ],
+            });
+        }
+    }catch(e){
+        
+    }
 });
 
 async function state(uri, table){

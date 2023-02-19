@@ -31,5 +31,6 @@ Route::middleware([
     Route::get('suppliers-list', [SupplierController::class, 'list'])->name('proveedores');
     Route::resource('suppliers', SupplierController::class);
     //Route::get('shooping-nvoice', [ShoppingInvoiceController::class, 'main']);
+    //Route::post('shoppinginvoices', [ShoppingInvoiceController::class, 'store'])->name('store', 'shoppinginvoices');
     Route::resource('shopping-invoices', ShoppingInvoiceController::class);
 });

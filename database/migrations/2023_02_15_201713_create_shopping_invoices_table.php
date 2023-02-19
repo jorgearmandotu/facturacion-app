@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('shopping_invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('suplier_id')->references('id')->on('suppliers');
+            $table->foreignId('supplier_id')->references('id')->on('suppliers');
             $table->integer('number');
-            $table->decimal('total');
+            $table->decimal('total')->default(0);
             $table->date('date_invoice');
             $table->date('date_upload');
             $table->timestamps();
