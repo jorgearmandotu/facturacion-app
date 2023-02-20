@@ -30,7 +30,6 @@ $(document).ready(function () {
     productsTable = $('#productsTable');
     try{
 
-        if(productsTable !== null){
             productsTable.DataTable({
                 ajax: '/admin/products',
                 responsive: true,
@@ -59,6 +58,7 @@ $(document).ready(function () {
                     {data: 'costo'},
                     {data: 'price'},
                     {data: 'profit'},
+                    {data: 'total'},
                     {data: 'line'},
                     {data: 'group'},
                     {data: 'code'},
@@ -76,8 +76,7 @@ $(document).ready(function () {
                     },
                 ],
             });
-        }
-    }catch(e){
+    }catch(error){
         
     }
 });
@@ -104,7 +103,10 @@ async function state(uri, table){
         if(res.status == 200){
             //Livewire.emit('lineAdded')
             messages('success', res.msg, false, 1500);
-            productsTable.ajax.reload(null, false);
+            //productsTable = $('#productsTable');
+            //console.log(productsTable);
+            location.reload();
+            //productsTable.ajax.reload('null', 'false');
             //recargarTablas(table);
         }else{
             messages('error', res.msg, true);
@@ -176,7 +178,9 @@ async function updateProduct(e){
         if(res.status == 200){
             //Livewire.emit('lineAdded')
             messages('success', res.msg, false, 1500);
-            productsTable.ajax.reload(null, false);
+            // productsTable = $('#productsTable');
+            // productsTable.api().ajax.reload();
+            location.reload();
             //recargarTablas(table);
         }else{
             messages('error', res.msg, true);

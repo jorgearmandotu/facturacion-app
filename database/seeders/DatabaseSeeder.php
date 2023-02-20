@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CstateSeeder::class);
         $this->call(TaxesSeeder::class);
+        $this->call(TypeDocumentSeeder::class);
+        $this->call(LocationsSeder::class);
         $this->call(dataFakerSeeder::class);
     }
 }

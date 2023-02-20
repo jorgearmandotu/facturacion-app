@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Cstate;
 use App\Models\Line;
+use App\Models\Location;
+use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsTaxes;
 use App\Models\Tax;
@@ -25,9 +27,12 @@ class ProductsController extends Controller
         // }
         // return $list;
         // $products = DB::select('select p.id as id, p.name as name, l.name as line, g.name as "group", p.code as code, c.value as state, reference , costo, price, profit from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id join cstates c on p.cstate_id = c.id ');
+        // $products = DB::unprepared('SELECT p.id AS id, p.name AS name, l.name AS line, g.name AS "group", p.code AS code, c.value AS state, reference , costo, price, profit, sum(lp.stock) as total
+        // from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id join cstates c on p.cstate_id = c.id join locations_products lp
+        // on lp.product_id = p.id group by p.id');
 
-        $products = DB::select('select * from products_list_view');
-        return DataTables()->collection($products)->toJson();
+         $products = DB::select('select * from products_list_view');
+         return DataTables()->collection($products)->toJson();
         //
     }
 
@@ -55,7 +60,7 @@ class ProductsController extends Controller
             $product->bar_code = $request->bar_code;
             $state = ($request->state) ? Cstate::where('value', 'Activo')->first() : Cstate::where('value', 'Inactivo')->first();
             $product->cstate_id = $state->id;
-            $now = new \DateTime();
+            //$now = new \DateTime();
             //echo $now->format('d-m-Y H:i:s');
             $product->date = Carbon::now()->format('Y-m-d');
             $product->save();
@@ -63,6 +68,11 @@ class ProductsController extends Controller
             $product_taxes->product_id = $product->id;
             $product_taxes->tax_id = $request->tax;
             $product_taxes->save();
+            $locationProduct = new LocationProduct();
+            $locationProduct->product_id = $product->id;
+            $locationProduct->location_id = $request->location;
+            $locationProduct->stock = $request->stock;
+            $locationProduct->save();
             DB::commit();
             return back()->with('success', 'Ingreso exitoso');
 
@@ -77,7 +87,10 @@ class ProductsController extends Controller
     public function create(){
         $lines = Line::all();
         $taxes = Tax::all();
-        return view('admin.create_products',compact('lines', 'taxes'));
+        $locations = Location::join('cstates', 'locations.cstate_id' , 'cstates.id')
+                    ->where('value', 'Activo')
+                    ->select('locations.id as id', 'name')->get();
+        return view('admin.create_products',compact('lines', 'taxes', 'locations'));
     }
 
     public function update(Product $product, Request $request) {

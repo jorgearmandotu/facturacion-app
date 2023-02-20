@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
+use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsShoppingInvoice;
 use App\Models\ShoppingInvoice;
@@ -18,19 +20,21 @@ class ShoppingInvoiceController extends Controller
     // }
 
     public function index(){
-        $suppliers = Supplier::all();
-        $products = Product::all();
-        return view('admin.shopping_invoices', compact('suppliers', 'products'));
+        // $suppliers = Supplier::all();
+        // $products = Product::all();
+        // return view('admin.shopping_invoices', compact('suppliers', 'products'));
     }
 
     public function create(){
         $suppliers = Supplier::all();
         $products = Product::all();
-        return view('admin.shopping_invoices', compact('suppliers', 'products'));
+        $locations = Location::join('cstates', 'locations.cstate_id', 'cstates.id')
+                    ->where('value', 'Activo')->select('name', 'locations.id')->get();
+        return view('admin.shopping_invoices', compact('suppliers', 'products', 'locations'));
     }
 
     public function store(Request $request){
-        if(!$request->date || !$request->numberInvoice || !$request->supplier){
+        if(!$request->date || !$request->numberInvoice || !$request->supplier || !$request->location){
             return response()->json(['msg' => 'Verifique Datos de Factura', 'status' => 400], 200);
         }
         if(!$request->totalItems || $request->totalItems < 1 || !$request->totalView) {
@@ -65,6 +69,12 @@ class ShoppingInvoiceController extends Controller
                     $product_shopping_invoice->price = $vlrUnit;
                     $product_shopping_invoice->save();
                     $total += ($quantity * $vlrUnit);
+                    //incrementar cantidad a stock
+                    $locationProducts = new LocationProduct();
+                    $locationProducts->location_id = $request->location;
+                    $locationProducts->product_id = $product;
+                    $locationProducts->stock = $quantity;
+                    $locationProducts->save();
                 }
                 //return response()->json(['msg' => $vlrUnit, 'status' => 200], 200);
             }

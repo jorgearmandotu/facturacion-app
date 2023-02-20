@@ -26,12 +26,21 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-8">
+                    <div class="form-group col-md-4">
                         <label for="proveedor">Proveedor</label>
                         <select name="supplier" id="selectSupplier" class="form-control">
                             <option value="-1">Seleccione Proveedor</option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->dni }} - {{ $supplier->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="form-group col-md-4">
+                        <label for="location">Ubicación</label>
+                        <select name="location" id="" class="form-control">
+                            @foreach($locations as $location)
+                            <option value="{{$location->id}}">{{$location->name}}</option>
                             @endforeach
                         </select>
                     </div>

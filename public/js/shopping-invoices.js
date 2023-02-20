@@ -172,8 +172,8 @@ function send(){
         formProductsList.append(nombre, valor);
       }
       const values = Object.fromEntries(formProductsList.entries());
-      if(values.date == '' || values.numberInvoice == '' || values.supplier < 1){
-        return messages('error', 'Verifique Proveedor, numero de factura y fecha', true)
+      if(values.date == '' || values.numberInvoice == '' || values.supplier < 1 || values.location < 1){
+        return messages('error', 'Verifique Proveedor, numero de factura, ubicación y fecha', true)
       }
 
       if(itemsTotal < 1 || values.totalItems < 1){

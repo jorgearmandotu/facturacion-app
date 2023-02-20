@@ -34,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="costo">Costo</label>
-                    <input type="number" class="form-control" name="costo"  id="inputCosto" onchange="changeCosto()" />
+                    <input type="number" class="form-control" name="costo"  id="inputCosto" onchange="changeCosto()" min="0"/>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="impuesto">Iva</label>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="price">Precio</label>
-                    <input type="number" class="form-control" name="price" id="inputPrice" placeholder="$" onchange="changePrice()" />
+                    <input type="number" class="form-control" name="price" id="inputPrice" placeholder="$" onchange="changePrice()" min="0" />
                 </div>
             </div>
             <div class="form-row">
@@ -63,6 +63,18 @@
                     <input type="text" name="bar_code" class="form-control">
                 </div>
                 <div class="form-group col-md-3">
+                    <label for="location">Ubicación</label>
+                    <select name="location" id="" class="form-control">
+                        @foreach($locations as $location)
+                        <option value="{{$location->id}}">{{$location->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="stock">Saldo Inical</label>
+                    <input type="number" name="stock" class="form-control" min="0" value="0">
+                </div>
+                <div class="form-group col-md-1">
                     <label for="state">Estado</label>
                     <div class="custom-control custom-checkbox mr-sm-2">
                         <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="state"
