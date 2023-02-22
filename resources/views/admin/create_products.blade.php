@@ -24,7 +24,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="code">Codigo</label>
-                    <input type="text" class="form-control" name="code" />
+                    <input type="number" class="form-control" name="code" />
                 </div>
                 <div class="form-group col-md-6">
                     <label for="name">Nombre</label>
@@ -94,8 +94,9 @@
 @section('footer')
 @stop
 
-{{-- @section('plugins.Datatables', true) --}}
+@section('plugins.Datatables', true)
 @section('js')
+    <script src="../../js/tools.js"></script>
     <script src="../../js/products.js"></script>
     @livewireScripts
 @stop

@@ -326,12 +326,12 @@ return [
                     'icon'  => 'fas fa-cash-register',
                     'label' => '$',
                     'label_color' => 'success',
-                    'url'   => '#'
+                    'url'   => 'admin/facturacion'
                 ],
                 [
                     'text'  => 'Clientes',
                     'icon'  => 'fas fa-user-friends',
-                    'url'   => '#'
+                    'url'   => 'admin/clients'
                 ],
             ]
         ],

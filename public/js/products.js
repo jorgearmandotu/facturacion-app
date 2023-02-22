@@ -27,10 +27,10 @@ function changeCosto(){
 }
 
 $(document).ready(function () {
-    productsTable = $('#productsTable');
+    //productsTable = $('#productsTable');
     try{
 
-            productsTable.DataTable({
+            productsTable = $('#productsTable').DataTable({
                 ajax: '/admin/products',
                 responsive: true,
                 autoWidth: false,
@@ -77,7 +77,7 @@ $(document).ready(function () {
                 ],
             });
     }catch(error){
-        
+
     }
 });
 
@@ -105,8 +105,8 @@ async function state(uri, table){
             messages('success', res.msg, false, 1500);
             //productsTable = $('#productsTable');
             //console.log(productsTable);
-            location.reload();
-            //productsTable.ajax.reload('null', 'false');
+            //location.reload();
+            productsTable.ajax.reload(null, false);
             //recargarTablas(table);
         }else{
             messages('error', res.msg, true);
@@ -179,8 +179,8 @@ async function updateProduct(e){
             //Livewire.emit('lineAdded')
             messages('success', res.msg, false, 1500);
             // productsTable = $('#productsTable');
-            // productsTable.api().ajax.reload();
-            location.reload();
+            productsTable.ajax.reload(null, false);
+            //location.reload();
             //recargarTablas(table);
         }else{
             messages('error', res.msg, true);
@@ -191,13 +191,3 @@ async function updateProduct(e){
     }
 }
 
-function messages(icon, title, button, timer){
-    Swal.fire({
-        //position: 'center',
-        type: icon,
-        title: title,
-        showConfirmButton: button,
-        timer: timer
-      })
-
-}

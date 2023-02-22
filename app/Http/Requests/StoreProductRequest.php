@@ -25,7 +25,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:products|max:50',
-            'code' => 'required',
+            'code' => 'required'|'numeric',
             'costo' => 'required',
             'bar_code' => 'nullable|unique:products',
             //'line' => 'exists:lines,id',
@@ -40,6 +40,7 @@ class StoreProductRequest extends FormRequest
         'name.unique' => 'El nombre de producto ya esta en uso',
         'name.max' => 'El nombre de producto solo puede contener 50 caracteres',
         'code.required' => 'El código de producto es requerido',
+        'code.numeric' => 'El código de producto debe ser numerico',
         'bar_code' => 'El codigo de barras ya esta en uso',
         //'code.unique' => 'El código de producto ya esta en uso',
         'costo.required' => 'El costo es requerido',

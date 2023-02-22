@@ -46,7 +46,10 @@ class ProductsController extends Controller
         try{
             $product = Product::where('group_id', $request->group)
                                 ->where('code', $request->code)->first();
-            if($product) return redirect()->back()->withErrors('No fue posible crearRegistro. Código de producto ya existe en este grupo');
+            if($product){
+                DB::rollBack();
+                return redirect()->back()->withErrors('No fue posible crearRegistro. Código de producto ya existe en este grupo');
+            }
             //guardar producto
             $product = new Product();
             //$product->line = $request->line;
@@ -115,7 +118,7 @@ class ProductsController extends Controller
             //$product->line = $request->line;
             $product->group_id = $request->group;
             $product->code = $request->code;
-            $product->name = $request->name;
+            $product->name = mb_strtoupper($request->name, 'UTF-8');
             $product->bar_code = $request->bar_code;
             $product->reference = $request->reference;
             $product->costo = $request->costo;

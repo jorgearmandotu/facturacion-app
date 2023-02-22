@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\GestionInventarioController;
 use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Invoice;
 use App\Http\Controllers\LinesController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProductsController;
@@ -34,6 +36,11 @@ Route::middleware([
     //Route::get('shooping-nvoice', [ShoppingInvoiceController::class, 'main']);
     //Route::post('shoppinginvoices', [ShoppingInvoiceController::class, 'store'])->name('store', 'shoppinginvoices');
     Route::resource('shopping-invoices', ShoppingInvoiceController::class);
+    Route::get('listClients', [ClientController::class, 'listClients']);
+    Route::resource('clients', ClientController::class);
+    Route::resource('facturacion', Invoice::class)->name('store', 'invoices');
+
+
     Route::get('listado-prueba', function() {
         return DB::table('products as p')
         ->join('groups as g', 'p.group_id', '=', 'g.id')
@@ -47,5 +54,4 @@ Route::middleware([
         return $products = DB::select('select * from products_list_view');
     });
 
-    // Route::resource('clients', )
 });
