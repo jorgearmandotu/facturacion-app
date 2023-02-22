@@ -24,18 +24,26 @@ class SearchClients extends Component
     public function render()
     {
         $types = Document_type::all();
+        //$this->type = $types[0]->id;
         return view('livewire.invoice.search-clients', compact('types'));
     }
 
     public function searchClient(){
-
-        dd('search');
         if($this->type && $this->dni){
         $client = Clients::where('document_type', $this->type)
                         ->where('dni', $this->dni)->first();
         if($client){
-            $this->name = $client->name;
-        }
+            $this->type = $client->document_type;
+             $this->name = $client->name;
+             $this->phone = $client->phone;
+             $this->address = $client->address;
+             $this->email = $client->email;
+         }else{
+            $this->name = '';
+             $this->phone = '';
+             $this->address = '';
+             $this->email = '';
+         }
         }
     }
 }

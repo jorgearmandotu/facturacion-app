@@ -32,5 +32,5 @@
 @section('js')
     <script src="../../js/tools.js"></script>
     {{-- <script src="../../js/clients.js"></script> --}}
-    {{-- @livewireScripts --}}
+    @livewireScripts
 @stop
