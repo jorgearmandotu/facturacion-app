@@ -10,13 +10,13 @@
         </div>
         <div class="from-group col-md-6">
             <label for="dni">Identificacion </label>
-            <input type="number"  class="form-control" name="dni" wire:model.defer = 'dni' wire:change = 'searchClient'>
+            <input type="number"  class="form-control" name="dni" wire:model.defer = 'dni' wire:change='searchClient'>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="name">Nombre</label>
-            <input type="text" class="form-control" name="name" wire:model.defer = 'name' />
+            <input type="text" class="form-control" name="nameClient" wire:model.defer = 'name' />
         </div>
         <div class="form-group col-md-6">
             <label for="phone">Teléfono</label>

@@ -9,7 +9,7 @@ use Livewire\Component;
 class SearchClients extends Component
 {
     //public $types;
-    public $type;
+    public $type = 1;
     public $dni;
     public $client;
     public $name;

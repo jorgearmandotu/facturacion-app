@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Clients;
 use App\Models\Group;
 use App\Models\Line;
 use App\Models\LocationProduct;
@@ -47,10 +48,14 @@ class dataFakerSeeder extends Seeder
         $product_tax1 = ProductsTaxes::create(['product_id' => $product1->id, 'tax_id' => 1]);
         $product_tax2 = ProductsTaxes::create(['product_id' => $product2->id, 'tax_id' => 2]);
         $product_tax3 = ProductsTaxes::create(['product_id' => $product3->id, 'tax_id' => 3]);
-        //locations_products
 
+        //locations_products
         $locationProduct1 = LocationProduct::create(['location_id' => 1, 'product_id' => $product1->id, 'stock' => 10]);
         $locationProduct2 = LocationProduct::create(['location_id' => 2, 'product_id' => $product2->id, 'stock' => 20]);
         $locationProduct3 = LocationProduct::create(['location_id' => 1, 'product_id' => $product3->id, 'stock' => 30]);
+
+        //crear clientes
+        $client1 = Clients::create(['dni' => '111111111', 'document_type' => '1', 'name' => 'CLIENTES VARIOS']);
+        $client1 = Clients::create(['dni' => '1085284339', 'document_type' => '1', 'name' => 'Jorge Armando Urbina', 'phone' => '3148516572', 'address' => 'calle 14  #17-40', 'email' => 'jorgearmandou@gmail.com']);
     }
 }

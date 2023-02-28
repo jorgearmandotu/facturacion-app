@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice_Product extends Model
 {
+    protected $table = 'invoices_products';
     use HasFactory;
     protected $fillable = [
         'product_id',
