@@ -9,17 +9,17 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-1">
+        </div>
         <div class="form-group col-md-2">
                 <label for="stock">Stock</label>
-                <input type="number" class="form-control inputDisabled" id="inputQuantityStock" wire:model.defer='stock' disabled >
+                <input type="number" class="form-control inputDisabled {{$classNegative}}" id="inputQuantityStock" wire:model.defer='stock' disabled >
         </div>
         <div class="form-group col-md-2">
                 <label for="tax">IVA</label>
                 <input type="number" class="form-control inputDisabled" id="inputTax" wire:model.defer='tax' disabled >
                 <input type="hidden" name="tax" wire:model.defer='tax' >
         </div>
-
     </div>
     <div class="form-row">
         <div class="form-group col-md-2">

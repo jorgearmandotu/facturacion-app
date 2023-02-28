@@ -20,7 +20,23 @@
             @csrf
 
             <livewire:invoice.search-clients />
-
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="type">Tipo de factura</label>
+                    <select name="typeInvoice" class="form-control">
+                        <option value="CONTADO">Contado</option>
+                        <option value="CREDITO">Crédito</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="discount">Descuento $</label>
+                    <input type="number" name="discount" class="form-control">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="abono">Cuota inicial $</label>
+                    <input type="number" name="abono" class="form-control">
+                </div>
+            </div>
         </form>
         <form method="POST" id="formProduct">
             <div class="container-fluid bg-white">

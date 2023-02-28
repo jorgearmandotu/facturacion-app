@@ -33,5 +33,8 @@ class CstateSeeder extends Seeder
         DB::table('cstates')->insert([
             'value' => 'Pendiente',
         ]);
+        DB::table('cstates')->insert([
+            'value' => 'Finalizado',
+        ]);
     }
 }

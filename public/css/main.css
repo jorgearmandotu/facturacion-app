@@ -27,3 +27,8 @@
     background-color: #fff;
     /* cursor: not-allowed; */
 }
+
+.stock-negative {
+    color: red;
+    font-weight: bold;
+}

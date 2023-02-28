@@ -6,11 +6,13 @@ use App\Models\Clients;
 use App\Models\Cstate;
 use App\Models\Invoice as ModelsInvoice;
 use App\Models\Invoice_Product;
+use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsTaxes;
 use App\Models\Tax;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Invoice extends Controller
@@ -51,13 +53,16 @@ class Invoice extends Controller
             $vlrTotal = 0;
             //se crea factura con estado cancelado ya  q es de contado
             $invoice = new ModelsInvoice();
-            $invoice->number = 'FP-'.$invoice->id;
+            $invoice->number = 'FP-'.$invoice->id;//resolucion dian
             $invoice->client_id = $client->id;
             $invoice->vlr_total = $vlrTotal;
             $invoice->date_invoice = Carbon::now()->format('Y-m-d');
-            $invoice->cstate_id = Cstate::where('value', 'Cancelado');
+            $state = Cstate::where('value', 'Finalizado')->first();
+            $invoice->cstate_id = $state->id;
             $invoice->discount = 0;
-            //$invoice->save();
+            $invoice->user_id = Auth::id();
+            $invoice->type = $request->typeInvoice;
+            $invoice->save();
 
             //se crea invoice_products
             for($i=0; $i<$request->totalView; $i++){
@@ -85,6 +90,10 @@ class Invoice extends Controller
                 $invoiceProducts->vlr_tax = $valueTax;
                 $invoiceProducts->save();
                 $vlrTotal += $quantity*$product->price + $quantity*$product->price*$valueTax/100;
+                //disminuir inventario
+                $stocks = LocationProduct::where('product_id', $product->id)->first();
+                $stocks->stock = $stocks->stock - $quantity;
+                $stocks->save();
             }
             $invoice->vlr_total = $vlrTotal;
             $invoice->save();

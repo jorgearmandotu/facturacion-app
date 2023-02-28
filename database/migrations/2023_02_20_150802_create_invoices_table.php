@@ -21,6 +21,8 @@ return new class extends Migration
             $table->date('date_invoice');
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->decimal('discount')->default(0);
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->enum('type', ['CONTADO', 'CREDITO'])->default('CONTADO');
             $table->timestamps();
         });
     }

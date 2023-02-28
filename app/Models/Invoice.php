@@ -15,5 +15,7 @@ class Invoice extends Model
         'date_invoice',
         'cstate_id',
         'discount',
+        'user_id',
+        'type'
     ];
 }

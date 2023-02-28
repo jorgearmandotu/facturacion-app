@@ -18,6 +18,7 @@ class SelectProduct extends Component
     public $total = 0;
     public $vlrTotal = 0;
     public $product;
+    public $classNegative = '';
 
     protected $listeners = ['changeProduct' => 'changeProduct'];
 
@@ -32,6 +33,11 @@ class SelectProduct extends Component
             $this->product = Product::find($id);
             $stock = LocationProduct::where('product_id', $this->product->id)->select('stock')->first();
             $this->stock = $stock->stock;
+            if($this->stock < 0){
+                $this->classNegative = 'stock-negative';
+            }else{
+                $this->classNegative = '';
+            }
             $taxes = ProductsTaxes::where('product_id', $this->product->id)->get();
             $this->tax = 0;
             $this->quantity = 1;
