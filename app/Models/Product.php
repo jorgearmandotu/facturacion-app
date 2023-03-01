@@ -34,5 +34,8 @@ class Product extends Model
         return $this->belongsToMany(Tax::class, 'products_taxes', 'product_id', 'tax_id');
     }
 
+    public function dataInvoice(){
+        return $this->belongsToMany(DataInvoices::class);
+    }
 
 }

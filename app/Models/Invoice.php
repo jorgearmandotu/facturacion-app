@@ -18,4 +18,8 @@ class Invoice extends Model
         'user_id',
         'type'
     ];
+
+    public function dataInvoices(){
+        return $this->hasMany(DataInvoices::class);
+    }
 }

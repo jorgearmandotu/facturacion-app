@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Clients;
 use App\Models\Cstate;
+use App\Models\DataInvoices;
 use App\Models\Invoice as ModelsInvoice;
-use App\Models\Invoice_Product;
 use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsTaxes;
@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class Invoice extends Controller
+class InvoiceController extends Controller
 {
     public function index(){
         $products = Product::join('cstates', 'cstate_id', 'cstates.id')->where('value', '==', 'Activo')->get();
@@ -76,19 +76,20 @@ class Invoice extends Controller
                     return response()->json(['msg' => 'Verifique información de productos.', 'status' => 400], 200);
                 }
 
-                $invoiceProducts = new Invoice_Product();
-                $invoiceProducts->product_id = $product->id;
-                $invoiceProducts->invoice_id = $invoice->id;
-                $invoiceProducts->quantity = $quantity;
-                $invoiceProducts->vlr_unit = $product->price;
+                $dataInvoice = new DataInvoices();
+                $dataInvoice->product_id = $product->id;
+                $dataInvoice->invoice_id = $invoice->id;
+                $dataInvoice->quantity = $quantity;
+                $dataInvoice->vlr_unit = $product->price;
+                $dataInvoice->position = $position;
                 $taxes = ProductsTaxes::where('product_id', $product->id)->get();
                 $valueTax = 0;
                 foreach($taxes as $tax_id){
                     $tax = Tax::find($tax_id->tax_id);
                     $valueTax += $tax->value;
                 }
-                $invoiceProducts->vlr_tax = $valueTax;
-                $invoiceProducts->save();
+                $dataInvoice->vlr_tax = $valueTax;
+                $dataInvoice->save();
                 $vlrTotal += $quantity*$product->price + $quantity*$product->price*$valueTax/100;
                 //disminuir inventario
                 $stocks = LocationProduct::where('product_id', $product->id)->first();
@@ -98,10 +99,12 @@ class Invoice extends Controller
             $invoice->vlr_total = $vlrTotal;
             $invoice->save();
             DB::commit();
-            return response()->json(['msg' => 'Factura Generada.', 'status' => 200], 200);
+            //enviar apagina para imprimir factura
+            //return redirect()->route('print-invoice')->withInput(['id' => $invoice->id]);
+            return response()->json(['msg' => $invoice->id, 'status' => 200], 200);
         }catch(\Exception $e){
             DB::rollBack();
-            return response()->json(['msg' => 'Error al generar factura. '.$e, 'status' => 400], 200);
+            return response()->json(['msg' => 'Error al generar factura. ', 'status' => 400], 200);
         }
     }
 }

@@ -42,7 +42,7 @@ class dataFakerSeeder extends Seeder
         //crear productos
         $product1 = Product::create(['name'=>'DEPORTIVO PASTO 2022', 'group_id' => $grupo1->id, 'code' => '123', 'costo' => 35000, 'profit' => '0', 'price' => 35000, 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d')]);
         $product2 = Product::create(['name'=>'RODILLERA', 'group_id' => $grupo2->id, 'code' => '456', 'costo' => 15000, 'profit' => '0', 'price' => 15000, 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d')]);
-        $product3 = Product::create(['name'=>'CHAQUETA DOBLE ALA', 'group_id' => $grupo3->id, 'code' => '123', 'costo' => 85000, 'profit' => '0', 'price' => 85000, 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d')]);
+        $product3 = Product::create(['name'=>'CHAQUETA DOBLE ALA', 'group_id' => $grupo3->id, 'code' => '789', 'costo' => 85000, 'profit' => '0', 'price' => 85000, 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d')]);
 
         //TAXES-PRODUCTOS
         $product_tax1 = ProductsTaxes::create(['product_id' => $product1->id, 'tax_id' => 1]);

@@ -32,3 +32,10 @@
     color: red;
     font-weight: bold;
 }
+.invoiceTitle {
+    width: 6rem;
+    padding-right: 2em;
+}
+.invoiceText {
+    width: 15rem;
+}

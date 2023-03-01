@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('invoices_products', function (Blueprint $table) {
+        Schema::create('data_invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('invoice_id')->references('id')->on('invoices');
             $table->integer('quantity');
             $table->decimal('vlr_unit');
             $table->decimal('vlr_tax');
+            $table->integer('position');
             $table->timestamps();
         });
     }

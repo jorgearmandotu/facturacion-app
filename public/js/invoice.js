@@ -199,7 +199,8 @@ async function sendInvoice(data){//recibo formData
 
         if(res.status == 200){
             //Livewire.emit('lineAdded')
-            messages('success', res.msg, false, 1500);
+            messages('success', 'Factura generada exitosamente', false, 1500);
+            window.location.replace(`printInvoice/${res.msg}`)
             //productsTable.ajax.reload(null, false);
             //recargarTablas(table);
         }else{

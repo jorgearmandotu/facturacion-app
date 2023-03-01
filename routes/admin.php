@@ -5,9 +5,10 @@ use App\Http\Controllers\GestionInventarioController;
 use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Invoice;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LinesController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PrintInvoiceController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
@@ -38,7 +39,8 @@ Route::middleware([
     Route::resource('shopping-invoices', ShoppingInvoiceController::class);
     Route::get('listClients', [ClientController::class, 'listClients']);
     Route::resource('clients', ClientController::class);
-    Route::resource('facturacion', Invoice::class)->name('store', 'invoices');
+    Route::resource('facturacion', InvoiceController::class)->name('store', 'invoices');
+    Route::get('printInvoice/{invoice}',[PrintInvoiceController::class, 'index'] )->name('print-invoice');
 
 
     Route::get('listado-prueba', function() {
