@@ -333,6 +333,11 @@ return [
                     'icon'  => 'fas fa-user-friends',
                     'url'   => 'admin/clients'
                 ],
+                [
+                    'text'  => 'Abonos',
+                    'icon'  => 'fas fa-file-invoice-dollar',
+                    'url'   => 'admin/clients'
+                ],
             ]
         ],
         ['header' => 'Administración'],

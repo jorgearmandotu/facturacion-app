@@ -23,18 +23,26 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="type">Tipo de factura</label>
-                    <select name="typeInvoice" class="form-control">
+                    <select name="typeInvoice" class="form-control" id="selectTypeInvoice">
                         <option value="CONTADO">Contado</option>
                         <option value="CREDITO">Crédito</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="discount">Descuento $</label>
-                    <input type="number" name="discount" class="form-control">
+                    <input type="number" name="discount" class="form-control" min="0" value="0">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="abono">Cuota inicial $</label>
-                    <input type="number" name="abono" class="form-control">
+                    <label for="payment">Cuota inicial $</label>
+                    <input type="number" name="payment" class="form-control" min="0" value="0" id="payment" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="paymentMethod">Forma de pago</label>
+                    <select name="paymentMethod" id="" class="form-control">
+                        <option value="EFECTIVO">Efectivo</option>
+                        <option value="TARJETA">Tarjeta</option>
+                        <option value="TRANSFERENCIA">Transferencia</option>
+                    </select>
                 </div>
             </div>
         </form>

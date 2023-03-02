@@ -16,7 +16,8 @@ class Invoice extends Model
         'cstate_id',
         'discount',
         'user_id',
-        'type'
+        'type',
+        'payment_method',
     ];
 
     public function dataInvoices(){

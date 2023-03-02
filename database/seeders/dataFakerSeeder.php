@@ -3,11 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Clients;
+use App\Models\CompanyData;
 use App\Models\Group;
 use App\Models\Line;
 use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsTaxes;
+use App\Models\Resolution;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -57,5 +59,26 @@ class dataFakerSeeder extends Seeder
         //crear clientes
         $client1 = Clients::create(['dni' => '111111111', 'document_type' => '1', 'name' => 'CLIENTES VARIOS']);
         $client1 = Clients::create(['dni' => '1085284339', 'document_type' => '1', 'name' => 'Jorge Armando Urbina', 'phone' => '3148516572', 'address' => 'calle 14  #17-40', 'email' => 'jorgearmandou@gmail.com']);
+
+        //crear datos de resolucion
+        $resolution = Resolution::create([
+            'number'=> '18764024704502',
+            'date_resolution' => '2023-01-29',
+            'expiration_date' => '2024-01-29',
+            'validity' => '24 meses',
+            'prefijo' => 'FP',
+            'initial_number' => '1',
+            'final_number' => '1000',]);
+
+        //crear datos de compania
+        $dataCompany = CompanyData ::create([
+            'name_view' => 'Aetius',
+            'razon_social' => 'La casa del estampado',
+            'dni' => '9.547.458-3',
+            'address' => 'calle 16 #23-15',
+            'phone' => '315 8465 247',
+            'regimen' => 'simplificado',
+            'actividad_economica' => '04753',
+        ]);
     }
 }

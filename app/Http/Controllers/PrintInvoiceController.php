@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clients;
+use App\Models\CompanyData;
 use App\Models\Invoice;
+use App\Models\Resolution;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,8 +18,10 @@ class PrintInvoiceController extends Controller
         }
         $client = Clients::find($invoice->client_id);
         $seller = User::select('name')->find($invoice->user_id);
+        $company = CompanyData::find(1);
+        $resolution = Resolution::find(1);//buscar resolucon con que se hizo factura
 
         // return $invoice->dataInvoices[0]->product;
-        return view('admin.print-invoice', compact('invoice', 'client', 'seller'));
+        return view('admin.print-invoice', compact('invoice', 'client', 'seller', 'company', 'resolution'));
     }
 }

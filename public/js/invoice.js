@@ -1,5 +1,7 @@
 let inputStock = document.querySelector("#inputQuantityStock");
 let inputTotalInvoice = document.querySelector("#inputValueTotal");
+let selectTypeInvoice = document.querySelector("#selectTypeInvoice");
+let payment = document.querySelector("#payment");
 let productsView = 0;
 let productsList = 0;
 let totalInvoice = 0;
@@ -14,6 +16,16 @@ $("#selectProducts").on("select2:select", function (e) {
     let value = e.target.value;
     Livewire.emit("changeProduct", value);
 });
+
+selectTypeInvoice.addEventListener('change', () => {
+    if(selectTypeInvoice.value === "CREDITO"){
+        payment.disabled = false;
+    }else{
+        payment.value = 0;
+        payment.disabled = true;
+    }
+});
+
 
 function add() {
     let form = document.querySelector("#formProduct");

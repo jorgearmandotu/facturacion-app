@@ -59,10 +59,16 @@ class InvoiceController extends Controller
             $invoice->date_invoice = Carbon::now()->format('Y-m-d');
             $state = Cstate::where('value', 'Finalizado')->first();
             $invoice->cstate_id = $state->id;
-            $invoice->discount = 0;
+            $invoice->discount = $request->discount;
+            $invoice->payment_method = $request->paymentMethod;
             $invoice->user_id = Auth::id();
             $invoice->type = $request->typeInvoice;
             $invoice->save();
+
+            //si hay cuota inical se crea nota para cruzar solo con facturas credito
+            if($invoice->type == 'CREDITO'){
+                
+            }
 
             //se crea invoice_products
             for($i=0; $i<$request->totalView; $i++){

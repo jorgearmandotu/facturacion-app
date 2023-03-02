@@ -12,45 +12,52 @@
 
 @section('content')
 
-<div class="container">
-    <h1>Detalle de factura</h1>
-    <div class="row justify-content-center container-fluid col-md-8">
+<div class="container col-md-10">
+    <div class="d-print-none">
+        <h1>Detalle de factura</h1>
+    </div>
+    <div class="row justify-content-center container-fluid col-md-12">
         <div class="col col-md-12 text-center">
-            <h3 class="p-0 m-0">Aetius</h3>
-            <p class="p-0 m-0">La casa del estampado</p>
-            <p class="p-0 m-0">Nit. 1.xx.xx.xx.xx.</p>
-            <p class="p-0 m-0">calle 16 Pasto</p>
-            <p class="p-0 m-0">Telefono: </p>
+            <h3 class="p-0 m-0">{{ $company->name_view }}</h3>
+            <span>{{ $company->razon_social }}<br>
+                Nit. {{ $company->dni }}<br>
+                {{ $company->address }}<br>
+                {{ $company->phone }}</span>
+            {{-- <p class="p-0 m-0">{{ $company->razon_social }}</p>
+            <p class="p-0 m-0">Nit. {{ $company->dni }}</p>
+            <p class="p-0 m-0">{{ $company->address }}</p>
+            <p class="p-0 m-0">{{ $company->phone }} </p> --}}
         </div>
     </div>
-    <div class="row container-fluid col-md-8">
+    <hr>
+    <div class="row container-fluid col-md-12">
         <div class="col">
             <strong>No. {{$invoice->number}}</strong>
         </div>
         <div class="col">
             <p> Pago: {{ $invoice->type }}</p>
         </div>
-        <div class="col text-right">
+        <div class="col text-center">
             <p>Fecha: {{ str_replace('-','/', $invoice->date_invoice) }}</p>
         </div>
     </div>
-    <div class="row com-md-8">
-        <table>
+    <div class="row col-md-12">
+        <table width=100%>
             <tr>
                 <td class="invoiceTitle">Nombre:</td>
-                <td class="invoiceText">{{Str::substr($client->name, 0, 25) }}</td>
+                <td class="invoiceText">{{Str::substr($client->name, 0, 35) }}</td>
                 <td class="invoiceTitle">Identificación:</td>
                 <td class="invoiceText">{{ $client->dni }}</td>
             </tr>
             <tr>
                 <td>Dirección:</td>
-                <td>{{ substr($client->address, 0, 25) }}</td>
+                <td>{{ substr($client->address, 0, 35) }}</td>
                 <td>Teléfono:</td>
                 <td>{{ $client->phone }}</td>
             </tr>
             <tr>
                 <td>e-mail:</td>
-                <td>{{Str::substr($client->email, 0, 25) }}</td>
+                <td>{{Str::substr($client->email, 0, 35) }}</td>
                 <td>Vendedor:</td>
                 <td>{{ $seller->name }}</td>
             </tr>
@@ -58,16 +65,16 @@
     </div>
     <hr>
     <div class="row">
-        <table>
-            <thead>
+        <table width=100%>
+            <thead class="border-bottom">
                 <tr>
-                    <td style="width: 1rem" class="text-center">#</td>
-                    <td style="width: 5rem" class="text-center">Referencia</td>
-                    <td style="width: 12rem" class="text-center">DESCRIPCIÓN</td>
-                    <td style="width: 2rem" class="text-center">CANT.</td>
-                    <td style="width: 6rem" class="text-center">Vr UNITARIO</td>
-                    <td style="width: 3rem" class="text-center">%IVA</td>
-                    <td style="width: 6rem" class="text-center">SUB. TOTAL</td>
+                    <td style="width: 5%;" class="text-center">#</td>
+                    <td style="width: 10%" class="text-center">CÓDIGO</td>
+                    <td style="width: 40%" class="text-center">DESCRIPCIÓN</td>
+                    <td style="width: 10%" class="text-center">CANT.</td>
+                    <td style="width: 15%" class="text-center">Vr UNITARIO</td>
+                    <td style="width: 10%" class="text-center">%IVA</td>
+                    <td style="width: 20%" class="text-center">SUB. TOTAL</td>
                 </tr>
             </thead>
             <tbody>
@@ -77,12 +84,12 @@
                 @endphp
                 @foreach ($invoice->dataInvoices as $item)
                 <tr>
-                    <td>{{ $item->position }}</td>
-                    <td>{{ $item->product->code }}</td>
+                    <td class="text-center">{{ $item->position }}</td>
+                    <td class="text-center">{{ $item->product->code }}</td>
                     <td>{{ $item->product->name }}</td>
-                    <td class="text-right">{{ $item->quantity }}</td>
+                    <td class="text-center">{{ $item->quantity }}</td>
                     <td class="text-right">{{ number_format($item->vlr_unit, 2, ',','.') }}</td>
-                    <td class="text-right">{{ $item->vlr_tax }}</td>
+                    <td class="text-center">{{ $item->vlr_tax }}</td>
                     @php
                     $value = $item->quantity*$item->vlr_unit;
                     $subTotal += $value;
@@ -92,7 +99,7 @@
                 </tr>
                 @endforeach
             </tbody>
-            <tfoot>
+            <tfoot class="border-top">
                 <tr>
                     <td colspan="4"></td>
                     <td colspan="2" class="text-right"><strong>Sub. Total</strong></td>
@@ -112,8 +119,11 @@
         </table>
     </div>
     <hr>
-    <div class="justify-content-center col-md-8">
-        <p class="text-center">Favor revisar su mercancia andes de salir del establecimiento, una vez entregado no se aceptan Reclamaciones.</p>
+    <div class="justify-content-center col-md-12 text-center">
+        <span class="text-center">Favor revisar su mercancia andes de salir del establecimiento, una vez entregado no se aceptan Reclamaciones.<br></span>
+    <span class="">Numero de resolucion: {{ $resolution->number }}<br>
+    Aprovado en: {{ $resolution->date_resolution }} Vigencia: {{ $resolution->validity }}<br>
+    Prefijo: {{$resolution->prefijo }} del {{$resolution->initial_number}} hasta {{$resolution->final_number}}</span>
     </div>
 </div>
 @stop

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('discount')->default(0);
             $table->foreignId('user_id')->references('id')->on('users');
             $table->enum('type', ['CONTADO', 'CREDITO'])->default('CONTADO');
+            $table->enum('payment_method', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA']);
             $table->timestamps();
         });
     }
