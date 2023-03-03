@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->text('number', 20);
+            $table->text('prefijo', 5);
             $table->foreignId('client_id')->references('id')->on('clients');
             $table->decimal('vlr_total');
             $table->date('date_invoice');

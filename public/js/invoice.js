@@ -187,8 +187,8 @@ function send(){
         return messages('error', 'Ingrese productos a facturar', true)
       }
 
-      let listado = Object.fromEntries(formProductsList.entries());
-      console.log(listado);
+    //   let listado = Object.fromEntries(formProductsList.entries());
+    //   console.log(listado);
       //enviar a servidor factura
       sendInvoice(formProductsList);
 }

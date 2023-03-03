@@ -334,7 +334,7 @@ return [
                     'url'   => 'admin/clients'
                 ],
                 [
-                    'text'  => 'Abonos',
+                    'text'  => 'Recibo de caja',
                     'icon'  => 'fas fa-file-invoice-dollar',
                     'url'   => 'admin/clients'
                 ],

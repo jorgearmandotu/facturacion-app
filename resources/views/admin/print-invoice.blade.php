@@ -32,7 +32,7 @@
     <hr>
     <div class="row container-fluid col-md-12">
         <div class="col">
-            <strong>No. {{$invoice->number}}</strong>
+            <strong>No. {{$invoice->prefijo}}-{{$invoice->number}}</strong>
         </div>
         <div class="col">
             <p> Pago: {{ $invoice->type }}</p>
@@ -106,6 +106,11 @@
                     <td class="text-right">{{ number_format($subTotal, 2, ',', '.') }}</td>
                 </tr>
                 <tr>
+                    <td colspan="4"></td>
+                    <td colspan="2" class="text-right"><strong>Descuento</strong></td>
+                    <td class="text-right">{{ number_format($invoice->discount, 2, ',', '.') }}</td>
+                </tr>
+                <tr>
                     <td colspan="5"></td>
                     <td class="text-right"><strong>IVA:</strong></td>
                     <td class="text-right">{{ number_format($iva,2 ,',', '.') }}</td>
@@ -113,7 +118,7 @@
                 <tr>
                     <td colspan="5"></td>
                     <td class="text-right"><strong>Total:</strong></td>
-                    <td class="text-right">{{ number_format($invoice->vlr_total, 2, ',', '.') }}</td>
+                    <td class="text-right">{{ number_format(($invoice->vlr_total - $invoice->discount), 2, ',', '.') }}</td>
                 </tr>
             </tfoot>
         </table>
