@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="profit">% utilidad</label>
-                    <input type="number" class="form-control" name="profit" id="inputProfit" placeholder="%" onchange="changePercent()" />
+                    <input type="number" step="0.01" class="form-control" name="profit" id="inputProfit" placeholder="%" onchange="changePercent()" />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="price">Precio</label>

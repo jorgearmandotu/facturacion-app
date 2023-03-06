@@ -58,6 +58,7 @@ class InvoiceController extends Controller
             $invoice->client_id = $client->id;
             $invoice->vlr_total = $vlrTotal;
             $invoice->date_invoice = Carbon::now()->format('Y-m-d');
+            //descuento debe darse en prodcutos y se debe poder elegir precio de un loistado de precios
             $invoice->discount = $request->discount;
             $invoice->payment_method = $request->paymentMethod;
             $invoice->user_id = Auth::id();

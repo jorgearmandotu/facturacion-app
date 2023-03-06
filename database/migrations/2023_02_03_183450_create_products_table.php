@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('reference', 20)->nullable();
             $table->decimal('costo')->default(0);
             $table->decimal('profit')->default(0);
-            $table->decimal('price')->default(0);
+            //$table->decimal('price')->default(0);
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->date('date');
             //ubicaciones bodegas

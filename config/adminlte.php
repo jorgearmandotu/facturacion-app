@@ -352,6 +352,11 @@ return [
                 'icon' => 'fas fa-tshirt',
                 ],
                 [
+                    'text' => 'listado de precios',
+                    'icon_color' => 'red',
+                    'url' => '#'
+                ],
+                [
                 'text' => 'Crear Productos',
                 'url' => 'admin/products/create',
                 'icon' => 'far fa-plus-square',

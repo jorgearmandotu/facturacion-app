@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Invoice;
 
+use App\Models\ListPrices;
 use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsTaxes;
@@ -19,6 +20,8 @@ class SelectProduct extends Component
     public $vlrTotal = 0;
     public $product;
     public $classNegative = '';
+    public $prices = [];
+    public $price;
 
     protected $listeners = ['changeProduct' => 'changeProduct'];
 
@@ -45,10 +48,14 @@ class SelectProduct extends Component
                 $value = Tax::find($tax->tax_id);
                 $this->tax += $value->value;
             }
-            $this->vlrUnity = $this->product->price;
-            $this->vlrUnit = number_format($this->product->price+($this->product->price*$this->tax/100), 0,',', '.');
-            $this->vlrTotal = $this->quantity*$this->product->price;
-            $this->total = number_format(($this->quantity*$this->product->price)+(($this->quantity*$this->product->price*$this->tax)/100), 2, ',', '.');
+            $this->price = 0;
+            $this->prices = ListPrices::where('product_id', $this->product->id)->get();
+            //$this->vlrUnity = $this->prices;
+            $this->vlrUnity = $this->prices[0]->price;
+            $this->vlrUnit = number_format($this->vlrUnity+($this->vlrUnity*$this->tax/100), 0,',', '.');
+            //dd($this->vlrUnit);
+            $this->vlrTotal = $this->quantity*$this->vlrUnity;
+            $this->total = number_format(($this->quantity*$this->vlrUnity)+(($this->quantity*$this->vlrUnity*$this->tax)/100), 2, ',', '.');
         }catch(\Exception $e){
             $this->stock = 0;
             $this->vlrUnit = 0;
@@ -56,11 +63,21 @@ class SelectProduct extends Component
             $this->total = 0;
             $this->vlrTotal = 0;
             $this->quantity = 1;
+            $this->price = 0;
         }
     }
 
     public function changeQuanity(){
-        $this->vlrTotal = $this->quantity*$this->product->price;
-        $this->total = number_format(($this->quantity*$this->product->price)+(($this->quantity*$this->product->price*$this->tax)/100), 2, ',', '.');
+        $this->vlrTotal = $this->quantity*$this->vlrUnity;
+        $this->total = number_format(($this->quantity*$this->vlrUnity)+(($this->quantity*$this->vlrUnity*$this->tax)/100), 2, ',', '.');
     }
+
+    public function changePrice(){
+        $this->vlrUnity = $this->price;
+        $this->vlrUnit = number_format($this->vlrUnity+($this->vlrUnity*$this->tax/100), 0,',', '.');
+        $this->vlrTotal = $this->quantity*$this->vlrUnity;
+        $this->total = number_format(($this->quantity*$this->vlrUnity)+(($this->quantity*$this->vlrUnity*$this->tax)/100), 2, ',', '.');
+    }
+
+
 }

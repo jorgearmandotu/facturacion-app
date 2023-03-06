@@ -18,9 +18,13 @@ class Product extends Model
         'reference',
         'costo',
         'profit',
-        'price',
+        //'price',
         'cstate_id',
     ];
+
+    public function prices(){
+        return $this->hasMany(ListPrices::class);
+    }
 
     public function groups() {
         return $this->belongsTo(Group::class, 'group_id');

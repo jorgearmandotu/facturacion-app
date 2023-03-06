@@ -12,14 +12,14 @@
 
 @section('content')
 <h1>Productos</h1>
-<div class="container tables">
+<div class="container col-md-10 tables">
     <table id="productsTable" class="table table-striped table-bordered bg-light" style="width:100%">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Referencia</th>
                 <th>Costo</th>
-                <th>Precio</th>
+                <th>Precio 1</th>
                 <th>% utilidad</th>
                 <th>Total</th>
                 <th>Linea</th>

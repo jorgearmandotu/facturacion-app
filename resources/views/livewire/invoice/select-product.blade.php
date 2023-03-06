@@ -26,6 +26,14 @@
             <label for="quantity">Cantidad</label>
             <input type="number" name="quantity" min="1" class="form-control" id="inputQuantity" onfocus="8" wire:model='quantity' wire:change.defer='changeQuanity'>
         </div>
+        <div class="form-group col-md-2">
+            <label for="price">Precio:</label>
+            <select name="price" class="form-control" wire:model.defer='price' wire:change='changePrice'>
+                @foreach($prices as $price)
+                <option value="{{$price->price}}">{{$price->name}} - {{$price->price}}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="form-group col-md-3">
             <label for="vlr-Unitario">Vlr. Unitario</label>
             <input type="text"  class="form-control inputDisabled" id="inputVlrUnitario" placeholder="$ 0" wire:model='vlrUnit'  disabled>
