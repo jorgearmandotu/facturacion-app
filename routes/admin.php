@@ -12,6 +12,7 @@ use App\Http\Controllers\PrintInvoiceController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
+use App\Models\ListPrices;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
 
@@ -30,6 +31,7 @@ Route::middleware([
     Route::resource('lines', LinesController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('locations', LocationController::class);
+    Route::get('list-prices', [ProductsController::class, 'listPrices']);
     Route::get('products-list', [ProductsController::class, 'viewProducts'])->name('viewProducts', 'products-list');
     Route::resource('products', ProductsController::class)->name('store','products');
     Route::get('suppliers-list', [SupplierController::class, 'list'])->name('proveedores');

@@ -354,7 +354,7 @@ return [
                 [
                     'text' => 'listado de precios',
                     'icon_color' => 'red',
-                    'url' => '#'
+                    'url' => 'admin/list-prices'
                 ],
                 [
                 'text' => 'Crear Productos',

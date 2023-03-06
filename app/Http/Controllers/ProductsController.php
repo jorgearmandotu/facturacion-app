@@ -42,6 +42,10 @@ class ProductsController extends Controller
         return view('admin.products', compact('taxes'));
     }
 
+    public function listPrices(){
+        return view ('admin.list_prices');
+    }
+
     public function store(StoreProductRequest $request) {
         DB::beginTransaction();
         try{
