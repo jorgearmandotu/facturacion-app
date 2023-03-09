@@ -15,4 +15,11 @@
         </ul>
     </div>
     @endif
+    @if(session('fatal'))
+    <div class="alert alert-danger">
+        <ul>
+                <li>{{ session('fatal') }}</li>
+        </ul>
+    </div>
+    @endif
 </div>

@@ -44,7 +44,7 @@ class ReceiptController extends Controller
             }
             DB::commit();
             //dd('operacion exitosa');
-            return redirect('printReceipt')->with('success', 'Recibo Generado exitosamente');
+            return redirect('admin/printReceipt/'.$receipt->id);
         }catch(\Exception $e){
             //dd('error '.$e);
             DB::rollBack();

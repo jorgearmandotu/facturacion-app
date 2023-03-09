@@ -14,6 +14,7 @@ use App\Http\Controllers\PrintInvoiceController;
 use App\Http\Controllers\PrintReceiptController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\RemisionController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
 use App\Models\ListPrices;
@@ -52,6 +53,8 @@ Route::middleware([
     Route::post('resolutionStore', [ConfigurationCompanyController::class, 'resolutionStore']);
     Route::resource('config-company', ConfigurationCompanyController::class);
     Route::get('printReceipt/{receipt}', [PrintReceiptController::class, 'index']);
+    Route::get('printRemision/{remision}', [RemisionController::class, 'printRemision']);
+    Route::resource('remision', RemisionController::class);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

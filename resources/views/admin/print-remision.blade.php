@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Recibo de caja')
+@section('title', 'Remision')
 
 @section('css')
     <link rel="stylesheet" href="../../css/main.css">
@@ -14,7 +14,7 @@
 
     <div class="container col-md-10">
         <div class="d-print-none">
-            <h1>Detalle de Recibo</h1>
+            <h1>Detalle de Remision</h1>
         </div>
         <div class="row justify-content-center container-fluid col-md-12">
             <div class="col col-md-12 text-center">
@@ -28,13 +28,13 @@
         <hr>
     <div class="row container-fluid col-md-12">
         <div class="col justify-start">
-            <strong>Recibo de caja No. {{$receipt->id}}</strong>
+            <strong>Remision No. {{$remision->id}}</strong>
         </div>
         <div class="col">
-            <p> Pago: {{ $receipt->type }}</p>
+            <p> Pago: {{ $remision->payment_method }}</p>
         </div>
         <div class="col text-center">
-            <p>Fecha: {{ str_replace('-','/', $receipt->date) }}</p>
+            <p>Fecha: {{ str_replace('-','/', $remision->date_remision) }}</p>
         </div>
     </div>
     </div>
@@ -72,11 +72,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="border">1</td>
+                    {{-- <td class="border">1</td>
                     <td class="border">{{ $invoice->prefijo}} - {{ $invoice->number }}</td>
                     <td class="border">{{ $invoice->clients->name }}</td>
                     <td class="border">{{ $invoice->clients->dni }}</td>
-                    <td class="border">{{ number_format($receipt->vlr_payment,2, ',', '.') }}</td>
+                    <td class="border">{{ number_format($receipt->vlr_payment,2, ',', '.') }}</td> --}}
                 </tr>
             </tbody>
             <tfoot></tfoot>

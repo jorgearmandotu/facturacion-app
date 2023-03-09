@@ -319,7 +319,7 @@ return [
                 [
                     'text'  => 'Remisión',
                     'icon'  => 'fas fa-file-invoice',
-                    'url'   => '#'
+                    'url'   => 'admin/remision'
                 ],
                 [
                     'text'  => 'Facturar',

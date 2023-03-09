@@ -20,7 +20,7 @@ class PrintReceiptController extends Controller
             $invoice = Invoice::find($receipt->invoice_id);
             $company = CompanyData::latest('id')->first();
             $seller = User::find($receipt->user_id);
-            return view('admin.print-receipt', compact('invoice', 'receipt', 'company'));
+            return view('admin.print-receipt', compact('invoice', 'receipt', 'company', 'seller'));
         } catch(\Exception $e){
             return 'no fue posible generar vista de recibo';
         }
