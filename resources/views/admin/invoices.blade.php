@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Inventario')
+@section('title', 'Facturar')
 
 @section('css')
     <link rel="stylesheet" href="../../css/main.css">
@@ -28,14 +28,14 @@
                         <option value="CREDITO">Crédito</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                {{-- <div class="form-group col-md-3">
                     <label for="discount">Descuento $</label>
                     <input type="number" name="discount" class="form-control" min="0" value="0">
-                </div>
-                <div class="form-group col-md-3">
+                </div> --}}
+                {{-- <div class="form-group col-md-3">
                     <label for="payment">Cuota inicial $</label>
                     <input type="number" name="payment" class="form-control" min="0" value="0" id="payment" disabled>
-                </div>
+                </div> --}}
                 <div class="form-group col-md-3">
                     <label for="paymentMethod">Forma de pago</label>
                     <select name="paymentMethod" id="" class="form-control">

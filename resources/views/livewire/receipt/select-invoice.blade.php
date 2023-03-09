@@ -14,18 +14,18 @@
             <input type="text" class="form-control" name="prefijo" wire:model.defer="prefijo" wire:change.defer = "searchInvoice" >
         </div>
         <div class="form-group col-md-3">
-            <label for="invoice">Numero</label>
-            <input type="number" class="form-control" name="invoice" wire:model.defer="invoiceNumber" wire:change.defer = "searchInvoice" >
+            <label for="invoice_number">Numero</label>
+            <input type="number" class="form-control" name="invoice_number" wire:model.defer="invoiceNumber" wire:change.defer = "searchInvoice" >
         </div>
         <div class="form-group col-md-3">
             <label for="vlr">Saldo</label>
-            <input type="number" class="form-control" name="invoiceVlr" wire:model.defer="invoiceVlr" >
+            <input type="number" class="form-control"  wire:model.defer="invoiceVlr" >
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="type">Tipo de Documento</label>
-            <select class="form-control" name="document_type" wire:model.defer='typeDoc' disabled>
+            <select class="form-control"  wire:model.defer='typeDoc' disabled>
                 @foreach($types as $documentType)
                     <option value="{{$documentType->id}}">{{$documentType->name}}</option>
                 @endforeach
@@ -33,11 +33,11 @@
         </div>
         <div class="form-group col-md-3">
             <label for="identification">Identificación</label>
-            <input type="number" class="form-control" name="identification" wire:model.defer='identification' disabled>
+            <input type="number" class="form-control" wire:model.defer='identification' disabled>
         </div>
         <div class="form-group col-md-3">
             <label for="name">Nombres</label>
-            <input type="text" class="form-control" name="name" wire:model ='name' disabled >
+            <input type="text" class="form-control" wire:model ='name' disabled >
         </div>
     </div>
 </div>

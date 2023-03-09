@@ -24,4 +24,8 @@ class Invoice extends Model
     public function dataInvoices(){
         return $this->hasMany(DataInvoices::class);
     }
+
+    public function clients() {
+        return $this->hasOne(Clients::class, 'id', 'client_id');
+    }
 }

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Inventario')
+@section('title', 'clientes')
 
 @section('css')
     <link rel="stylesheet" href="../../css/main.css">

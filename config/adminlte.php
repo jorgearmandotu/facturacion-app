@@ -341,7 +341,7 @@ return [
                 [
                     'text'  => 'Facturas pendientes',
                     'icon_color'  => 'red',
-                    'url'   => 'admin/receipt'
+                    'url'   => 'admin/pending-invoices'
                 ],
             ]
         ],
@@ -388,6 +388,11 @@ return [
                     'url' => 'admin/shopping-invoices/create'
                 ],
             ],
+        ],
+        [
+            'text' => 'Configuracion de empresa',
+            'icon' => 'far fa-building',
+            'url' => 'admin/config-company',
         ],
     ],
 

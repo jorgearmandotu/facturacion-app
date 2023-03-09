@@ -121,7 +121,7 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, tax)
     const buttonPlus = document.createElement("button");
     buttonPlus.setAttribute("class", "btn btn-danger");
     buttonPlus.setAttribute("type", "button");
-    buttonPlus.setAttribute("onclick", `rowRemove(${item}, ${VlrTotal})`);
+    buttonPlus.setAttribute("onclick", `rowRemove(${item}, ${Number(VlrTotal)+(VlrTotal*tax/100)})`);
     const icon = document.createElement("i");
     icon.setAttribute("class", "far fa-trash-alt");
     buttonPlus.appendChild(icon);

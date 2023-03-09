@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->enum('type', ['CONTADO', 'CREDITO'])->default('CONTADO');
             $table->enum('payment_method', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA']);
+            $table->foreignId('resolution')->references('id')->on('resolutions');
             $table->timestamps();
         });
     }

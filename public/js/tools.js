@@ -10,3 +10,9 @@ function messages(icon, title, button, timer){
 }
 
 
+window.addEventListener("keydown", (e) => {
+    if(e.key == "Enter"){
+        e.preventDefault();
+        return false;
+    }
+})

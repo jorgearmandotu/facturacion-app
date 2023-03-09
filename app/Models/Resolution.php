@@ -16,5 +16,6 @@ class Resolution extends Model
         'prefijo',
         'initial_number',
         'final_number',
+        'resolution',
     ];
 }

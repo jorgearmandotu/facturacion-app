@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreignId('invoice_id');//para cruzar con factura
             $table->decimal('vlr_invoice');
             $table->decimal('vlr_payment')->default(0);//valor q paga
-            $table->enum('type', ['CONTADO', 'CREDITO'])->default('CONTADO');
+            $table->enum('type', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA'])->default('EFECTIVO');
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->date('date');
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ class Receipt extends Model
         'invoice_id',
         'vlr_invoice',
         'vlr_payment',
-        'type',
+        'user_id',
+        'date',
     ];
 }

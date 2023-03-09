@@ -13,21 +13,26 @@
 @section('content')
 <h1>Recibo de caja</h1>
 <div class="container border p-2">
-    <form>
+    @forelse ($errors->all() as $error)
+    <div class="alert alert-danger" role="alert">
+         <li>{{$error}}</li>
+    </div>
+    @empty
+    @endforelse
+    @if(session('success'))
+    <div class="alert alert-succes" role="alert">
+        <li>{{ session('success')}}</li>
+   </div>
+    @endif
+    {{-- @if(empty($success))
+    @endif --}}
+    <form method="post" action="{{route('receipt.store')}}">
+        @csrf
         <livewire:receipt.select-invoice />
         <div class="form-row">
-            {{-- <div class="form-group col-md-3">
-                <label>Tipo de recibo:</label>
-                <select name="type" id="" class="form-control">
-                    <option value="Ingreso">Ingreso</option>
-                    <option value="Egreso">Egreso</option>
-                </select>
-            </div> --}}
-        </div>
-        <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="vlr_pay">Valor a pagar</label>
-                <input type="number" class="form-control" name="vlr_pay">
+                <label for="vlr_payment">Valor a pagar</label>
+                <input type="number" class="form-control" name="vlr_payment">
             </div>
             <div class="form-group col-md-3">
                 <label for="paymentMethod">Metodo de pago</label>
@@ -39,7 +44,7 @@
             </div>
         </div>
         <div class="form-row justify-content-center">
-            <button class="btn btn-success" type="button">Generar</button>
+            <button class="btn btn-success" type="submit">Generar</button>
         </div>
     </form>
 </div>

@@ -18,8 +18,8 @@ class PrintInvoiceController extends Controller
         }
         $client = Clients::find($invoice->client_id);
         $seller = User::select('name')->find($invoice->user_id);
-        $company = CompanyData::find(1);
-        $resolution = Resolution::find(1);//buscar resolucon con que se hizo factura
+        $company = CompanyData::latest('id')->first();
+        $resolution = Resolution::find($invoice->resolution);//buscar resolucon con que se hizo factura
 
         // return $invoice->dataInvoices[0]->product;
         return view('admin.print-invoice', compact('invoice', 'client', 'seller', 'company', 'resolution'));

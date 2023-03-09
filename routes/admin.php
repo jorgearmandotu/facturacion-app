@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ConfigurationCompanyController;
 use App\Http\Controllers\GestionInventarioController;
 use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
@@ -8,7 +9,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LinesController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PendingInvoicesController;
 use App\Http\Controllers\PrintInvoiceController;
+use App\Http\Controllers\PrintReceiptController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ShoppingInvoiceController;
@@ -45,7 +48,10 @@ Route::middleware([
     Route::resource('facturacion', InvoiceController::class)->name('store', 'invoices');
     Route::get('printInvoice/{invoice}',[PrintInvoiceController::class, 'index'] )->name('print-invoice');
     Route::resource('receipt', ReceiptController::class);
-
+    Route::resource('pending-invoices', PendingInvoicesController::class);
+    Route::post('resolutionStore', [ConfigurationCompanyController::class, 'resolutionStore']);
+    Route::resource('config-company', ConfigurationCompanyController::class);
+    Route::get('printReceipt/{receipt}', [PrintReceiptController::class, 'index']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

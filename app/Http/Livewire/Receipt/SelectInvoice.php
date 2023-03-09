@@ -41,37 +41,42 @@ class SelectInvoice extends Component
 
     public function searchInvoice()
     {
-        if ($this->prefijo != '' && $this->invoiceNumber != '') {
-            $invoice = Invoice::join('cstates', 'cstates.id', 'cstate_id')
-                ->where('prefijo', $this->prefijo)
-                ->where('number', $this->invoiceNumber)->first();
-            //->where('cstates.value', 'Pendiente')
-            if ($invoice) {
-                $client = Clients::find($invoice->client_id);
-                if ($client) {
-                    //$stateInvoice = Cstate::find($invoice->cstate_id);
-                    if($invoice->type == 'CONTADO' ){
-                        $saldo = 0;
-                    }else{
-                        $receipts = Receipt::where('invoice_id', $invoice->id)->get();
-                        $saldo = $invoice->vlr_total;
-                        foreach($receipts as $receipt){
-                            $saldo -= $receipt->vlr_payment;
+        try{
+            if ($this->prefijo != '' && $this->invoiceNumber != '') {
+                $invoice = Invoice::join('cstates', 'cstates.id', 'cstate_id')
+                ->select('invoices.id as id', 'type', 'vlr_total', 'client_id')
+                    ->where('prefijo', $this->prefijo)
+                    ->where('number', $this->invoiceNumber)->first();
+                //->where('cstates.value', 'Pendiente')
+                if ($invoice) {
+                    $client = Clients::find($invoice->client_id);
+                    if ($client) {
+                        //$stateInvoice = Cstate::find($invoice->cstate_id);
+                        if($invoice->type == 'CONTADO' ){
+                            $saldo = 0;
+                        }else{
+                            $receipts = Receipt::where('invoice_id', $invoice->id)->get();
+                            $saldo = $invoice->vlr_total;
+                            foreach($receipts as $receipt){
+                                $saldo -= $receipt->vlr_payment;
+                            }
                         }
+                        $this->invoiceVlr = $saldo;//calcular valor adeudado de factura
+                        $this->name = $client->name;
+                        $this->typeDoc = $client->document_type;
+                        $this->identification = $client->dni;
+                        $this->msg = '';
                     }
-                    $this->invoiceVlr = $saldo;//calcular valor adeudado de factura
-                    $this->name = $client->name;
-                    $this->typeDoc = $client->document_type;
-                    $this->identification = $client->dni;
-                    $this->msg = '';
+                }else {
+                    $this->name = '';
+                    $this->identification = '';
+                    $this->typeDoc = 1;
+                    $this->invoiceVlr = 0;
+                    $this->msg = 'Factura '.$this->prefijo.'-'.$this->invoiceNumber.' No existe';
                 }
-            }else {
-                $this->name = '';
-                $this->identification = '';
-                $this->typeDoc = 1;
-                $this->invoiceVlr = 0;
-                $this->msg = 'Factura '.$this->prefijo.'-'.$this->invoiceNumber.' No existe';
             }
+        }catch(\Exception $e){
+            $this->name = $e;
         }
     }
 }
