@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Inventario')
+@section('title', 'Products')
 
 @section('css')
 <link rel="stylesheet" href="../../css/main.css">
@@ -12,7 +12,7 @@
 
 @section('content')
 <h1>Productos</h1>
-<div class="container col-md-10 tables">
+<div class="container col-md-11 tables">
     <table id="productsTable" class="table table-striped table-bordered bg-light" style="width:100%">
         <thead>
             <tr>

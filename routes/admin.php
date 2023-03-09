@@ -10,6 +10,7 @@ use App\Http\Controllers\LinesController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PrintInvoiceController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
 use App\Models\ListPrices;
@@ -43,19 +44,20 @@ Route::middleware([
     Route::resource('clients', ClientController::class);
     Route::resource('facturacion', InvoiceController::class)->name('store', 'invoices');
     Route::get('printInvoice/{invoice}',[PrintInvoiceController::class, 'index'] )->name('print-invoice');
+    Route::resource('receipt', ReceiptController::class);
 
 
-    Route::get('listado-prueba', function() {
-        return DB::table('products as p')
-        ->join('groups as g', 'p.group_id', '=', 'g.id')
-        ->join('lines as l', 'l.id', '=', 'g.line_id')
-        ->join('cstates as c', 'p.cstate_id', '=', 'c.id')
-        ->join('locations_products as lp', 'lp.product_id', '=', 'p.id')
-        ->select('p.id', 'p.name', 'l.name as line', 'g.name as group', 'p.code', 'c.value as state', 'reference', 'costo', 'price', 'profit', DB::raw('SUM(lp.stock) as total'))
-        ->groupBy('p.id', 'p.name', 'l.name', 'g.name', 'p.code', 'c.value', 'p.reference', 'p.costo', 'p.price', 'p.profit')
-        ->get();
+    // Route::get('listado-prueba', function() {
+    //     return DB::table('products as p')
+    //     ->join('groups as g', 'p.group_id', '=', 'g.id')
+    //     ->join('lines as l', 'l.id', '=', 'g.line_id')
+    //     ->join('cstates as c', 'p.cstate_id', '=', 'c.id')
+    //     ->join('locations_products as lp', 'lp.product_id', '=', 'p.id')
+    //     ->select('p.id', 'p.name', 'l.name as line', 'g.name as group', 'p.code', 'c.value as state', 'reference', 'costo', 'price', 'profit', DB::raw('SUM(lp.stock) as total'))
+    //     ->groupBy('p.id', 'p.name', 'l.name', 'g.name', 'p.code', 'c.value', 'p.reference', 'p.costo', 'p.price', 'p.profit')
+    //     ->get();
 
-        return $products = DB::select('select * from products_list_view');
-    });
+    //     return $products = DB::select('select * from products_list_view');
+    // });
 
 });

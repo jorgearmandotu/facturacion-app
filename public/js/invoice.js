@@ -44,6 +44,7 @@ function add() {
     formProductsList.append('totalView', productsView);
     formProductsList.append(`product${productsView}`, values.product);
     formProductsList.append(`quantity${productsView}`, values.quantity);
+    formProductsList.append(`price_unit${productsView}`, values.vlrUnit);
 
     addRow(values.quantity, values.vlrUnit, values.total, productsView, productText, productsList, tax);
     form.reset();
@@ -91,6 +92,10 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, tax)
     );
     inputUnit.setAttribute("class", "form-control col-md-12 inputDisabled");
     inputUnit.setAttribute("disabled", "");
+    const inputvlr_unit = document.createElement("input");
+    inputvlr_unit.setAttribute("type", "hidden");
+    inputvlr_unit.setAttribute("value", vlrUnit)
+    inputvlr_unit.setAttribute("name", 'price_unit')
     const divTax = document.createElement("div");
     divTax.setAttribute("class", "col-md-1 border border-dark p-0");
     const inputTax = document.createElement("input");
@@ -126,6 +131,7 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, tax)
     divNumber.append(inputNumber);
     divCant.append(inputCant);
     divUnit.append(inputUnit);
+    divUnit.append(inputvlr_unit);
     divTotal.append(inputTotal);
     divTax.append(inputTax);
     divRow.appendChild(divNumber);
@@ -152,6 +158,7 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, tax)
 function rowRemove(item, valueTotal){
     formProductsList.delete(`product${item}`);
     formProductsList.delete(`quantity${item}`);
+    formProductsList.delete(`price_unit${item}`);
 
     productsList--;
     // formProductsList.append('totalItems', itemsTotal)
@@ -187,8 +194,8 @@ function send(){
         return messages('error', 'Ingrese productos a facturar', true)
       }
 
-    //   let listado = Object.fromEntries(formProductsList.entries());
-    //   console.log(listado);
+      let listado = Object.fromEntries(formProductsList.entries());
+      console.log(listado);
       //enviar a servidor factura
       sendInvoice(formProductsList);
 }

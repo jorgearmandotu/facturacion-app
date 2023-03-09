@@ -336,7 +336,12 @@ return [
                 [
                     'text'  => 'Recibo de caja',
                     'icon'  => 'fas fa-file-invoice-dollar',
-                    'url'   => 'admin/clients'
+                    'url'   => 'admin/receipt'
+                ],
+                [
+                    'text'  => 'Facturas pendientes',
+                    'icon_color'  => 'red',
+                    'url'   => 'admin/receipt'
                 ],
             ]
         ],

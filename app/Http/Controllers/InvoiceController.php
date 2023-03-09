@@ -99,6 +99,8 @@ class InvoiceController extends Controller
                 $product_id =$request->$valo;
                 $val = 'quantity'.$position;
                 $quantity = $request->$val;
+                $val = 'price_unit'.$position;
+                $price = $request->$val;
                 $product = Product::find($product_id);
                 if($product){
                     $productsExists = true;
@@ -106,7 +108,7 @@ class InvoiceController extends Controller
                     $dataInvoice->product_id = $product->id;
                     $dataInvoice->invoice_id = $invoice->id;
                     $dataInvoice->quantity = $quantity;
-                    $dataInvoice->vlr_unit = $product->price;
+                    $dataInvoice->vlr_unit = $price;
                     $dataInvoice->position = $position;
                     $taxes = ProductsTaxes::where('product_id', $product->id)->get();
                     $valueTax = 0;
@@ -116,7 +118,7 @@ class InvoiceController extends Controller
                     }
                     $dataInvoice->vlr_tax = $valueTax;
                     $dataInvoice->save();
-                    $vlrTotal += $quantity*$product->price + $quantity*$product->price*$valueTax/100;
+                    $vlrTotal += $quantity*$price + $quantity*$price*$valueTax/100;
                     //disminuir inventario
                     $stocks = LocationProduct::where('product_id', $product->id)->first();
                     $stocks->stock = $stocks->stock - $quantity;
@@ -136,7 +138,7 @@ class InvoiceController extends Controller
             return response()->json(['msg' => $invoice->id, 'status' => 200], 200);
         }catch(\Exception $e){
             DB::rollBack();
-            return response()->json(['msg' => 'Error al generar factura. ', 'status' => 400], 200);
+            return response()->json(['msg' => 'Error al generar factura. '.$e, 'status' => 400], 200);
         }
     }
 }
