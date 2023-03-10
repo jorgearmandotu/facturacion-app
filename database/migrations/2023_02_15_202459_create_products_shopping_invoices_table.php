@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('invoice_id')->references('id')->on('shopping_invoices');
             $table->integer('quantity')->default(0);
-            $table->decimal('price');
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }

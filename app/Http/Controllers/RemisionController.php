@@ -50,7 +50,7 @@ class RemisionController extends Controller
             return back()->with('success', 'Remison creada con exito.');
         }catch(\Exception $e){
             DB::rollBack();
-            return back()->with('fatal', 'No fue psible crear la remision.');
+            return back()->with('fatal', 'No fue psible crear la remision.'.$e);
         }
 
     }

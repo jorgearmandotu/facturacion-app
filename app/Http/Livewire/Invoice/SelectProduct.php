@@ -22,6 +22,7 @@ class SelectProduct extends Component
     public $classNegative = '';
     public $prices = [];
     public $price;
+    public $btnStatus = 'disabled';
 
     protected $listeners = ['changeProduct' => 'changeProduct'];
 
@@ -36,7 +37,7 @@ class SelectProduct extends Component
             $this->product = Product::find($id);
             $stock = LocationProduct::where('product_id', $this->product->id)->select('stock')->first();
             $this->stock = $stock->stock;
-            if($this->stock < 0){
+            if($this->stock < 1){
                 $this->classNegative = 'stock-negative';
             }else{
                 $this->classNegative = '';
@@ -56,6 +57,7 @@ class SelectProduct extends Component
             //dd($this->vlrUnit);
             $this->vlrTotal = $this->quantity*$this->vlrUnity;
             $this->total = number_format(($this->quantity*$this->vlrUnity)+(($this->quantity*$this->vlrUnity*$this->tax)/100), 2, ',', '.');
+            $this->btnStatus = '';
         }catch(\Exception $e){
             $this->stock = 0;
             $this->vlrUnit = 0;
@@ -64,6 +66,7 @@ class SelectProduct extends Component
             $this->vlrTotal = 0;
             $this->quantity = 1;
             $this->price = 0;
+            $this->btnStatus = 'disabled';
         }
     }
 

@@ -28,7 +28,7 @@
         </div>
         <div class="form-group col-md-2">
             <label for="price">Precio:</label>
-            <select name="price" class="form-control" wire:model.defer='price' wire:change='changePrice'>
+            <select name="price" class="form-control" wire:model.defer='price' wire:change='changePrice' id="selectPrice" >
                 @foreach($prices as $price)
                 <option value="{{$price->price}}">{{$price->name}} - {{$price->price}}</option>
                 @endforeach
@@ -46,4 +46,7 @@
         </div>
     </div>
     @section('plugins.Select2', true)
+    <div class="form-row justify-content-center pb-4 mb-4">
+        <button class="btn btn-info" type="button" onclick="add()" {{$btnStatus}} id="btnStatus">Agregar</button>
+    </div>
 </div>

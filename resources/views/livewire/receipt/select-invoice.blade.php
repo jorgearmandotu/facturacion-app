@@ -29,7 +29,7 @@
             <select name="remision" id="" class="form-control" wire:model.defer = 'remision' wire:change='loadRemision'>
                 <option value="0">Seleccione remision</option>
                 @foreach($remisiones as $remision)
-                <option value="{{$remision->id}}">{{$remision->vlr_payment}}</option>
+                <option value="{{$remision->id}}">No.{{$remision->id}} - {{ number_format($remision->vlr_payment, 0, ',', '.')}}</option>
                 @endforeach
             </select>
         </div>

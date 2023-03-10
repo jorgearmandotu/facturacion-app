@@ -49,6 +49,8 @@ function add() {
     addRow(values.quantity, values.vlrUnit, values.total, productsView, productText, productsList, tax);
     form.reset();
     $("#selectProducts").val(null).trigger("change");
+    $("#selectPrice").val(null);
+    $("#btnStatus").attr('disabled', true);
 }
 
 function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, tax) {

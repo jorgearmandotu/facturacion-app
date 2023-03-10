@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('invoice_id')->references('id')->on('invoices');
             $table->integer('quantity');
-            $table->decimal('vlr_unit');
-            $table->decimal('vlr_tax');
+            $table->decimal('vlr_unit', 10, 2);
+            $table->decimal('vlr_tax', 10, 2);
             $table->integer('position');
             $table->timestamps();
         });

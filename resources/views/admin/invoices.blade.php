@@ -52,9 +52,9 @@
                 <form id="formProducts">
                     <livewire:invoice.select-product />
 
-                    <div class="form-row justify-content-center pb-4 mb-4">
+                    {{-- <div class="form-row justify-content-center pb-4 mb-4">
                         <button class="btn btn-info" type="button" onclick="add()">Agregar</button>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
         </form>

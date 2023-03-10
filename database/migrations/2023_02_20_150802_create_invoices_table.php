@@ -18,10 +18,10 @@ return new class extends Migration
             $table->text('number', 20);
             $table->text('prefijo', 5);
             $table->foreignId('client_id')->references('id')->on('clients');
-            $table->decimal('vlr_total');
+            $table->decimal('vlr_total', 10, 2);
             $table->date('date_invoice');
             $table->foreignId('cstate_id')->references('id')->on('cstates');
-            $table->decimal('discount')->default(0);
+            $table->decimal('discount',10 ,2)->default(0);
             $table->foreignId('user_id')->references('id')->on('users');
             $table->enum('type', ['CONTADO', 'CREDITO'])->default('CONTADO');
             $table->enum('payment_method', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA']);

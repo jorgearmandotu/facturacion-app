@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('name', 20);
             $table->string('bar_code', 20)->nullable();
             $table->string('reference', 20)->nullable();
-            $table->decimal('costo')->default(0);
-            $table->decimal('profit')->default(0);
+            $table->decimal('costo', 10, 2)->default(0);
+            $table->decimal('profit', 10, 2)->default(0);
             //$table->decimal('price')->default(0);
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->date('date');
