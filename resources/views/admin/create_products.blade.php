@@ -49,7 +49,7 @@
                     <input type="number" step="0.01" class="form-control" name="profit" id="inputProfit" placeholder="%" onchange="changePercent()" />
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="price">Precio</label>
+                    <label for="price">Precio 1</label>
                     <input type="number" class="form-control" name="price" id="inputPrice" placeholder="$" onchange="changePrice()" min="0" />
                 </div>
             </div>

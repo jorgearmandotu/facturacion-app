@@ -54,6 +54,7 @@ Route::middleware([
     Route::resource('config-company', ConfigurationCompanyController::class);
     Route::get('printReceipt/{receipt}', [PrintReceiptController::class, 'index']);
     Route::get('printRemision/{remision}', [RemisionController::class, 'printRemision']);
+    Route::get('listRemisiones', [RemisionController::class, 'listRemisiones']);
     Route::resource('remision', RemisionController::class);
 
     // Route::get('listado-prueba', function() {

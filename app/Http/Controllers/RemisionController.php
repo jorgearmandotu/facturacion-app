@@ -47,7 +47,7 @@ class RemisionController extends Controller
             $remision->vlr_total = $request->vlr_total;
             $remision->save();
             DB::commit();
-            return back()->with('success', 'Remison creada con exito.');
+            return redirect('admin/printRemision/'.$remision->id);
         }catch(\Exception $e){
             DB::rollBack();
             return back()->with('fatal', 'No fue psible crear la remision.'.$e);
@@ -67,5 +67,12 @@ class RemisionController extends Controller
         }catch(\Exception $e){
             return 'Ocurrio un error al consultar los datos.';
         }
+    }
+
+    public function listRemisiones(){
+        $state = Cstate::where('value', 'Pendiente')->first();
+        $remisiones = Remision::where('cstate_id', $state->id)->get();
+
+        return view('admin.list_remisiones', compact('remisiones'));
     }
 }

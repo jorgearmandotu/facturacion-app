@@ -55,9 +55,30 @@ $(document).ready(function () {
                 columns: [
                     {data: 'name'},
                     {data: 'reference'},
-                    {data: 'costo'},
-                    {data: 'price'},
-                    {data: 'profit'},
+                    {data: null,
+                        render: (data, type, row)=>{
+                            number = row.costo;
+                            number.toLocaleString('es-CO');
+                            number = new Intl.NumberFormat('es-CO').format(number);
+                            return number;
+                        }
+                    },
+                    {data: null,
+                        render: (data, type, row)=>{
+                            number = row.price;
+                            number.toLocaleString('es-CO');
+                            number = new Intl.NumberFormat('es-CO').format(number);
+                            return number;
+                        }
+                    },
+                    {data: null,
+                    render: (data, type, row)=> {
+                        if(row.profit < 1){
+                            return `<span style="color:red">${row.profit}</span>`;
+                        }
+                        return row.profit;
+                    }
+                },
                     {data: 'total'},
                     {data: 'line'},
                     {data: 'group'},

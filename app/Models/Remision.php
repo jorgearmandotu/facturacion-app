@@ -20,4 +20,8 @@ class Remision extends Model
         'user_id',
         'payment_method',
     ];
+
+    public function clients(){
+        return $this->hasOne(Clients::class, 'id', 'client_id');
+    }
 }

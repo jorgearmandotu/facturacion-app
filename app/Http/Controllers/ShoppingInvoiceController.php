@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ListPrices;
 use App\Models\Location;
 use App\Models\LocationProduct;
 use App\Models\Product;
@@ -62,8 +63,19 @@ class ShoppingInvoiceController extends Controller
                 $vlrUnit = $request->$val;
                 if($product && $quantity && $vlrUnit){
                     //agregar producto
+                    $product_select = Product::find($product);
+                    if(!$product_select){
+                        DB::rollBack();
+                        return response()->json(['msg' => 'Verifique Datos de productos Ingresados. '
+                        , 'status' => 400], 200);
+                    }
+                    $product_select->costo = $vlrUnit;
+                    $price = ListPrices::where('name', "precio 1")
+                                        ->where('product_id', $product_select->id)->first();
+                    $product_select->profit = ($price->price - $vlrUnit)/$vlrUnit*100;//(price-costo)/costo*100
+                    $product_select->save();
                     $product_shopping_invoice = new ProductsShoppingInvoice();
-                    $product_shopping_invoice->product_id = $product;
+                    $product_shopping_invoice->product_id = $product_select->id;
                     $product_shopping_invoice->invoice_id = $invoice->id;
                     $product_shopping_invoice->quantity = $quantity;
                     $product_shopping_invoice->price = $vlrUnit;
@@ -72,7 +84,7 @@ class ShoppingInvoiceController extends Controller
                     //incrementar cantidad a stock
                     $locationProducts = new LocationProduct();
                     $locationProducts->location_id = $request->location;
-                    $locationProducts->product_id = $product;
+                    $locationProducts->product_id = $product_select->id;
                     $locationProducts->stock = $quantity;
                     $locationProducts->save();
                 }

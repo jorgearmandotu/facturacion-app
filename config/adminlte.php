@@ -343,6 +343,11 @@ return [
                     'icon_color'  => 'red',
                     'url'   => 'admin/pending-invoices'
                 ],
+                [
+                    'text'  => 'Remisiones pendientes',
+                    'icon_color'  => 'yellow',
+                    'url'   => 'admin/listRemisiones'
+                ],
             ]
         ],
         ['header' => 'Administración'],
