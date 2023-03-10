@@ -16,5 +16,10 @@ class Receipt extends Model
         'vlr_payment',
         'user_id',
         'date',
+        'remision_id',
     ];
+
+    public function remision(){
+        return $this->hasOne(Remision::class, 'id', 'remision_id');
+    }
 }

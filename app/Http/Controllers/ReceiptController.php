@@ -6,6 +6,7 @@ use App\Http\Requests\StoreReceiptRequest;
 use App\Models\Cstate;
 use App\Models\Invoice;
 use App\Models\Receipt;
+use App\Models\Remision;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,15 +31,24 @@ class ReceiptController extends Controller
             $receipt->vlr_invoice = $invoice->vlr_total;
             $receipt->user_id = Auth::id(); //agregar usuario que realizo recibo
             $receipt->date = Carbon::now()->format('Y-m-d');
+            $remision = Remision::find($request->remision);
+            $state = Cstate::where('value', 'Finalizado')->first();
+            if($remision){
+                $receipt->remision_id = $remision->id;
+                $remision->cstate_id = $state->id;
+                $remision->save();
+            }
             $receipt->save();
 
             $receipts = Receipt::where('invoice_id', $invoice->id)->get();
             $total = $invoice->vlr_total;
             foreach($receipts as $receipt){
                 $total -= $receipt->vlr_payment;
+                if($receipt->remision){
+                    $total -= $receipt->remision->vlr_payment;
+                }
             }
             if($total < 1){
-                $state = Cstate::where('value', 'Finalizado')->first();
                 $invoice->cstate_id = $state->id;
                 $invoice->save();
             }

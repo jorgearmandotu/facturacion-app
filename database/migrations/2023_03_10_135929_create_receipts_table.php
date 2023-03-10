@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('type', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA'])->default('EFECTIVO');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->date('date');
+            $table->foreignId('remision_id')->references('id')->on('remisiones')->nullable();
             $table->timestamps();
         });
     }

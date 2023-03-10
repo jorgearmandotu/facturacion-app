@@ -7,6 +7,7 @@ use App\Models\Cstate;
 use App\Models\Document_type;
 use App\Models\Invoice;
 use App\Models\Receipt;
+use App\Models\Remision;
 use Livewire\Component;
 
 class SelectInvoice extends Component
@@ -16,10 +17,16 @@ class SelectInvoice extends Component
     public $prefijo;
     public $invoiceNumber;
     public $invoiceVlr;
+    public $newSaldo;
     public $name = '';
     public $msg;
+    public $remisiones = [];
+    public $remision;
     //public $types;
 
+    public function mount(){
+        //$this->remisiones = Remision::all();
+    }
     public function render()
     {
         $types = Document_type::all();
@@ -32,9 +39,12 @@ class SelectInvoice extends Component
             $client = Clients::where('document_type', $this->typeDoc)
                 ->where('dni', $this->identification)->first();
             if ($client) {
+                $this->remisiones = Remision::all();
                 $this->name = $client->name;
             } else {
                 $this->name = '';
+                $this->remisiones = [];
+                $this->remision = '';
             }
         }
     }
@@ -59,9 +69,17 @@ class SelectInvoice extends Component
                             $saldo = $invoice->vlr_total;
                             foreach($receipts as $receipt){
                                 $saldo -= $receipt->vlr_payment;
+                                if($receipt->remision){
+                                    $saldo -= $receipt->remision->vlr_payment;
+                                }
                             }
                         }
+                        $state = Cstate::where('value', 'Finalizado')->first();
+                        $this->remisiones = Remision::where('client_id', $client->id)
+                                            ->where('cstate_id', '!=', $state->id)->get();
+                        $this->remision = '';
                         $this->invoiceVlr = $saldo;//calcular valor adeudado de factura
+                        $this->newSaldo = $saldo;
                         $this->name = $client->name;
                         $this->typeDoc = $client->document_type;
                         $this->identification = $client->dni;
@@ -72,11 +90,23 @@ class SelectInvoice extends Component
                     $this->identification = '';
                     $this->typeDoc = 1;
                     $this->invoiceVlr = 0;
+                    $this->newSaldo = 0;
+                    $this->remisiones = [];
+                    $this->remision = '';
                     $this->msg = 'Factura '.$this->prefijo.'-'.$this->invoiceNumber.' No existe';
                 }
             }
         }catch(\Exception $e){
             $this->name = $e;
+        }
+    }
+
+    public function loadRemision(){
+        $remision_select = Remision::find($this->remision);
+        if($remision_select){
+            $this->newSaldo -= $remision_select->vlr_payment;
+        }else{
+            $this->newSaldo = $this->invoiceVlr;
         }
     }
 }

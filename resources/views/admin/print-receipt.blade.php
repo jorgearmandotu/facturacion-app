@@ -78,8 +78,25 @@
                     <td class="border">{{ $invoice->clients->dni }}</td>
                     <td class="border">{{ number_format($receipt->vlr_payment,2, ',', '.') }}</td>
                 </tr>
+                @if($receipt->remision)
+                <tr>
+                    <td class="border">2</td>
+                    <td class="border">Remison No. {{ $receipt->remision->id }}</td>
+                    <td class="border">{{ $invoice->clients->name }}</td>
+                    <td class="border">{{ $invoice->clients->dni }}</td>
+                    <td class="border">{{ number_format($receipt->remision->vlr_payment,2, ',', '.') }}</td>
+                </tr>
+                @endif
             </tbody>
-            <tfoot></tfoot>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total:</td>
+                    <td>{{ number_format(($receipt->vlr_payment+$receipt->remision->vlr_payment), 2, ',', '.')}}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <hr>

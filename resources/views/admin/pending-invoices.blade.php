@@ -40,6 +40,9 @@
                         $saldo = $invoice->vlr_total;
                         foreach ($receipts as $receipt) {
                             $saldo -= $receipt->vlr_payment;
+                            if($receipt->remision){
+                                $saldo -= $receipt->remision->vlr_payment;
+                            }
                         }
                     @endphp
                     <td>{{ number_format($saldo, 2, ',', '.') }}</td>
