@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('receipts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tercero_id');
-            $table->foreignId('invoice_id');//para cruzar con factura
+            $table->foreignId('tercero_id')->references('id')->on('clients');
+            $table->foreignId('invoice_id')->references('id')->on('invoices');//para cruzar con factura
             $table->decimal('vlr_invoice', 10, 2);
             $table->decimal('vlr_payment', 10, 2)->default(0);//valor q paga
             $table->enum('type', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA'])->default('EFECTIVO');

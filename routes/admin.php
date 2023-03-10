@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConfigurationCompanyController;
+use App\Http\Controllers\ExportsController;
 use App\Http\Controllers\GestionInventarioController;
 use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,9 @@ Route::middleware([
     Route::get('printRemision/{remision}', [RemisionController::class, 'printRemision']);
     Route::get('listRemisiones', [RemisionController::class, 'listRemisiones']);
     Route::resource('remision', RemisionController::class);
+
+    Route::get('exports', [ExportsController::class, 'index']);
+    Route::get('exportInvoices', [ExportsController::class, 'exportInvoices']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

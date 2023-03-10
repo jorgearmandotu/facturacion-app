@@ -395,6 +395,11 @@ return [
             ],
         ],
         [
+            'text' => 'Reportes xlsx',
+            'icon' => 'far fa-building',
+            'url' => 'admin/exports',
+        ],
+        [
             'text' => 'Configuracion de empresa',
             'icon' => 'far fa-building',
             'url' => 'admin/config-company',
