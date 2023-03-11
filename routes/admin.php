@@ -59,7 +59,8 @@ Route::middleware([
     Route::resource('remision', RemisionController::class);
 
     Route::get('exports', [ExportsController::class, 'index']);
-    Route::get('exportInvoices', [ExportsController::class, 'exportInvoices']);
+    Route::post('exportInvoices', [ExportsController::class, 'exportInvoices']);
+    Route::post('exportReceipts', [ExportsController::class, 'exportReceipts']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

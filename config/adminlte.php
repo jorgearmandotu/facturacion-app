@@ -396,7 +396,7 @@ return [
         ],
         [
             'text' => 'Reportes xlsx',
-            'icon' => 'far fa-building',
+            'icon' => 'far fa-file-excel',
             'url' => 'admin/exports',
         ],
         [

@@ -14,9 +14,45 @@
     <h1>Exportaciones</h1>
 
     <div class="conatiner">
-        <ul>
+
+        <x-messages_flash />
+        <label for="">Exportar facturas</label>
+        {{-- <ul>
             <li><a href="exportInvoices">Exportar facturas</a></li>
-        </ul>
+        </ul> --}}
+        <form action="exportInvoices" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dateFinal">Fecha Final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <label for="">Exportar recibos</label>
+        <form action="exportReceipts" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dateFinal">Fecha Final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
     </div>
 
 @stop
