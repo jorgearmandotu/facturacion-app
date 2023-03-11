@@ -23,7 +23,7 @@ class Receipt extends Model
         return $this->hasOne(Remision::class, 'id', 'remision_id');
     }
 
-    public function clientes(){
+    public function clients(){
         return $this->hasOne(Clients::class, 'id', 'tercero_id');
     }
 

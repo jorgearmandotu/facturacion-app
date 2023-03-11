@@ -19,7 +19,7 @@
             <td>{{ $receipt->clients->dni }}</td>
             <td>{{ $receipt->invoices->prefijo }}</td>
             <td>{{ $receipt->invoices->number }}</td>
-            <td>{{ $receipts->vlr_payment }}</td>
+            <td>{{ $receipt->vlr_payment }}</td>
             <td>{{ $receipt->type }}</td>
             <td>@if($receipt->remision) SI @else NO @endif</td>
         </tr>
