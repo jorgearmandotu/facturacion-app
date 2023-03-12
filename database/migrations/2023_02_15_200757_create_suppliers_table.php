@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('dni', 20)->unique();
             $table->text('name', 50);
+            $table->text('phone', 50)->nullable();
             $table->timestamps();
         });
     }

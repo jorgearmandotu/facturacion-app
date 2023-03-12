@@ -25,6 +25,10 @@ class ClientController extends Controller
             if(!$request->document_type || !$request->dni || !$request->name){
                 return response()->json(['msg' => 'Identificación de cliente es necesaria'], 200);
             }
+            $client = Clients::where('dni', $request->dni)->first();
+            if($client){
+                return response()->json(['msg' => 'Identificación de cliente ya existe'], 200);
+            }
             $client = new Clients();
             $client->dni = $request->dni;
             $client->document_type = $request->document_type;

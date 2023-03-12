@@ -42,8 +42,8 @@ class StoreRemisionRequest extends FormRequest
             'phone.required' => 'El número de telefono es requerido.',
             'description.required' => 'La descripcion es requerida.',
             'description.min' => 'La descripcion debe contener minimo 8 caracteres.',
-            'vlr_total.required' => 'El valor del sercicio es requerido.',
-            'vlr_total.numeric' => 'El valor del sercicio no tiene un formato valido.',
+            'vlr_total.required' => 'El valor del servicio es requerido.',
+            'vlr_total.numeric' => 'El valor del servicio no tiene un formato valido.',
         ];
     }
 }

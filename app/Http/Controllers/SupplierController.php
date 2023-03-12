@@ -19,10 +19,6 @@ class SupplierController extends Controller
     }
 
     public function store(Request  $request){
-        // $validated = $request->validate([
-        //     'dni' => 'required|unique:suppliers|max:20',
-        //     'name' => 'required',
-        // ]);
         try{
         if( empty($request->dni) || empty($request->name) ){
             return response()->json(['msg' => 'Todos los datos son necesarios'], 200);
