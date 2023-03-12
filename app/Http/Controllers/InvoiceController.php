@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Clients;
 use App\Models\Cstate;
 use App\Models\DataInvoices;
 use App\Models\Invoice as ModelsInvoice;
@@ -11,6 +10,7 @@ use App\Models\Product;
 use App\Models\ProductsTaxes;
 use App\Models\Resolution;
 use App\Models\Tax;
+use App\Models\Tercero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,10 +39,10 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try{
             //si no existe cliente se crea
-            $client = Clients::where('document_type', $documentType)
-            ->where('dni', $dni)->first();
+            $client = Tercero::where('dni', $dni)->first();
+            //->where('document_type', $documentType)
             if(!$client){
-                $client = new Clients();
+                $client = new Tercero();
                 $client->document_type = $documentType;
                 $client->dni = $dni;
             }

@@ -8,7 +8,7 @@ use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsShoppingInvoice;
 use App\Models\ShoppingInvoice;
-use App\Models\Supplier;
+use App\Models\Tercero;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class ShoppingInvoiceController extends Controller
     }
 
     public function create(){
-        $suppliers = Supplier::all();
+        $suppliers = Tercero::where('supplier', true)->get();
         $products = Product::all();
         $locations = Location::join('cstates', 'locations.cstate_id', 'cstates.id')
                     ->where('value', 'Activo')->select('name', 'locations.id')->get();

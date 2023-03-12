@@ -94,7 +94,11 @@
                     <td></td>
                     <td></td>
                     <td>Total:</td>
+                    @if($receipt->remision)
                     <td>{{ number_format(($receipt->vlr_payment+$receipt->remision->vlr_payment), 2, ',', '.')}}</td>
+                    @else
+                    <td>{{ number_format(($receipt->vlr_payment), 2, ',', '.')}}</td>
+                    @endif
                 </tr>
             </tfoot>
         </table>

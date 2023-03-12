@@ -5,6 +5,7 @@ let inputName = document.querySelector('#inputName');
 let inputPhone = document.querySelector('#inputPhone');
 let inputAddress = document.querySelector('#inputAddress');
 let inputEmail = document.querySelector('#inputEmail');
+let checkSupplier = document.querySelector('#customControlAutosizing');
 let edit = false;
 let client_id;
 
@@ -122,6 +123,7 @@ async function editClient(id){
     inputAddress.value = client.address;
     inputEmail.value = client.email;
     selectType.value = client.document_type;
+    let check = (client.supplier) ? checkSupplier.checked = true : checkSupplier.checked = false;
     $('#clientsModal').modal('show');
     edit = true;
     client_id = client.id;

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('number', 20);
             $table->text('prefijo', 5);
-            $table->foreignId('client_id')->references('id')->on('clients');
+            $table->foreignId('client_id')->references('id')->on('terceros');
             $table->decimal('vlr_total', 10, 2);
             $table->date('date_invoice');
             $table->foreignId('cstate_id')->references('id')->on('cstates');

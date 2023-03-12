@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Clients;
 use App\Models\CompanyData;
 use App\Models\Invoice;
 use App\Models\Resolution;
+use App\Models\Tercero;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,7 @@ class PrintInvoiceController extends Controller
         if(!$invoice){
             return 'Factura no encontrada';
         }
-        $client = Clients::find($invoice->client_id);
+        $client = Tercero::find($invoice->client_id);
         $seller = User::select('name')->find($invoice->user_id);
         $company = CompanyData::latest('id')->first();
         $resolution = Resolution::find($invoice->resolution);//buscar resolucon con que se hizo factura

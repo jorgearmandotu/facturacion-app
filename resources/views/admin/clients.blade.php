@@ -38,25 +38,33 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="from group row">
+                        <div class="form-group row">
                             <label for="dni">Identificación</label>
                             <input type="number" name="dni" class="form-control" id="inputDni">
                         </div>
-                        <div class="from group row">
+                        <div class="form-group row">
                             <label for="name">Nombre</label>
                             <input type="text" name="name" class="form-control" id="inputName">
                         </div>
-                        <div class="from group row">
+                        <div class="form-group row">
                             <label for="phone">Teléfono</label>
                             <input type="number" name="phone" class="form-control" id="inputPhone">
                         </div>
-                        <div class="from group row">
+                        <div class="form-group row">
                             <label for="address">Dirección</label>
                             <input type="text" name="address" class="form-control" id="inputAddress">
                         </div>
-                        <div class="from group row">
+                        <div class="form-group row">
                             <label for="email">Correo electronico</label>
                             <input type="email" name="email" class="form-control" id="inputEmail">
+                        </div>
+                        <div class="form-group row">
+                            <label for="supplier"></label>
+                            <div class="custom-control custom-checkbox mr-sm-2">
+                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing"
+                                    name="supplier" >
+                                <label class="custom-control-label" for="customControlAutosizing">Proveedor</label>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

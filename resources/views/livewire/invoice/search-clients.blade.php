@@ -1,16 +1,16 @@
 <div>
     <div class="form-row">
         <div class="from-group col-md-6">
+            <label for="dni">Identificacion </label>
+            <input type="number"  class="form-control" name="dni" wire:model.defer = 'dni' wire:change='searchClient'>
+        </div>
+        <div class="from-group col-md-6">
             <label for="document_type">Tipo de Documento </label>
             <select class="form-control" name="document_type" wire:model.defer='type' wire:change = 'searchClient'>
                 @foreach($types as $documentType)
                     <option value="{{$documentType->id}}">{{$documentType->name}}</option>
                 @endforeach
             </select>
-        </div>
-        <div class="from-group col-md-6">
-            <label for="dni">Identificacion </label>
-            <input type="number"  class="form-control" name="dni" wire:model.defer = 'dni' wire:change='searchClient'>
         </div>
     </div>
     <div class="form-row">

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('remisiones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->references('id')->on('clients');
+            $table->foreignId('client_id')->references('id')->on('terceros');
             $table->decimal('vlr_total',10, 2)->default(0);
             $table->decimal('vlr_payment', 10, 2)->default(0);
             $table->text('description', 400);

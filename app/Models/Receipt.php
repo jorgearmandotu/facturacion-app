@@ -24,7 +24,7 @@ class Receipt extends Model
     }
 
     public function clients(){
-        return $this->hasOne(Clients::class, 'id', 'tercero_id');
+        return $this->hasOne(Tercero::class, 'id', 'tercero_id');
     }
 
     public function invoices(){

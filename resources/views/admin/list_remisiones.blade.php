@@ -14,7 +14,7 @@
 <h1>Remisiones pendientes</h1>
 <div class="container">
     <div class="container tables">
-        <table id="remisonesTable" class="table table-striped table-bordered bg-light" style="width:100%">
+        <table id="remisionesTable" class="table table-striped table-bordered bg-light" style="width:100%">
             <thead>
                 <tr>
                     {{-- <th>Tipo De Documento</th> --}}
@@ -46,6 +46,6 @@
 @section('plugins.Datatables', true)
 @section('js')
     <script src="../../js/tools.js"></script>
-    {{-- <script src="../../js/products.js"></script> --}}
+    <script src="../../js/remision.js"></script>
     {{-- @livewireScripts --}}
 @stop

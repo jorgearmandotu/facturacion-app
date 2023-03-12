@@ -6,14 +6,12 @@ use App\Models\CompanyData;
 use App\Models\Invoice;
 use App\Models\Receipt;
 use App\Models\User;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 
 class PrintReceiptController extends Controller
 {
     public function index(Receipt $receipt){
         if(!$receipt){
-            return 'Recibo no encontrad';
+            return 'Recibo no encontrado';
         }
 
         try{

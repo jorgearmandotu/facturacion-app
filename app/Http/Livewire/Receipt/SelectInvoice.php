@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Receipt;
 
-use App\Models\Clients;
 use App\Models\Cstate;
 use App\Models\Document_type;
 use App\Models\Invoice;
 use App\Models\Receipt;
 use App\Models\Remision;
+use App\Models\Tercero;
 use Livewire\Component;
 
 class SelectInvoice extends Component
@@ -36,8 +36,8 @@ class SelectInvoice extends Component
     public function searchClient()
     {
         if ($this->identification != "" && $this->typeDoc > 0) {
-            $client = Clients::where('document_type', $this->typeDoc)
-                ->where('dni', $this->identification)->first();
+            $client = Tercero::where('dni', $this->identification)->first();
+                //->where('document_type', $this->typeDoc)
             if ($client) {
                 $this->remisiones = Remision::all();
                 $this->name = $client->name;
@@ -59,7 +59,7 @@ class SelectInvoice extends Component
                     ->where('number', $this->invoiceNumber)->first();
                 //->where('cstates.value', 'Pendiente')
                 if ($invoice) {
-                    $client = Clients::find($invoice->client_id);
+                    $client = Tercero::find($invoice->client_id);
                     if ($client) {
                         //$stateInvoice = Cstate::find($invoice->cstate_id);
                         if($invoice->type == 'CONTADO' ){

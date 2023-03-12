@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Models\Clients;
 use App\Models\Document_type;
+use App\Models\Tercero;
 use Livewire\Component;
 
 class SearchClients extends Component
@@ -30,8 +30,8 @@ class SearchClients extends Component
 
     public function searchClient(){
         if($this->type && $this->dni){
-        $client = Clients::where('document_type', $this->type)
-                        ->where('dni', $this->dni)->first();
+        $client = Tercero::where('dni', $this->dni)->first();
+                        //->where('document_type', $this->type);
         if($client){
             $this->type = $client->document_type;
              $this->name = $client->name;

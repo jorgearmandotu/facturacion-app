@@ -12,12 +12,12 @@
 
 @section('content')
     <h1>Proveedores</h1>
-    <div class="row containers">
+    {{-- <div class="row containers">
         <button class="btn btn-light border" data-toggle="modal" data-target="#modalSuppliers"><i
                 class="fas fa-solid fa-plus"></i>Agregar Proveedores</button>
-    </div>
+    </div> --}}
 
-    <div class="modal fade" id="modalSuppliers" tabindex="-1" aria-hidden="true">
+    {{-- <div class="modal fade" id="modalSuppliers" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -47,7 +47,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="container col-md-8 tables">
         <table id="suppliersTable" class="table table-striped table-bordered bg-light" style="width:100%">

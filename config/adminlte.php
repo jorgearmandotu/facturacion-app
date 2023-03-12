@@ -329,11 +329,6 @@ return [
                     'url'   => 'admin/facturacion'
                 ],
                 [
-                    'text'  => 'Clientes',
-                    'icon'  => 'fas fa-user-friends',
-                    'url'   => 'admin/clients'
-                ],
-                [
                     'text'  => 'Recibo de caja',
                     'icon'  => 'fas fa-file-invoice-dollar',
                     'url'   => 'admin/receipt'
@@ -383,14 +378,25 @@ return [
             'icon'  => 'fas fa-truck',
             'submenu' => [
                 [
-                    'text' => 'Proveedores',
-                    'icon_color' => 'blue',
-                    'url' => 'admin/suppliers',
-                ],
-                [
                     'text' => 'Carge de facturas',
                     'icon_color' => 'yellow',
                     'url' => 'admin/shopping-invoices/create'
+                ],
+            ],
+        ],
+        [
+            'text' => 'Terceros',
+            'icon' => 'fas fa-user-friends',
+            'submenu' => [
+                [
+                    'text'  => 'Terceros',
+                    'icon_color'  => 'green',
+                    'url'   => 'admin/clients'
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'icon_color' => 'blue',
+                    'url' => 'admin/suppliers',
                 ],
             ],
         ],

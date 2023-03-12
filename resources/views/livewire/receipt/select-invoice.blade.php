@@ -59,5 +59,4 @@
         </div>
         @endif
     </div>
-    {{count($remisiones)}}
 </div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Cstate;
 use App\Models\Line;
 use Exception;
-use DataTables;
 use Illuminate\Http\Request;
 
 class LinesController extends Controller

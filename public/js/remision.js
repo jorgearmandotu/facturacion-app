@@ -1,6 +1,5 @@
-
 $(document).ready(function () {
-    $('#pendingInvoicesTable').DataTable({
+    $('#remisionesTable').DataTable({
         language: {
             lengthMenu: "Mostrar _MENU_ registro por página",
             zeroRecords: "No se encontraron registros",

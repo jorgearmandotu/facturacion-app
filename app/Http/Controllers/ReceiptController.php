@@ -8,7 +8,6 @@ use App\Models\Invoice;
 use App\Models\Receipt;
 use App\Models\Remision;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -37,6 +36,8 @@ class ReceiptController extends Controller
                 $receipt->remision_id = $remision->id;
                 $remision->cstate_id = $state->id;
                 $remision->save();
+            }else{
+                $receipt->remision_id = null;
             }
             $receipt->save();
 
@@ -58,7 +59,7 @@ class ReceiptController extends Controller
         }catch(\Exception $e){
             //dd('error '.$e);
             DB::rollBack();
-            return back()->with('msg', 'No fue posible generar el recibo, verifique la información.');
+            return back()->with('fatal', 'No fue posible generar el recibo, verifique la información.'.$e);
         }
     }
 }

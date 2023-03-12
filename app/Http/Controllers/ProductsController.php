@@ -13,10 +13,8 @@ use App\Models\ProductsTaxes;
 use App\Models\Tax;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 
 class ProductsController extends Controller
 {

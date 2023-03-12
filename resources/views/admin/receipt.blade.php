@@ -13,7 +13,7 @@
 @section('content')
 <h1>Recibo de caja</h1>
 <div class="container border p-2">
-    @forelse ($errors->all() as $error)
+    {{-- @forelse ($errors->all() as $error)
     <div class="alert alert-danger" role="alert">
          <li>{{$error}}</li>
     </div>
@@ -23,9 +23,10 @@
     <div class="alert alert-succes" role="alert">
         <li>{{ session('success')}}</li>
    </div>
-    @endif
+    @endif --}}
     {{-- @if(empty($success))
     @endif --}}
+    <x-messages_flash />
     <form method="post" action="{{route('receipt.store')}}">
         @csrf
         <livewire:receipt.select-invoice />

@@ -31,7 +31,7 @@ class Product extends Model
     }
 
     public function cstates(){
-        return $this->belongsTo(Cstate::class, 'cstate_id');
+        return $this->hasOne(Cstate::class, 'id', 'cstate_id');
     }
 
     public function taxes(){

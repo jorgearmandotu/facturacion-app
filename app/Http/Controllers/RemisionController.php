@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRemisionRequest;
-use App\Models\Clients;
 use App\Models\CompanyData;
 use App\Models\Cstate;
 use App\Models\Remision;
+use App\Models\Tercero;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,10 +21,10 @@ class RemisionController extends Controller
     public function store(StoreRemisionRequest $request){
         DB::beginTransaction();
         try{
-            $client = Clients::where('dni', $request->dni)
-                    ->where('document_type', $request->document_type)->first();
+            $client = Tercero::where('dni', $request->dni)->first();
+                    //->where('document_type', $request->document_type)->first();
             if(!$client){
-                $client = new Clients();
+                $client = new Tercero();
                 $client->document_type = $request->document_type;
                 $client->dni = $request->dni;
             }
