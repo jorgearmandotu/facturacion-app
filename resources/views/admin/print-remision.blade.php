@@ -38,6 +38,17 @@
             </div>
         </div>
         <div class="row container-fluid">
+            {{-- <div class="col col-md-3">
+                <p> Documento: {{ $remision->tercero->documentType->name }}</p>
+            </div> --}}
+            <div class="col col-md-5">
+                <p>Cliente: {{ $remision->tercero->documentType->name }} - {{ $remision->tercero->dni }}</p>
+            </div>
+            <div class="col justify-start col-md-5">
+                <p> {{ $remision->tercero->name }}</p>
+            </div>
+        </div>
+        <div class="row container-fluid">
             <div class="col justify-start col-md-5">
                 <p>Quien recibe: {{ $seller->name }}</p>
             </div>

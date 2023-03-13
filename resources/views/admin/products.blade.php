@@ -21,7 +21,7 @@
                 <th>Costo</th>
                 <th>Precio 1</th>
                 <th>% utilidad</th>
-                <th>Total</th>
+                <th>Existencias</th>
                 <th>Linea</th>
                 <th>grupo</th>
                 <th>Código</th>

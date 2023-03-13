@@ -24,4 +24,10 @@ class Remision extends Model
     public function clients(){
         return $this->hasOne(Tercero::class, 'id', 'client_id');
     }
+
+    public function tercero(){
+        return $this->hasOne(Tercero::class, 'id', 'client_id');
+    }
+
+
 }

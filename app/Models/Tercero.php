@@ -21,4 +21,8 @@ class Tercero extends Model
     public function shoppingInvoices(){
         return $this->hasMany(ShoppingInvoice::class);
     }
+
+    public function documentType() {
+        return $this->hasOne(Document_type::class, 'id', 'document_type');
+    }
 }

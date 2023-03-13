@@ -19,7 +19,7 @@ return new class extends Migration
             //$table->foreignId('line_id')->references('id')->on('lines');
             $table->foreignId('group_id')->references('id')->on('groups');
             $table->string('code', 20)->unique();
-            $table->string('name', 20);
+            $table->string('name', 100);
             $table->string('bar_code', 20)->nullable();
             $table->string('reference', 20)->nullable();
             $table->decimal('costo', 10, 2)->default(0);

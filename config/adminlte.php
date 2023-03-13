@@ -371,19 +371,20 @@ return [
                     'url' => 'admin/gestion-inventario',
                     'icon' => 'fas fa-truck-loading',
                 ],
-            ],
-        ],
-        [
-            'text'  => 'Ingresos',
-            'icon'  => 'fas fa-truck',
-            'submenu' => [
                 [
                     'text' => 'Carge de facturas',
-                    'icon_color' => 'yellow',
+                    'icon' => 'fas fa-truck',
                     'url' => 'admin/shopping-invoices/create'
                 ],
             ],
         ],
+        // [
+        //     'text'  => 'Ingresos',
+        //     'icon'  => 'fas fa-truck',
+        //     'submenu' => [
+
+        //     ],
+        // ],
         [
             'text' => 'Terceros',
             'icon' => 'fas fa-user-friends',
