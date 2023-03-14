@@ -49,7 +49,7 @@ function add() {
     addRow(values.quantity, values.vlrUnit, values.total, productsView, productText, productsList, tax);
     form.reset();
     $("#selectProducts").val(null).trigger("change");
-    $("#selectPrice").val(null);
+    $("#selectPrice").val(null).trigger("change");
     $("#btnStatus").attr('disabled', true);
 }
 
@@ -178,7 +178,6 @@ function rowRemove(item, valueTotal){
             val++;
         }
     }
-
 }
 
 function send(){
@@ -248,3 +247,8 @@ async function sendInvoice(data){//recibo formData
         return messages('error', 'Ocurrió un error inesperado, contacte al administrador del sistema', true)
     }
 }
+
+let selectPrice = document.querySelector('#selectPrice');
+selectPrice.addEventListener('change', () => {
+    $("#btnStatus").attr('disabled', true);
+});

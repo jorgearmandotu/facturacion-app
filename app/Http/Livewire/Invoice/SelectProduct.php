@@ -80,6 +80,7 @@ class SelectProduct extends Component
         $this->vlrUnit = number_format($this->vlrUnity+($this->vlrUnity*$this->tax/100), 0,',', '.');
         $this->vlrTotal = $this->quantity*$this->vlrUnity;
         $this->total = number_format(($this->quantity*$this->vlrUnity)+(($this->quantity*$this->vlrUnity*$this->tax)/100), 2, ',', '.');
+        $this->btnStatus = '';
     }
 
 

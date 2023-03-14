@@ -16,7 +16,7 @@
     <x-messages_flash />
 
     <div class=" container-fuid col-md-8 containers">
-        <form method="POST" action="{{route('products')}}" >
+        <form method="POST" action="{{route('products')}}" id="formSubmit" >
             @csrf
             <div>
                 <livewire:products.group-select />
@@ -84,7 +84,8 @@
                 </div>
             </div>
             <div class="form-row justify-content-center">
-                <button type="submit" class="btn btn-success">Guardar</button>
+                <button class="d-none" id="submit" type="submit">Generar</button>
+                <button class="btn btn-success" id="btnSubmit">Guardar</button>
             </div>
         </form>
     </div>

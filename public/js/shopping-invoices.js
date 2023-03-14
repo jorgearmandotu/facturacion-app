@@ -14,6 +14,7 @@ let formProductsList = new FormData();
 function changeVlrUnit(){
     if(inputQuantity !== '' && inputVlrTotal !== ''){
         inputVlrTotal.value = Number(inputQuantity.value)*inputVlrUnit.value;
+        inputVlrTotal.innerHTML = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(Number(inputQuantity.value)*inputVlrUnit.value);
     }
 }
 
@@ -93,16 +94,16 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
     inputTotalInvoice.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(totalInvoice);
 }
 
-function messages(icon, title, button, timer){
-    Swal.fire({
-        //position: 'center',
-        type: icon,
-        title: title,
-        showConfirmButton: button,
-        timer: timer
-      })
+// function messages(icon, title, button, timer){
+//     Swal.fire({
+//         //position: 'center',
+//         type: icon,
+//         title: title,
+//         showConfirmButton: button,
+//         timer: timer
+//       })
 
-}
+// }
 
 $(document).ready(function() {
     $('#selectSupplier').select2();

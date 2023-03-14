@@ -13,7 +13,7 @@
     <div class="container-fluid containers">
         <h1>Compras</h1>
         <div class="col-md-10">
-            <form id="formSupplier">
+            <form id="formSupplier" >
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="costo">Fecha factura</label>
@@ -45,6 +45,7 @@
                         </select>
                     </div>
                 </div>
+                <button class="d-none" id="submit" type="submit">Generar</button>
             </form>
             <div class="container bg-white">
                 <label for="">Agregar Productos</label>
@@ -73,7 +74,8 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="vlr-Total">Vlr. Total</label>
-                        <input type="number" class="form-control" id="inputVlrTotal" placeholder="$ 0" tabindex="-1" disabled>
+                        <span class="form-control" id="inputVlrTotal"></span>
+                        {{-- <input type="number" class="form-control" id="inputVlrTotal" placeholder="$ 0" tabindex="-1" disabled> --}}
                     </div>
                 </div>
                 <div class="form-row justify-content-center pb-4 mb-4">
@@ -142,6 +144,7 @@
 @section('plugins.Select2', true)
 @section('js')
     <script src="../../js/shopping-invoices.js"></script>
+    <script src="../../js/tools.js"></script>
 
     {{-- @livewireScripts --}}
 @stop

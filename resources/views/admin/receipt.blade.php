@@ -27,7 +27,7 @@
     {{-- @if(empty($success))
     @endif --}}
     <x-messages_flash />
-    <form method="post" action="{{route('receipt.store')}}">
+    <form method="post" action="{{route('receipt.store')}}" id="formSubmit">
         @csrf
         <livewire:receipt.select-invoice />
         <div class="form-row">
@@ -45,7 +45,8 @@
             </div>
         </div>
         <div class="form-row justify-content-center">
-            <button class="btn btn-success" type="submit">Generar</button>
+            <button class="d-none" id="submit" type="submit">Generar</button>
+            <button class="btn btn-success" id="btnSubmit" type="submit">Generar</button>
         </div>
     </form>
 </div>
