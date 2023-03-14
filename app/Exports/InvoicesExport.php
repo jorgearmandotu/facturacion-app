@@ -28,15 +28,17 @@ class InvoicesExport implements FromView, ShouldAutoSize
         return Invoice::join('cstates', 'cstates.id', 'invoices.cstate_id')
                     ->where('invoices.date_invoice', '>=', $this->initial)
                     ->where('invoices.date_invoice', '<=', $this->final)
-                    ->select('date_invoice','prefijo', 'number', 'vlr_total', 'type', 'payment_method', 'value')->get();
+                    ->select('date_invoice','prefijo', 'number', 'vlr_total', 'type', 'payment_method', 'value', 'clients', 'dataInvoices')->get();
     }
 
     public function view() : View {
         // $invoices = Invoice::join('cstates', 'cstates.id', 'invoices.cstate_id')
         // ->select('date_invoice','prefijo', 'number', 'vlr_total', 'type', 'payment_method', 'value')->get();
         return view('exports.invoicesExport', [
-            'invoices' => Invoice::join('cstates', 'cstates.id', 'invoices.cstate_id')
-            ->select('date_invoice','prefijo', 'number', 'vlr_total', 'type', 'payment_method', 'value')->get()
+            'invoices' => Invoice::where('invoices.date_invoice', '>=', $this->initial)
+            ->where('invoices.date_invoice', '<=', $this->final)->get()
+            // 'invoices' => Invoice::join('cstates', 'cstates.id', 'invoices.cstate_id')
+            // ->select('date_invoice','prefijo', 'number', 'vlr_total', 'type', 'payment_method', 'value')->get()
         ]);
     }
 }
