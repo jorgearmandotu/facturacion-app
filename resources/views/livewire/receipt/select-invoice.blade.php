@@ -23,17 +23,18 @@
             {{-- <input type="number" class="form-control"  wire:model.defer="invoiceVlr" > --}}
             <span class="form-control">{{ number_format($invoiceVlr, 2, ',', '.') }}</span>
         </div>
-        @if(count($remisiones) > 0)
+        {{-- @if(count($remisiones) > 0) --}}
         <div class="form-group col-md-3">
-            <label for="remision">Cargar remisión</label>
-            <select name="remision" id="" class="form-control" wire:model.defer = 'remision' wire:change='loadRemision'>
+            <label for="remision">Cargar remisión No.</label><br>
+            <input type="number" name= "remision" wire:model.defer = "numberRemision" class="form-control" wire:change="searchRemision" >
+            {{-- <select name="remision" id="" class="form-control" wire:model.defer = 'remision' wire:change='loadRemision'>
                 <option value="0">Seleccione remision</option>
                 @foreach($remisiones as $remision)
                 <option value="{{$remision->id}}">No.{{$remision->id}} - {{ number_format($remision->vlr_payment, 0, ',', '.')}}</option>
                 @endforeach
-            </select>
+            </select> --}}
         </div>
-        @endif
+        {{-- @endif --}}
     </div>
     <div class="form-row">
         <div class="form-group col-md-3">
@@ -52,11 +53,16 @@
             <label for="name">Nombres</label>
             <input type="text" class="form-control" wire:model ='name' disabled >
         </div>
-        @if(count($remisiones) > 0)
+        <div class="form-group col-md-3">
+            <label for="">Valor remision</label>
+            <span class="form-control">{{ number_format($valueRemision, 2, ',', '.') }}</span>
+        </div>
+        {{-- @if(count($remisiones) > 0)
         <div class="form-group col-md-3">
             <label for="">Nuevo saldo</label>
             <span class="form-control">{{ number_format($newSaldo,2, ',', '.') }}</span>
         </div>
-        @endif
+        @endif --}}
     </div>
+
 </div>

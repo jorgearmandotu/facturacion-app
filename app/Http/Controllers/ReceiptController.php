@@ -25,12 +25,16 @@ class ReceiptController extends Controller
             $receipt = new Receipt();
             $receipt->type = $request->paymentMethod;
             $receipt->vlr_payment = $request->vlr_payment;
+            $receipt->observation = $request->observation;
             $receipt->tercero_id = $invoice->client_id;
             $receipt->invoice_id = $invoice->id;
             $receipt->vlr_invoice = $invoice->vlr_total;
             $receipt->user_id = Auth::id(); //agregar usuario que realizo recibo
             $receipt->date = Carbon::now()->format('Y-m-d');
-            $remision = Remision::find($request->remision);
+            $state = Cstate::where('value', 'Pendiente')->first();
+            $remision = Remision::where('id', $request->remision)
+                            ->where('cstate_id', $state->id)->first();
+            //$remision = Remision::find($request->remision);
             $state = Cstate::where('value', 'Finalizado')->first();
             if($remision){
                 $receipt->remision_id = $remision->id;

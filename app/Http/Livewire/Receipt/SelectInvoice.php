@@ -17,11 +17,13 @@ class SelectInvoice extends Component
     public $prefijo;
     public $invoiceNumber;
     public $invoiceVlr;
-    public $newSaldo;
+    public $saldoTotal;
     public $name = '';
     public $msg;
-    public $remisiones = [];
-    public $remision;
+    //public $remisiones = [];
+    // public $remision;
+    public $numberRemision = '';
+    public $valueRemision = 0;
     //public $types;
 
     public function mount(){
@@ -39,12 +41,12 @@ class SelectInvoice extends Component
             $client = Tercero::where('dni', $this->identification)->first();
                 //->where('document_type', $this->typeDoc)
             if ($client) {
-                $this->remisiones = Remision::all();
+                //$this->remisiones = Remision::all();
                 $this->name = $client->name;
             } else {
                 $this->name = '';
-                $this->remisiones = [];
-                $this->remision = '';
+                //$this->remisiones = [];
+                // $this->remision = '';
             }
         }
     }
@@ -63,23 +65,23 @@ class SelectInvoice extends Component
                     if ($client) {
                         //$stateInvoice = Cstate::find($invoice->cstate_id);
                         if($invoice->type == 'CONTADO' ){
-                            $saldo = 0;
+                            $this->saldoTotal = 0;
                         }else{
                             $receipts = Receipt::where('invoice_id', $invoice->id)->get();
-                            $saldo = $invoice->vlr_total;
+                            $this->saldoTotal = $invoice->vlr_total;
                             foreach($receipts as $receipt){
-                                $saldo -= $receipt->vlr_payment;
+                                $this->saldoTotal -= $receipt->vlr_payment;
                                 if($receipt->remision){
-                                    $saldo -= $receipt->remision->vlr_payment;
+                                    $this->saldoTotal -= $receipt->remision->vlr_payment;
                                 }
                             }
                         }
                         $state = Cstate::where('value', 'Finalizado')->first();
-                        $this->remisiones = Remision::where('client_id', $client->id)
-                                            ->where('cstate_id', '!=', $state->id)->get();
-                        $this->remision = '';
-                        $this->invoiceVlr = $saldo;//calcular valor adeudado de factura
-                        $this->newSaldo = $saldo;
+                        // $this->remisiones = Remision::where('client_id', $client->id)
+                        //                     ->where('cstate_id', '!=', $state->id)->get();
+                        // $this->remision = '';
+                        $this->invoiceVlr = $this->saldoTotal;//calcular valor adeudado de factura
+                        //$this->newSaldo = $this->saldoTotal;
                         $this->name = $client->name;
                         $this->typeDoc = $client->document_type;
                         $this->identification = $client->dni;
@@ -90,9 +92,9 @@ class SelectInvoice extends Component
                     $this->identification = '';
                     $this->typeDoc = 1;
                     $this->invoiceVlr = 0;
-                    $this->newSaldo = 0;
-                    $this->remisiones = [];
-                    $this->remision = '';
+                    //$this->newSaldo = 0;
+                    // $this->remisiones = [];
+                    // $this->remision = '';
                     $this->msg = 'Factura '.$this->prefijo.'-'.$this->invoiceNumber.' No existe';
                 }
             }
@@ -104,9 +106,22 @@ class SelectInvoice extends Component
     public function loadRemision(){
         $remision_select = Remision::find($this->remision);
         if($remision_select){
-            $this->newSaldo -= $remision_select->vlr_payment;
+            //$this->newSaldo -= $remision_select->vlr_payment;
         }else{
-            $this->newSaldo = $this->invoiceVlr;
+           // $this->newSaldo = $this->invoiceVlr;
+        }
+    }
+
+    public function searchRemision(){
+        $state = Cstate::where('value', 'Pendiente')->first();
+        $remision = Remision::where('id', $this->numberRemision)
+                            ->where('cstate_id', $state->id)->first();
+        if($remision){
+            $this->valueRemision = $remision->vlr_payment;
+            $this->invoiceVlr -= $remision->vlr_payment;
+        }else{
+            $this->valueRemision = 0;
+            $this->invoiceVlr = $this->saldoTotal;
         }
     }
 }

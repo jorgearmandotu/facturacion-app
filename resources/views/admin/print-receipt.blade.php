@@ -82,8 +82,8 @@
                 <tr>
                     <td class="border">2</td>
                     <td class="border">Remison No. {{ $receipt->remision->id }}</td>
-                    <td class="border">{{ $invoice->clients->name }}</td>
-                    <td class="border">{{ $invoice->clients->dni }}</td>
+                    <td class="border">{{ $receipt->remision->tercero->name }}</td>
+                    <td class="border">{{ $receipt->remision->tercero->dni }}</td>
                     <td class="border">{{ number_format($receipt->remision->vlr_payment,2, ',', '.') }}</td>
                 </tr>
                 @endif
@@ -102,6 +102,9 @@
                 </tr>
             </tfoot>
         </table>
+    </div>
+    <div class="col justify-start">
+        <strong>Observaciones: </strong><span > {{$receipt->observation}}</span>
     </div>
     <hr>
     <div class="justify-content-center col-md-12 text-center">

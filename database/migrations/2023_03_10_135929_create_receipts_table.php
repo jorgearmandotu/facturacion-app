@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->date('date');
             $table->foreignId('remision_id')->nullable()->constrained('remisiones' ,'id');
+            $table->text('observation', 150)->nullable();
             $table->timestamps();
         });
     }

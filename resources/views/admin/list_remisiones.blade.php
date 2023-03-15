@@ -18,9 +18,11 @@
             <thead>
                 <tr>
                     {{-- <th>Tipo De Documento</th> --}}
+                    <th>No. remision</th>
                     <th>Identificación</th>
                     <th>Nombre</th>
                     <th>Teléfono</th>
+                    <th>Abono</th>
                     <th>valor total</th>
                     <th>opciones</th>
                 </tr>
@@ -28,9 +30,11 @@
             <tbody>
                 @foreach($remisiones as $remision)
                 <tr>
+                    <td>{{ $remision->id }}</td>
                     <td>{{ $remision->clients->dni }}</td>
                     <td>{{ $remision->clients->name }}</td>
                     <td>{{ $remision->clients->phone }}</td>
+                    <td>{{ number_format($remision->vlr_payment, 2, ',', '.') }}</td>
                     <td>{{ number_format($remision->vlr_total, 2, ',', '.') }}</td>
                     <td><a href="printRemision/{{ $remision->id}}">Ver</a> </td>
                 </tr>

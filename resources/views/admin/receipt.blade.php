@@ -13,19 +13,6 @@
 @section('content')
 <h1>Recibo de caja</h1>
 <div class="container border p-2">
-    {{-- @forelse ($errors->all() as $error)
-    <div class="alert alert-danger" role="alert">
-         <li>{{$error}}</li>
-    </div>
-    @empty
-    @endforelse
-    @if(session('success'))
-    <div class="alert alert-succes" role="alert">
-        <li>{{ session('success')}}</li>
-   </div>
-    @endif --}}
-    {{-- @if(empty($success))
-    @endif --}}
     <x-messages_flash />
     <form method="post" action="{{route('receipt.store')}}" id="formSubmit">
         @csrf
@@ -43,12 +30,19 @@
                     <option value="TRANSFERENCIA">Transferencia</option>
                 </select>
             </div>
+            <div class="from-group col-md-9 mb-2">
+                <label for="observation">Observaciones</label>
+                <input type="text" name="observation" class="form-control">
+            </div>
         </div>
         <div class="form-row justify-content-center">
             <button class="d-none" id="submit" type="submit">Generar</button>
             <button class="btn btn-success" id="btnSubmit" type="submit">Generar</button>
         </div>
     </form>
+    <div class="form-row justify-content-end">
+        <a href="listRemisiones" target="_blank" class="link-secondary" >Ver remisiones</a>
+    </div>
 </div>
 @stop
 

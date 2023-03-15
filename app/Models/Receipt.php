@@ -17,6 +17,7 @@ class Receipt extends Model
         'user_id',
         'date',
         'remision_id',
+        'observation',
     ];
 
     public function remision(){
