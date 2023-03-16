@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConfigurationCompanyController;
 use App\Http\Controllers\ExportsController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RemisionController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UsersController;
 use App\Models\ListPrices;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
@@ -61,6 +63,9 @@ Route::middleware([
     Route::get('exports', [ExportsController::class, 'index']);
     Route::post('exportInvoices', [ExportsController::class, 'exportInvoices']);
     Route::post('exportReceipts', [ExportsController::class, 'exportReceipts']);
+
+    Route::resource('adminUsers', AdminUsersController::class);
+
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

@@ -411,6 +411,11 @@ return [
             'icon' => 'far fa-building',
             'url' => 'admin/config-company',
         ],
+        [
+            'text' => 'Usuarios',
+            'icon' => 'fas fa-users',
+            'url' => 'admin/adminUsers',
+        ],
     ],
 
     /*
