@@ -36,17 +36,17 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name">Nombre</label>
-                                <input type="text" name="name" class="form-control" id="name">
+                                <input type="text" name="name" class="form-control" id="name" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="dni">Cédula</label>
-                                <input type="text" name="dni" class="form-control" id="dni">
+                                <input type="text" name="dni" class="form-control" id="dni" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="email">Correo electronico</label>
-                                <input type="email" name="email" class="form-control" id="email">
+                                <input type="email" name="email" class="form-control" id="email" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="phone">Número de contacto</label>
@@ -56,13 +56,13 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="password">Contraseña</label>
-                                <input type="password" name="password" class="form-control" id="password">
+                                <input type="password" name="password" class="form-control" id="password" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="password_confirmation">Repetir contraseña</label>
-                                <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
+                                <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" required>
                             </div>
                         </div>
                         <label>Permisos</label>

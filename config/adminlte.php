@@ -319,6 +319,7 @@ return [
                 [
                     'text'  => 'Remisión',
                     'icon'  => 'fas fa-file-invoice',
+                    'can'     => 'remision.index',
                     'url'   => 'admin/remision'
                 ],
                 [

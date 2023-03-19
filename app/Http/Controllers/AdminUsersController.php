@@ -48,6 +48,13 @@ class AdminUsersController extends Controller
                 ], 200);
             }
             if($validated){
+                $user = new User();
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->dni = $request->dni;
+                $user->password = bcrypt($request->password);
+                $user->phone = $request->phone;
+                $user->givePermissionTo('create remision', 'update remision');
                 return response()->json(['msg' => 'exito', 'status' => 200], 200);
             }
 

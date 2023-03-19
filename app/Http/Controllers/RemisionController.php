@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\DB;
 
 class RemisionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:remision.index')->only(['index']);
+        $this->middleware('can:remision.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:printRemision', ['only' => ['printRemision']]);
+        $this->middleware('can:listRemisiones', ['only' => ['listRemisiones']]);
+        // $this->middleware('can:articulos.destroy', ['only' => ['destroy']]);
+
+        // $this->middleware('can:cambiar.estado.articulos')->only(['cambio_de_estado']);
+    }
+
     public function index(){
         return view('admin.create_remision');
     }
