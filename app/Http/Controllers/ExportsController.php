@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 
 class ExportsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:exports')->only(['index']);
+        $this->middleware('can:exports-invoice', ['only' => ['exportInvoices']]);
+        $this->middleware('can:exports-receipt', ['only' => ['exportReceipts']]);
+    }
+
     public function index(){
         return view('admin.exports');
     }

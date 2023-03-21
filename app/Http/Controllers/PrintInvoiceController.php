@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class PrintInvoiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:print-invoices')->only(['index']);
+    }
+
     function index(Invoice $invoice){
         //consultar factura
         if(!$invoice){

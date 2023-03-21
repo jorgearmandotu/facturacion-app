@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class LinesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:lines.index')->only(['index']);
+        $this->middleware('can:lines.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:lines.update', ['only' => ['update']]);
+    }
 
     public function index(){
         $lines = Line::join('cstates', 'lines.cstate_id', '=', 'cstates.id')

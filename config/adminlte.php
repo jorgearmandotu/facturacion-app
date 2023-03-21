@@ -327,22 +327,26 @@ return [
                     'icon'  => 'fas fa-cash-register',
                     'label' => '$',
                     'label_color' => 'success',
-                    'url'   => 'admin/facturacion'
+                    'url'   => 'admin/facturacion',
+                    'can' => 'invoices.index',
                 ],
                 [
                     'text'  => 'Recibo de caja',
                     'icon'  => 'fas fa-file-invoice-dollar',
-                    'url'   => 'admin/receipt'
+                    'url'   => 'admin/receipt',
+                    'can'   => 'receipt.index',
                 ],
                 [
                     'text'  => 'Facturas pendientes',
                     'icon_color'  => 'red',
+                    'can' => 'pending-invoices',
                     'url'   => 'admin/pending-invoices'
                 ],
                 [
                     'text'  => 'Remisiones pendientes',
                     'icon_color'  => 'yellow',
-                    'url'   => 'admin/listRemisiones'
+                    'url'   => 'admin/listRemisiones',
+                    'can'   => 'listRemisiones',
                 ],
             ]
         ],
@@ -353,28 +357,33 @@ return [
             'icon' => 'fas fa-fw fa-boxes',
             'submenu' => [
                 [
-                'text' => 'Productos',
-                'url' => 'admin/products-list',
-                'icon' => 'fas fa-tshirt',
+                    'text' => 'Productos',
+                    'url' => 'admin/products-list',
+                    'can' => 'products-list',
+                    'icon' => 'fas fa-tshirt',
                 ],
                 [
                     'text' => 'listado de precios',
                     'icon_color' => 'red',
+                    'can' => 'list-prices',
                     'url' => 'admin/list-prices'
                 ],
                 [
-                'text' => 'Crear Productos',
-                'url' => 'admin/products/create',
-                'icon' => 'far fa-plus-square',
+                    'text' => 'Crear Productos',
+                    'url' => 'admin/products/create',
+                    'can' => 'products.store',
+                    'icon' => 'far fa-plus-square',
                 ],
                 [
                     'text' => 'Gestion Inventario',//lineas, grupos, ubicaciones
                     'url' => 'admin/gestion-inventario',
+                    'can'     => 'gestion-inventario',
                     'icon' => 'fas fa-truck-loading',
                 ],
                 [
                     'text' => 'Carge de facturas',
                     'icon' => 'fas fa-truck',
+                    'can' => 'shopping-invoices.store',
                     'url' => 'admin/shopping-invoices/create'
                 ],
             ],
@@ -393,11 +402,13 @@ return [
                 [
                     'text'  => 'Terceros',
                     'icon_color'  => 'green',
+                    'can' => 'terceros.index',
                     'url'   => 'admin/clients'
                 ],
                 [
                     'text' => 'Proveedores',
                     'icon_color' => 'blue',
+                    'can' => 'suppliers.index',
                     'url' => 'admin/suppliers',
                 ],
             ],
@@ -406,16 +417,19 @@ return [
             'text' => 'Reportes xlsx',
             'icon' => 'far fa-file-excel',
             'url' => 'admin/exports',
+            'can' => 'exports'
         ],
         [
             'text' => 'Configuracion de empresa',
             'icon' => 'far fa-building',
             'url' => 'admin/config-company',
+            'can' => 'config-company.index',
         ],
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-users',
             'url' => 'admin/adminUsers',
+            'can' => 'admin-users.index',
         ],
     ],
 

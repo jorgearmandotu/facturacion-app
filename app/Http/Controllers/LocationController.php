@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:locations.index')->only(['index']);
+        $this->middleware('can:locations.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:locations.update', ['only' => ['update']]);
+    }
+
     public function index(){
         $lines = Location::join('cstates', 'locations.cstate_id', '=', 'cstates.id')
                 ->select('locations.id as id', 'cstates.value as state', 'locations.name as name')->get();

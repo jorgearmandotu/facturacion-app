@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 
 class ConfigurationCompanyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:config-company.index')->only(['index']);
+        $this->middleware('can:config-company.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:resolution-store', ['only' => ['resolutionStore']]);
+    }
+
     public function index(){
         $resolution = Resolution::latest('id')->first();
         $company = CompanyData::latest('id')->first();

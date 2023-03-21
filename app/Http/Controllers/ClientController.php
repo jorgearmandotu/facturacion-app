@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:terceros.index')->only(['index']);
+        $this->middleware('can:terceros.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:terceros.update', ['only' => ['update']]);
+        $this->middleware('can:terceros.show', ['only' => ['show']]);
+        $this->middleware('can:list-terceros', ['only' => ['listClients']]);
+    }
+
     public function index(){
         $types = Document_type::all();
         return view('admin.clients', compact('types'));

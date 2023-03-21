@@ -18,6 +18,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:products.index')->only(['index']);
+        $this->middleware('can:products.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:products.update', ['only' => ['update']]);
+        $this->middleware('can:list-prices', ['only' => ['listPrices']]);
+        $this->middleware('can:products-list', ['only' => ['viewProducts']]);
+    }
+
     public function index() {
         // $products = Product::all();
         // $list = [];

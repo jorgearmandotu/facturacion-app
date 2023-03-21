@@ -15,11 +15,22 @@
 
     <div class="container">
         <button class="btn btn-info" data-toggle="modal" data-target="#userModal">Crear Usuario</button>
+
+        <div class="container col-md-8 tables">
+            <table id="usersTable" class="table table-striped table-bordered bg-light" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th>email</th>
+                        <th>contacto</th>
+                        <th>opciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 
-    @foreach($users as $user)
-    <li>{{$user->name}}</li>
-    @endforeach
     {{-- modal de usuario --}}
     <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -67,87 +78,101 @@
                         </div>
                         <label>Permisos</label>
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="remision" value="remision">
-                                    <label class="form-check-label" for="remision">Remisiones</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="facturacion" value="facturacion">
-                                    <label class="form-check-label" for="facturacion">Facturación</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="receipt" value="receipt">
-                                    <label class="form-check-label" for="receipt">Recibos de caja</label>
+                                    <input class="form-check-input" type="checkbox" id="all" value="all">
+                                    <label class="form-check-label" for="all">Selecionar todos</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="facturasPendientes"
-                                        value="facturasPendientes">
-                                    <label class="form-check-label" for="facturasPendientes">Facturas pendientes</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="remisionesPendientes"
-                                        value="remisionesPendientes">
-                                    <label class="form-check-label" for="remisionesPendientes">Remisiones pendientes</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="listProductos"
-                                        value="listProductos">
-                                    <label class="form-check-label" for="listProductos">Listado de productos</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="createProducts"
-                                        value="createProducts">
-                                    <label class="form-check-label" for="createProducts">Creación de productos</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="gestionInventario"
-                                        value="gestionInventario">
-                                    <label class="form-check-label" for="gestionInventario">Gestion de inventario</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="cargueFacturas"
-                                        value="cargueFacturas">
-                                    <label class="form-check-label" for="cargueFacturas">Cargue de facturas</label>
+                        <div class="check-group-all">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-3">
+                                        <input class="form-check-input group-all" type="checkbox" id="remision" value="remision" name="remision">
+                                        <label class="form-check-label" for="remision">Remisiones</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-3">
+                                        <input class="form-check-input group-all" type="checkbox" id="facturacion" value="invoice" name="invoice">
+                                        <label class="form-check-label" for="facturacion">Facturación</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-4">
+                                        <input class="form-check-input group-all" type="checkbox" id="receipt" value="receipt" name="receipt">
+                                        <label class="form-check-label" for="receipt">Recibos de caja</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="terceros" value="terceros">
-                                    <label class="form-check-label" for="terceros">Terceros</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="proveedores"
-                                        value="proveedores">
-                                    <label class="form-check-label" for="proveedores">Proveedores</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="reportes" value="reportes">
-                                    <label class="form-check-label" for="reportes">Reportes</label>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="pending-invoices"
+                                            value="pendingInvoices" name="pendingInvoices">
+                                        <label class="form-check-label" for="facturasPendientes">Facturas pendientes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="remisionesPendientes"
+                                            value="listRemision" name="listRemision">
+                                        <label class="form-check-label" for="remisionesPendientes">Remisiones pendientes</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="configurationCompany"
-                                        value="configurationCompany">
-                                    <label class="form-check-label" for="configurationCompany">Configuración de
-                                        empresa</label>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="createProducts"
+                                            value="createProducts" name="createProducts">
+                                        <label class="form-check-label" for="createProducts">Creación de productos</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="listProductos"
+                                            value="listProducts" name="listProducts">
+                                        <label class="form-check-label" for="listProductos">Listado de productos</label>
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="users" value="users">
-                                    <label class="form-check-label" for="users">Usuarios</label>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="gestionInventario"
+                                            value="gestionInventario" name="gestionInventario">
+                                        <label class="form-check-label" for="gestionInventario">Gestion de inventario</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="cargueFacturas"
+                                            value="shoppingInvoices" name="shoppingInvoices">
+                                        <label class="form-check-label" for="cargueFacturas">Cargue de facturas</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-3">
+                                        <input class="form-check-input group-all" type="checkbox" id="terceros" value="terceros" name="terceros">
+                                        <label class="form-check-label" for="terceros">Terceros</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-3">
+                                        <input class="form-check-input group-all" type="checkbox" id="proveedores"
+                                            value="suppliers" name="suppliers">
+                                        <label class="form-check-label" for="proveedores">Proveedores</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-3">
+                                        <input class="form-check-input group-all" type="checkbox" id="reportes" value="reports" name="reports">
+                                        <label class="form-check-label" for="reportes">Reportes</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input class="form-check-input group-all" type="checkbox" id="configurationCompany"
+                                            value="configCompany" name="configCompany">
+                                        <label class="form-check-label" for="configurationCompany">Configuración de
+                                            empresa</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-4">
+                                        <input class="form-check-input group-all" type="checkbox" id="users" value="users" name="users">
+                                        <label class="form-check-label" for="users">Usuarios</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

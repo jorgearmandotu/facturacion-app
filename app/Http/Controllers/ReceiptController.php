@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 class ReceiptController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:receipt.index')->only(['index']);
+        $this->middleware('can:receipt.store', ['only' => ['create', 'store']]);
+    }
+
     public function index() {
         return view('admin.receipt');
     }

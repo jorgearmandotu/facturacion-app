@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\DB;
 
 class ShoppingInvoiceController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:shopping-invoices.index')->only(['index']);
+        $this->middleware('can:shopping-invoices.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:shopping-invoices.update', ['only' => ['update']]);
+        $this->middleware('can:shopping-invoices.show', ['only' => ['show']]);
+    }
     // public function main(){
     //     return View()
     // }

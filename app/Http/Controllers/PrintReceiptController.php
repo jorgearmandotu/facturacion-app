@@ -9,6 +9,12 @@ use App\Models\User;
 
 class PrintReceiptController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:print-receipt')->only(['index']);
+    }
+
     public function index(Receipt $receipt){
         if(!$receipt){
             return 'Recibo no encontrado';

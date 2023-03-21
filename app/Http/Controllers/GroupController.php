@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 class GroupController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:groups.index')->only(['index']);
+        $this->middleware('can:groups.store', ['only' => ['create', 'store']]);
+        $this->middleware('can:groups.update', ['only' => ['update']]);
+    }
+
     public function index(){
         $lines = Group::join('cstates', 'groups.cstate_id', '=', 'cstates.id')
                 ->join('lines', 'line_id', '=', 'lines.id')

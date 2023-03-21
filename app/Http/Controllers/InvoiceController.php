@@ -19,6 +19,14 @@ use PhpParser\Node\Stmt\Else_;
 
 class InvoiceController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:invoices.index')->only(['index']);
+        $this->middleware('can:invoices.store', ['only' => ['create', 'store']]);
+    }
+
     public function index(){
         $products = Product::join('cstates', 'cstate_id', 'cstates.id')->where('value', '==', 'Activo')->get();
         return view('admin.invoices', compact('products'));

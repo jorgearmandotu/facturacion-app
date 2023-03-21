@@ -7,6 +7,13 @@ use App\Models\Tercero;
 
 class SupplierController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:suppliers.index')->only(['index']);
+        $this->middleware('can:suppliers-list', ['only' => ['list']]);
+    }
     public function index(){
         return view('admin.suppliers');
     }

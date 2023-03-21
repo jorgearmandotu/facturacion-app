@@ -35,27 +35,34 @@ Route::middleware([
     Route::get('', [HomeController::class, 'index'])->name('home');
 
     Route::get('gestion-inventario', [GestionInventarioController::class, 'index'])->name('gestion-inventario');
-
     Route::resource('lines', LinesController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('locations', LocationController::class);
+
     Route::get('list-prices', [ProductsController::class, 'listPrices']);
     Route::get('products-list', [ProductsController::class, 'viewProducts'])->name('viewProducts', 'products-list');
     Route::resource('products', ProductsController::class)->name('store','products');
+
     Route::get('suppliers-list', [SupplierController::class, 'list'])->name('proveedores');
     Route::resource('suppliers', SupplierController::class);
     //Route::get('shooping-nvoice', [ShoppingInvoiceController::class, 'main']);
     //Route::post('shoppinginvoices', [ShoppingInvoiceController::class, 'store'])->name('store', 'shoppinginvoices');
+
     Route::resource('shopping-invoices', ShoppingInvoiceController::class);
+
     Route::get('listClients', [ClientController::class, 'listClients']);
     Route::resource('clients', ClientController::class);
+
     Route::resource('facturacion', InvoiceController::class)->name('store', 'invoices');
     Route::get('printInvoice/{invoice}',[PrintInvoiceController::class, 'index'] )->name('print-invoice');
-    Route::resource('receipt', ReceiptController::class);
     Route::resource('pending-invoices', PendingInvoicesController::class);
+
+    Route::resource('receipt', ReceiptController::class);
+    Route::get('printReceipt/{receipt}', [PrintReceiptController::class, 'index']);
+
     Route::post('resolutionStore', [ConfigurationCompanyController::class, 'resolutionStore']);
     Route::resource('config-company', ConfigurationCompanyController::class);
-    Route::get('printReceipt/{receipt}', [PrintReceiptController::class, 'index']);
+
     Route::get('printRemision/{remision}', [RemisionController::class, 'printRemision']);
     Route::get('listRemisiones', [RemisionController::class, 'listRemisiones']);
     Route::resource('remision', RemisionController::class);
@@ -64,6 +71,7 @@ Route::middleware([
     Route::post('exportInvoices', [ExportsController::class, 'exportInvoices']);
     Route::post('exportReceipts', [ExportsController::class, 'exportReceipts']);
 
+    Route::get('users-list', [AdminUsersController::class, 'list']);
     Route::resource('adminUsers', AdminUsersController::class);
 
 

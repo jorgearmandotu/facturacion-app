@@ -6,6 +6,12 @@ use App\Models\Invoice;
 
 class PendingInvoicesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:pending-invoices')->only(['index']);
+    }
+
     public function index(){
         $invoices = Invoice::join('cstates', 'cstate_id', 'cstates.id')
                         ->where('value', 'Pendiente')
