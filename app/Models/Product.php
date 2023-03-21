@@ -42,4 +42,12 @@ class Product extends Model
         return $this->belongsToMany(DataInvoices::class);
     }
 
+    public function invoices(){
+        return $this->hasMany(Invoice::class, 'product_id', 'id');
+    }
+
+    public function shopingInvoices(){
+        return $this->hasMany(ShoppingInvoice::class, 'product_id', 'id');
+    }
+
 }

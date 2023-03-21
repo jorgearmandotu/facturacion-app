@@ -70,16 +70,55 @@
                 </div>
             </div>
         </form>
+        <label for="">Exportar ingresos por fecha</label>
+        <form action="exportIngresos" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dateFinal">Fecha Final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <label for="">Exportar entradas por producto</label>
+        <form action="exportMovimientoProducto" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="product">Producto</label>
+                    <select name="product" id="selectProducts" class="form-control" style="width: 100%" >
+                        <option value="-1">Seleccione Producto</option>
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
     </div>
 
 @stop
 
 @section('footer')
 @stop
-
+@section('plugins.Select2', true)
 @section('plugins.Datatables', true)
 @section('js')
-    {{-- <script src="../../js/tools.js"></script>
-    <script src="../../js/products.js"></script>
-    @livewireScripts --}}
+    <script src="../../js/tools.js"></script>
+    <script src="../../js/exports.js"></script>
+    {{-- @livewireScripts --}}
 @stop

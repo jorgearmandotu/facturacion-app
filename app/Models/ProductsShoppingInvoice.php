@@ -19,4 +19,8 @@ class ProductsShoppingInvoice extends Model
     public function taxes(){
         return $this->belongsToMany(Tax::class, 'products_taxes', 'product_id', 'tax_id');
     }
+
+    public function product(){
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }

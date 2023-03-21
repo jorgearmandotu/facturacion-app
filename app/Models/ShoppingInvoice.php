@@ -22,6 +22,6 @@ class ShoppingInvoice extends Model
         return $this->belongsTo(Tercero::class, 'supplier_id');
     }
     public function products(){
-        return $this->belongsToMany(ProductsShoppingInvoice::class, 'products_id', 'invoice_id');
+        return $this->hasMany(ProductsShoppingInvoice::class, 'invoice_id', 'id');
     }
 }

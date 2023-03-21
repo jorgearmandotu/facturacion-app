@@ -2,13 +2,14 @@
 
 namespace App\Exports;
 
-use App\Models\ShoppingInvoice;
-use Illuminate\Contracts\View\View;
+use App\Models\Invoice;
+use App\Models\Receipt;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Illuminate\Contracts\View\View;
 
-class ShoppingInvoicesExport implements FromView, ShouldAutoSize
+class IngresosExport implements FromView, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -24,12 +25,12 @@ class ShoppingInvoicesExport implements FromView, ShouldAutoSize
 
     public function collection()
     {
-
-        return ShoppingInvoice::all();
+        return Invoice::all();
     }
 
     public function view() : View {
-        return view('exports.shoppingInvoiceExport', ['invoices' => ShoppingInvoice::where('shopping_invoices.date_invoice', '>=', $this->initial)
-                                ->where('shopping_invoices.date_invoice', '<=', $this->final)->get()]);
+        $data = Invoice::where('invoices.date_invoice', '>=', $this->initial)
+                            ->where('invoices.date_invoice', '<=', $this->final)->get();
+        return view('exports.ingresosFechaExport', ['invoices' => $data]);
     }
 }

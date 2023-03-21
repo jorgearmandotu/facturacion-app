@@ -9,6 +9,7 @@
         <th>Valor</th>
         <th>Metodo de pago</th>
         <th>Remision</th>
+        <th>Comentarios</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <td>{{ $receipt->vlr_payment }}</td>
             <td>{{ $receipt->type }}</td>
             <td>@if($receipt->remision) SI @else NO @endif</td>
+            <td>{{ $receipt->observation}}</td>
         </tr>
     @endforeach
     </tbody>

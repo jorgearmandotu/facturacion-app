@@ -31,4 +31,8 @@ class Receipt extends Model
     public function invoices(){
         return $this->hasOne(Invoice::class, 'id', 'invoice_id');
     }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

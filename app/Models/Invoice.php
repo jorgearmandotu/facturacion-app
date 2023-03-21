@@ -32,4 +32,12 @@ class Invoice extends Model
     public function state() {
         return $this->hasOne(Cstate::class, 'id', 'cstate_id');
     }
+
+    public function receipts() {
+        return $this->hasMany(Receipt::class, 'invoice_id', 'id');
+    }
+
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
