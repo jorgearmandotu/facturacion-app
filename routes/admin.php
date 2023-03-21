@@ -70,6 +70,7 @@ Route::middleware([
     Route::get('exports', [ExportsController::class, 'index']);
     Route::post('exportInvoices', [ExportsController::class, 'exportInvoices']);
     Route::post('exportReceipts', [ExportsController::class, 'exportReceipts']);
+    Route::post('exportShoppingInvoices', [ExportsController::class, 'exportShoppingInvoices']);
 
     Route::get('users-list', [AdminUsersController::class, 'list']);
     Route::resource('adminUsers', AdminUsersController::class);

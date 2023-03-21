@@ -8,6 +8,22 @@ let formUser = document.querySelector('#formUser');
 let btnForm = document.querySelector('#btnForm');
 let checkAll = document.querySelector('#all');
 let linesTable;
+let inputId;
+let inputMethod;
+let checkRemision = document.querySelector('#remision');
+let checkInvoice = document.querySelector('#invoice');
+let checkReceipt = document.querySelector('#receipt');
+let checkPendingInvoices = document.querySelector('#pending-invoices');
+let checkRemisionesPendientes = document.querySelector('#remisionesPendientes');
+let checkCreateProducts = document.querySelector('#createProducts');
+let checkListProducts = document.querySelector('#listProductos');
+let checkGestionInventario = document.querySelector('#gestionInventario');
+let checkCargueFacturas = document.querySelector('#cargueFacturas');
+let checkTerceros = document.querySelector('#terceros');
+let checkSuppliers = document.querySelector('#suppliers');
+let checkReports = document.querySelector('#reportes');
+let checkConfigCompany = document.querySelector('#configurationCompany');
+let checkUsers = document.querySelector('#users');
 
 btnForm.addEventListener('click', function (e){
     e.preventDefault();
@@ -20,10 +36,21 @@ checkAll.addEventListener('click', function () {
 async function store(e){
     e.preventDefault();
     let data = new FormData(formUser);
-    const values = Object.fromEntries(data.entries());
-    console.log(values);
+    //const values = Object.fromEntries(data.entries());
+    let url = `/admin/adminUsers`;
+    if(data.get('id')){
+        url = `/admin/adminUsers/${data.get('id')}`;
+    }
     try{
-        const response = await fetch(`/admin/adminUsers`,{
+        inputId = document.querySelector('#id');
+        inputMethod = document.querySelector('#method');
+        if(inputId && inputMethod){
+            formUser.removeChild(inputId);
+            formUser.removeChild(inputMethod);
+            inputId = null;
+            inputMethod = null;
+        }
+        const response = await fetch(url,{
             method: 'POST',
             body: data,
             headers: {
@@ -36,7 +63,6 @@ async function store(e){
             throw new Error(`HTTP error! status: ${response.status}`);
           }
 
-          console.log(response);
         const res = await response.json();
         // data = await response.json();
         // const errors = data.errors;
@@ -115,12 +141,84 @@ async function edit(userId){
       }
 
       const user = await response.json();
-      console.log(user);
       formUser.reset();
       inputDni.value = user.dni;
       inputEmail.value = user.email;
       inputName.value = user.name;
       inputPhone.value = user.phone;
-
+      const id = document.createElement("input");
+      id.setAttribute("type", "hidden");
+      id.setAttribute("value", user.id);
+      id.setAttribute("name", `id`);
+      id.setAttribute("id", `id`);
+      const method = document.createElement("input");
+      method.setAttribute("type", "hidden");
+      method.setAttribute("value", "put");
+      method.setAttribute("name", `_method`);
+      method.setAttribute("id", `method`);
+      formUser.appendChild(id);
+      formUser.appendChild(method);
+      user.permissions.forEach(function (permiso){
+        switch(permiso.name){
+            case 'remision.store':
+                checkRemision.checked = true;
+                break;
+            case 'invoices.store':
+                checkInvoice.checked = true;
+                break;
+            case 'receipt.store':
+                checkReceipt.checked = true;
+                break;
+            case 'pending-invoices':
+                checkPendingInvoices.checked = true;
+                break;
+            case 'listRemisiones':
+                checkRemisionesPendientes.checked = true;
+                break;
+            case 'products.store':
+                checkCreateProducts.checked = true;
+                break;
+            case 'products-list':
+                checkListProducts.checked = true;
+                break;
+            case 'gestion-inventario':
+                checkGestionInventario.checked = true;
+                break;
+            case 'shopping-invoices.store':
+                checkCargueFacturas.checked = true;
+                break;
+            case 'terceros.store':
+                checkTerceros.checked = true;
+                break;
+            case 'suppliers.index':
+                checkSuppliers.checked = true;
+                break;
+            case 'exports':
+                checkReports.checked = true;
+                break;
+            case 'config-company.store':
+                checkConfigCompany.checked = true;
+                break;
+            case 'admin-users.store':
+                checkUsers.checked = true;
+                break;
+        }
+        //   if(permiso.name == 'remision.index'){
+        //       checkRemision.checked = true;
+        //       console.log(permiso.name);
+        // }
+      });
     $('#userModal').modal('show');
 }
+
+$('#userModal').on('hidden.bs.modal', function (e) {
+    inputId = document.querySelector('#id');
+    inputMethod = document.querySelector('#method');
+    if(inputId !== null && inputMethod !== null){
+        formUser.removeChild(inputId);
+        formUser.removeChild(inputMethod);
+        inputId = null;
+        inputMethod = null;
+    }
+    formUser.reset();
+  });

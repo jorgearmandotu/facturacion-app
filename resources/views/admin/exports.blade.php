@@ -16,7 +16,7 @@
     <div class="conatiner">
 
         <x-messages_flash />
-        <label for="">Exportar facturas</label>
+        <label for="">Exportar facturas de venta</label>
         {{-- <ul>
             <li><a href="exportInvoices">Exportar facturas</a></li>
         </ul> --}}
@@ -36,8 +36,25 @@
                 </div>
             </div>
         </form>
-        <label for="">Exportar recibos</label>
+        <label for="">Exportar recibos de caja</label>
         <form action="exportReceipts" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dateFinal">Fecha Final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <label for="">Exportar facturas de compra</label>
+        <form action="exportShoppingInvoices" method="post">
             @csrf
             <div class="form-row form">
                 <div class="form-group col-md-3">

@@ -13,7 +13,7 @@
 @section('content')
     <h1>Gestion de usuarios</h1>
 
-    <div class="container">
+    <div class="container-fluid">
         <button class="btn btn-info" data-toggle="modal" data-target="#userModal">Crear Usuario</button>
 
         <div class="container col-md-8 tables">
@@ -48,6 +48,8 @@
                             <div class="form-group col-md-6">
                                 <label for="name">Nombre</label>
                                 <input type="text" name="name" class="form-control" id="name" required>
+                                {{-- <input type="hidden" name="id"  id="id">
+                                @method('Put') --}}
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="dni">Cédula</label>
@@ -93,7 +95,7 @@
                                         <label class="form-check-label" for="remision">Remisiones</label>
                                     </div>
                                     <div class="form-check form-check-inline col-md-3">
-                                        <input class="form-check-input group-all" type="checkbox" id="facturacion" value="invoice" name="invoice">
+                                        <input class="form-check-input group-all" type="checkbox" id="invoice" value="invoice" name="invoice">
                                         <label class="form-check-label" for="facturacion">Facturación</label>
                                     </div>
                                     <div class="form-check form-check-inline col-md-4">
@@ -151,7 +153,7 @@
                                         <label class="form-check-label" for="terceros">Terceros</label>
                                     </div>
                                     <div class="form-check form-check-inline col-md-3">
-                                        <input class="form-check-input group-all" type="checkbox" id="proveedores"
+                                        <input class="form-check-input group-all" type="checkbox" id="suppliers"
                                             value="suppliers" name="suppliers">
                                         <label class="form-check-label" for="proveedores">Proveedores</label>
                                     </div>

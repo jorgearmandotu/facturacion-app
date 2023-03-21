@@ -31,6 +31,7 @@ class User extends Authenticatable
         'password',
         'dni',
         'phone',
+        'cstate_id',
     ];
 
     /**
@@ -62,4 +63,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function state(){
+        return $this->hasOne(Cstate::class,'id', 'cstate_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\InvoicesExport;
 use App\Exports\ReceiptsExport;
+use App\Exports\ShoppingInvoicesExport;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class ExportsController extends Controller
         if($dateFinal == ''){
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
-        return Excel::download(new InvoicesExport($dateInitial, $dateFinal), 'Facturas.xlsx');
+        return Excel::download(new InvoicesExport($dateInitial, $dateFinal), 'Facturas de venta.xlsx');
     }
 
     public function exportReceipts(Request $request){
@@ -42,7 +43,19 @@ class ExportsController extends Controller
         if($dateFinal == ''){
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
-        return Excel::download(new ReceiptsExport($dateInitial, $dateFinal), 'recibos.xlsx');
+        return Excel::download(new ReceiptsExport($dateInitial, $dateFinal), 'recibos de caja.xlsx');
+    }
+
+    public function exportShoppingInvoices(Request $request){
+        $dateInitial = $request->dateInitial;
+        $dateFinal = $request->dateFinal;
+        if($dateInitial == ''){
+            return back()->with('fatal', 'Fecha inicial de faturas de compra es requerida');
+        }
+        if($dateFinal == ''){
+            $dateFinal = Carbon::now()->format('Y-m-d');
+        }
+        return Excel::download(new ShoppingInvoicesExport($dateInitial, $dateFinal), 'facturas de compra.xlsx');
     }
 
     public function exportsRemisiones(){

@@ -43,6 +43,9 @@
     <div class="form-row justify-content-end">
         <a href="listRemisiones" target="_blank" class="link-secondary" >Ver remisiones</a>
     </div>
+    <div class="form-row justify-content-end">
+        <a href="pending-invoices" target="_blank" class="link-secondary" >Ver Facturas</a>
+    </div>
 </div>
 @stop
 
