@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Receipt extends Model
 {
     use HasFactory;
+    protected $table = 'receipts';
     protected $fillable = [
         'type',
         'tercero_id',
@@ -18,6 +19,7 @@ class Receipt extends Model
         'date',
         'remision_id',
         'observation',
+        'cstate_id',
     ];
 
     public function remision(){
@@ -34,5 +36,9 @@ class Receipt extends Model
 
     public function user() {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function state(){
+        return $this->hasOne(Cstate::class, 'id', 'cstate_id');
     }
 }

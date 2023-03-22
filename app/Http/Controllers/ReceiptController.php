@@ -50,6 +50,7 @@ class ReceiptController extends Controller
             }else{
                 $receipt->remision_id = null;
             }
+            $receipt->cstate_id = $state->id;
             $receipt->save();
 
             $receipts = Receipt::where('invoice_id', $invoice->id)->get();

@@ -80,6 +80,10 @@ Route::middleware([
 
     Route::get('gestion-documents', [GestionDocumentsController::class, 'index']);
     Route::post('invoices-share', [GestionDocumentsController::class, 'shareInvoices']);
+    Route::post('anularInvoice', [GestionDocumentsController::class, 'anularInvoice']);
+    Route::post('receipt-share', [GestionDocumentsController::class, 'receiptShare']);
+    Route::post('anularReceipt', [GestionDocumentsController::class, 'anularReceipt']);
+    Route::post('remision-share', [GestionDocumentsController::class, 'remisionShare']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

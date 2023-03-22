@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('date');
             $table->foreignId('remision_id')->nullable()->constrained('remisiones' ,'id');
             $table->text('observation', 150)->nullable();
+            $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->timestamps();
         });
     }
