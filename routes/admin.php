@@ -84,6 +84,7 @@ Route::middleware([
     Route::post('receipt-share', [GestionDocumentsController::class, 'receiptShare']);
     Route::post('anularReceipt', [GestionDocumentsController::class, 'anularReceipt']);
     Route::post('remision-share', [GestionDocumentsController::class, 'remisionShare']);
+    Route::post('anularRemision', [GestionDocumentsController::class, 'anularRemision']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

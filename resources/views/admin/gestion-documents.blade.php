@@ -94,6 +94,20 @@
                     </div>
                 </div>
             </form>
+            @if(session('remision'))
+            <div class="row">
+                <p><a href="printRemision/{{ session('remision')->id }}" target="_blank" class="btn btn-warning mr-2">Ver remision</a></p>
+                @if(session('remision')->state->value != 'Anulado')
+                <form action="anularRemision" method="post">
+                    @csrf
+                    <input type="hidden" name="remision" value="{{ session('remision')->id }}">
+                    <button type="submit" class="btn btn-danger">Anular</button>
+                </form>
+                @else
+                    <strong>Recibo se encuentra anulado</strong>
+                @endif
+            </div>
+            @endif
 
             <div class="row">
                 <label for="">Facturas de compra</label>

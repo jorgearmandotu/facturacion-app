@@ -130,6 +130,9 @@
     Aprovado en: {{ $resolution->date_resolution }} Vigencia: {{ $resolution->validity }}<br>
     Prefijo: {{$resolution->prefijo }} del {{$resolution->initial_number}} hasta {{$resolution->final_number}}</span>
     </div>
+    <div class="justify-content-center col-md-12 text-center">
+        <button type="button" class="btn btn-primary d-print-none mt-2" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+    </div>
 </div>
 @stop
 

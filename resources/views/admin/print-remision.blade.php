@@ -84,6 +84,8 @@
         <span class="text-center">Favor revisar que los datos sean correctos, una vez salga del establecimiento no se
             aceptan reclamaciones.<br></span>
     </div>
+    <div class="justify-content-center col-md-12 text-center">
+        <button type="button" class="btn btn-primary d-print-none mt-2" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
     </div>
 @stop
 

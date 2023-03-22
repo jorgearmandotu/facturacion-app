@@ -88,7 +88,7 @@ class GestionDocumentsController extends Controller
             }
             $receipt->save();
             DB::commit();
-            return back()->with('fatal', 'El recibo fue anulado');
+            return back()->with('success', 'El recibo fue anulado');
         }catch(\Exception $e){
             DB::rollBack();
             return back()->with('fatal', 'El recibo no pudo ser anulado');
@@ -96,6 +96,38 @@ class GestionDocumentsController extends Controller
     }
 
     public function remisionShare(Request $request){
+        if($request->numberRemision == ''){
+            return back()->with('fatal', 'Número de remisión es requerido');
+        }
+        $remision = Remision::find($request->numberRemision);
+        if(!$remision){
+            return back()->withInput()->with('fatal', 'Remisión no encontrada');
+        }
+        return back()->withInput()->with('remision', $remision);
+    }
 
+    public function anularRemision(Request $request){
+        $remision = Remision::find($request->remision);
+        if(!$remision){
+            return back()->with('fatal', 'Remisión no encontrada');
+        }
+        //cambiar estado de remision a anulado y quitar de receipt si esta ligado a alguno
+        DB::beginTransaction();
+        try{
+            $state = Cstate::where('value', 'Anulado')->first();
+            $remision->cstate_id = $state->id;
+            $receipt = Receipt::where('remision_id', $remision->id)->where('cstate_id', '!=', $state->id)->first();;
+            if($receipt){
+                $receipt->remision_id = null;
+                $receipt->save();
+            }
+            $remision->save();
+            DB::commit();
+            return back()->with('success', 'La remisión fue anulada');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->with('fatal', 'La remisión no pudo ser anulada').$e;
+
+        }
     }
 }

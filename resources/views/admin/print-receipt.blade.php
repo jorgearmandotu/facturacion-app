@@ -26,17 +26,17 @@
             </div>
         </div>
         <hr>
-    <div class="row container-fluid col-md-12">
-        <div class="col justify-start">
-            <strong>Recibo de caja No. {{$receipt->id}}</strong>
+        <div class="row container-fluid col-md-12">
+            <div class="col justify-start">
+                <strong>Recibo de caja No. {{ $receipt->id }}</strong>
+            </div>
+            <div class="col">
+                <p> Pago: {{ $receipt->type }}</p>
+            </div>
+            <div class="col text-center">
+                <p>Fecha: {{ str_replace('-', '/', $receipt->date) }}</p>
+            </div>
         </div>
-        <div class="col">
-            <p> Pago: {{ $receipt->type }}</p>
-        </div>
-        <div class="col text-center">
-            <p>Fecha: {{ str_replace('-','/', $receipt->date) }}</p>
-        </div>
-    </div>
     </div>
     <div class="row col-md-12">
         <table width=20%>
@@ -73,19 +73,19 @@
             <tbody>
                 <tr>
                     <td class="border">1</td>
-                    <td class="border">{{ $invoice->prefijo}} - {{ $invoice->number }}</td>
+                    <td class="border">{{ $invoice->prefijo }} - {{ $invoice->number }}</td>
                     <td class="border">{{ $invoice->clients->name }}</td>
                     <td class="border">{{ $invoice->clients->dni }}</td>
-                    <td class="border">{{ number_format($receipt->vlr_payment,2, ',', '.') }}</td>
+                    <td class="border">{{ number_format($receipt->vlr_payment, 2, ',', '.') }}</td>
                 </tr>
-                @if($receipt->remision)
-                <tr>
-                    <td class="border">2</td>
-                    <td class="border">Remison No. {{ $receipt->remision->id }}</td>
-                    <td class="border">{{ $receipt->remision->tercero->name }}</td>
-                    <td class="border">{{ $receipt->remision->tercero->dni }}</td>
-                    <td class="border">{{ number_format($receipt->remision->vlr_payment,2, ',', '.') }}</td>
-                </tr>
+                @if ($receipt->remision)
+                    <tr>
+                        <td class="border">2</td>
+                        <td class="border">Remison No. {{ $receipt->remision->id }}</td>
+                        <td class="border">{{ $receipt->remision->tercero->name }}</td>
+                        <td class="border">{{ $receipt->remision->tercero->dni }}</td>
+                        <td class="border">{{ number_format($receipt->remision->vlr_payment, 2, ',', '.') }}</td>
+                    </tr>
                 @endif
             </tbody>
             <tfoot>
@@ -94,23 +94,27 @@
                     <td></td>
                     <td></td>
                     <td>Total:</td>
-                    @if($receipt->remision)
-                    <td>{{ number_format(($receipt->vlr_payment+$receipt->remision->vlr_payment), 2, ',', '.')}}</td>
+                    @if ($receipt->remision)
+                        <td>{{ number_format($receipt->vlr_payment + $receipt->remision->vlr_payment, 2, ',', '.') }}</td>
                     @else
-                    <td>{{ number_format(($receipt->vlr_payment), 2, ',', '.')}}</td>
+                        <td>{{ number_format($receipt->vlr_payment, 2, ',', '.') }}</td>
                     @endif
                 </tr>
             </tfoot>
         </table>
     </div>
     <div class="col justify-start">
-        <strong>Observaciones: </strong><span > {{$receipt->observation}}</span>
+        <strong>Observaciones: </strong><span> {{ $receipt->observation }}</span>
     </div>
     <hr>
     <div class="justify-content-center col-md-12 text-center">
-        <span class="text-center">Favor revisar que los datos sean correctos, una vez salga del establecimiento no se aceptan reclamaciones.<br></span>
+        <span class="text-center">Favor revisar que los datos sean correctos, una vez salga del establecimiento no se
+            aceptan reclamaciones.<br></span>
     </div>
-</div>
+    <div class="justify-content-center col-md-12 text-center">
+        <button type="button" class="btn btn-primary d-print-none mt-2" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+    </div>
+
 @stop
 
 @section('footer')
@@ -119,7 +123,7 @@
 @section('plugins.Datatables', true)
 @section('js')
     {{-- <script src="../../js/tools.js"></script>
-        <script src="../../js/invoice.js"></script> --}}
+        <script src="../../js/invoice.js"></scrip> --}}
     {{-- <script src="../../js/clients.js"></script> --}}
     {{-- @livewireScripts --}}
 @stop
