@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TaxesSeeder::class);
         $this->call(TypeDocumentSeeder::class);
         $this->call(LocationsSeder::class);
-        $this->call(dataFakerSeeder::class);
+        //$this->call(dataFakerSeeder::class);
     }
 }
