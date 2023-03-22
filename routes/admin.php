@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConfigurationCompanyController;
 use App\Http\Controllers\ExportsController;
+use App\Http\Controllers\GestionDocumentsController;
 use App\Http\Controllers\GestionInventarioController;
 use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +78,8 @@ Route::middleware([
     Route::get('users-list', [AdminUsersController::class, 'list']);
     Route::resource('adminUsers', AdminUsersController::class);
 
+    Route::get('gestion-documents', [GestionDocumentsController::class, 'index']);
+    Route::post('invoices-share', [GestionDocumentsController::class, 'shareInvoices']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')

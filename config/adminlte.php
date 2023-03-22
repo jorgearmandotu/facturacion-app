@@ -414,6 +414,11 @@ return [
             ],
         ],
         [
+            'text' => 'Gestion de documentos',
+            'icon' => 'fas fa-file-signature',
+            'url' => 'admin/gestion-documents'
+        ],
+        [
             'text' => 'Reportes xlsx',
             'icon' => 'far fa-file-excel',
             'url' => 'admin/exports',
