@@ -12,14 +12,19 @@ class DataInvoices extends Model
     protected $fillable = [
         'product_id',
         'invoice_id',
-        'quanity',
+        'quantity',
         'vlr_unit',
         'vlr_tax',
         'position',
+        'shopping_invoice_id',
     ];
 
     public function invoice(){
         return $this->hasOne(Invoice::class, 'id', 'invoice_id');
+    }
+
+    public function shoppingInvoice(){
+        return $this->hasOne(ShoppingInvoice::class, 'id', 'shopping_invoice_id');
     }
 
     public function product(){

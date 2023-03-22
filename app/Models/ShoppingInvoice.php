@@ -22,6 +22,7 @@ class ShoppingInvoice extends Model
         return $this->belongsTo(Tercero::class, 'supplier_id');
     }
     public function products(){
-        return $this->hasMany(ProductsShoppingInvoice::class, 'invoice_id', 'id');
+        return $this->hasMany(DataInvoices::class, 'shopping_invoice_id', 'id');
     }
+
 }

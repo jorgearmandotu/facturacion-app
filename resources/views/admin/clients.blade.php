@@ -11,18 +11,18 @@
 @stop
 
 @section('content')
-    <h1>Clientes</h1>
+    <h1>Terceros</h1>
 
     <div class="row">
         <button class="btn btn-light border" data-toggle="modal" data-target="#clientsModal" onclick="newClient(event)"><i
-                class="fas fa-solid fa-plus"></i>Agregar Cliente</button>
+                class="fas fa-solid fa-plus"></i>Agregar Tercero</button>
     </div>
 
     <div class="modal fade" id="clientsModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Creación de clientes</h5>
+                    <h5 class="modal-title">Creación de terceros</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -87,7 +87,7 @@
                 </div>
             </div>
         </form>
-        <label for="">Exportar entradas por producto</label>
+        <label for="">Exportar movimientos por producto</label>
         <form action="exportMovimientoProducto" method="post">
             @csrf
             <div class="form-row form">

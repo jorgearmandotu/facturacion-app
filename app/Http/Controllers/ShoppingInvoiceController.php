@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataInvoices;
 use App\Models\ListPrices;
 use App\Models\Location;
 use App\Models\LocationProduct;
@@ -83,12 +84,18 @@ class ShoppingInvoiceController extends Controller
                                         ->where('product_id', $product_select->id)->first();
                     $product_select->profit = ($price->price - $vlrUnit)/$vlrUnit*100;//(price-costo)/costo*100
                     $product_select->save();
-                    $product_shopping_invoice = new ProductsShoppingInvoice();
-                    $product_shopping_invoice->product_id = $product_select->id;
-                    $product_shopping_invoice->invoice_id = $invoice->id;
-                    $product_shopping_invoice->quantity = $quantity;
-                    $product_shopping_invoice->price = $vlrUnit;
-                    $product_shopping_invoice->save();
+                    // $product_shopping_invoice = new ProductsShoppingInvoice();
+                    // $product_shopping_invoice->product_id = $product_select->id;
+                    // $product_shopping_invoice->invoice_id = $invoice->id;
+                    // $product_shopping_invoice->quantity = $quantity;
+                    // $product_shopping_invoice->price = $vlrUnit;
+                    // $product_shopping_invoice->save();
+                    $dataInvoice = new DataInvoices();
+                    $dataInvoice->product_id = $product_select->id;
+                    $dataInvoice->quantity = $quantity;
+                    $dataInvoice->vlr_unit = $vlrUnit;
+                    $dataInvoice->shopping_invoice_id = $invoice->id;
+                    $dataInvoice->save();
                     $total += ($quantity * $vlrUnit);
                     //incrementar cantidad a stock
                     $locationProducts = new LocationProduct();

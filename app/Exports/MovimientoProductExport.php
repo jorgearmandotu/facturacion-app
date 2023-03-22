@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\DataInvoices;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\ProductsShoppingInvoice;
@@ -31,8 +32,9 @@ class MovimientoProductExport implements FromView, ShouldAutoSize
     }
 
     public function view() : View {
-        $data = ShoppingInvoice::join('products_shopping_invoices', 'products_shopping_invoices.invoice_id', 'shopping_invoices.id')
-                            ->where('date_upload', '>=', $this->dateInitial)->get();
-        return view('exports.movimientoProducto', ['invoices' => $data]);
+        // $data = ShoppingInvoice::join('products_shopping_invoices', 'products_shopping_invoices.invoice_id', 'shopping_invoices.id')
+        //                     ->where('date_upload', '>=', $this->dateInitial)->get();
+        $data = DataInvoices::where('product_id', $this->product->id)->get();
+        return view('exports.movimientoProducto', ['dataInvoices' => $data]);
     }
 }
