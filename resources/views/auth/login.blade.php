@@ -1,7 +1,8 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            {{-- <x-jet-authentication-card-logo /> --}}
+            <img src="../assets/aetius-logo.jpg" alt="Logo" style="max-width: 10rem">
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />

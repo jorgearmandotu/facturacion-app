@@ -109,7 +109,7 @@
             </div>
             @endif
 
-            <div class="row">
+            {{-- <div class="row">
                 <label for="">Facturas de compra</label>
             </div>
             <form action="invoices-share" method="post">
@@ -127,7 +127,7 @@
                         <button type="submit" class="btn btn-info mt-4" >Buscar</button>
                     </div>
                 </div>
-            </form>
+            </form> --}}
         </div>
 @stop
 

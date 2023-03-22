@@ -436,6 +436,11 @@ return [
             'url' => 'admin/adminUsers',
             'can' => 'admin-users.index',
         ],
+        [
+            'text' => 'Perfil',
+            'icon' => 'far fa-user',
+            'url' => 'user/profile',
+        ],
     ],
 
     /*
