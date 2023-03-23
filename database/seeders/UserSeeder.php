@@ -203,6 +203,11 @@ class UserSeeder extends Seeder
             'name'          => 'admin-users.store',
             // 'guard_name'   => 'web',
         ]);
+        //gestion documentos
+        Permission::create([
+            'name'          => 'gestion-documents',
+            // 'guard_name'   => 'web',
+        ]);
 
 
         $user = User::create([
@@ -218,6 +223,6 @@ class UserSeeder extends Seeder
         'shopping-invoices.store', 'list-terceros', 'terceros.index', 'terceros.store', 'terceros.show', 'terceros.update',
         'invoices.store', 'invoices.index', 'print-invoices', 'pending-invoices', 'receipt.index', 'receipt.store',
         'print-receipt', 'resolution-store', 'config-company.index', 'config-company.store', 'exports',
-        'exports-invoice' , 'exports-receipt', 'admin-users.index', 'admin-users.store');
+        'exports-invoice' , 'exports-receipt', 'admin-users.index', 'admin-users.store', 'gestion-documents');
     }
 }

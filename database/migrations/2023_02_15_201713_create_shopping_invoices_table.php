@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('supplier_id')->references('id')->on('terceros');
             $table->integer('number');
             $table->decimal('total', 10, 2)->default(0);
+            $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->date('date_invoice');
             $table->date('date_upload');
             $table->timestamps();

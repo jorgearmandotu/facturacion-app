@@ -177,6 +177,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input class="form-check-input group-all" type="checkbox" id="gestionDocuments" value="gestionDocuments" name="gestionDocuments">
+                                        <label class="form-check-label" for="gestionDocuments">Anular Documentos</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <div class="modal-footer">

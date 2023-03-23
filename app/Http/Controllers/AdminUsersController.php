@@ -111,6 +111,9 @@ class AdminUsersController extends Controller
                 if($request->users){
                     $user->givePermissionTo( 'admin-users.index', 'admin-users.store' );
                 }
+                if($request->gestionDocuments){
+                    $user->givePermissionTo('gestion-documents');
+                }
 
                 $user->save();
                 return response()->json(['msg' => 'Usuario creado con exito', 'status' => 200], 200);

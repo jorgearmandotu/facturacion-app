@@ -12,11 +12,13 @@ class GroupSelect extends Component
     public $line;
     public $groups;
     public $group;
+    public $oldData;
 
     protected $listeners = ['loadGroup'];
 
 
     public function mount($group = 0){
+        $this->oldData = session()->getOldInput();
         $this->lines = Line::join('cstates', 'cstates.id', '=', 'cstate_id')
                         ->where('value', 'Activo')
                         ->select('lines.id as id', 'name')->get();

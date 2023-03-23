@@ -16,6 +16,7 @@ class ShoppingInvoice extends Model
         'total',
         'date_invoice',
         'date_upload',
+        'cstate_id',
     ];
 
     public function suppliers(){
@@ -24,5 +25,10 @@ class ShoppingInvoice extends Model
     public function products(){
         return $this->hasMany(DataInvoices::class, 'shopping_invoice_id', 'id');
     }
+
+    public function state(){
+        return $this->hasOne(Cstate::class, 'id', 'cstate_id');
+    }
+
 
 }

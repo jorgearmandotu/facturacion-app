@@ -24,6 +24,7 @@ let checkSuppliers = document.querySelector('#suppliers');
 let checkReports = document.querySelector('#reportes');
 let checkConfigCompany = document.querySelector('#configurationCompany');
 let checkUsers = document.querySelector('#users');
+let checkgestionDocuments = document.querySelector('#gestionDocuments');
 
 btnForm.addEventListener('click', function (e){
     e.preventDefault();
@@ -202,6 +203,8 @@ async function edit(userId){
             case 'admin-users.store':
                 checkUsers.checked = true;
                 break;
+            case 'gestion-documents':
+                checkgestionDocuments.checked = true;
         }
         //   if(permiso.name == 'remision.index'){
         //       checkRemision.checked = true;

@@ -9,6 +9,7 @@ use App\Models\ListPrices;
 use App\Models\Location;
 use App\Models\LocationProduct;
 use App\Models\Product;
+use App\Models\ProductsMovements;
 use App\Models\ProductsTaxes;
 use App\Models\Tax;
 use Carbon\Carbon;
@@ -62,7 +63,7 @@ class ProductsController extends Controller
                                 ->where('code', $request->code)->first();
             if($product){
                 DB::rollBack();
-                return redirect()->back()->withErrors('No fue posible crearRegistro. Código de producto ya existe en este grupo');
+                return redirect()->back()->withErrors('No fue posible crearRegistro. Código de producto ya existe en este grupo')->withInputs();
             }
             //guardar producto
             $product = new Product();
@@ -97,6 +98,13 @@ class ProductsController extends Controller
             $locationProduct->location_id = $request->location;
             $locationProduct->stock = $request->stock;
             $locationProduct->save();
+            $productMovement = new ProductsMovements();
+            $productMovement->type = 'Creacion';
+            $productMovement->quantity = $request->stock;
+            $productMovement->saldo = $request->stock;
+            $productMovement->location_id = $request->location;
+            $productMovement->product_id = $product->id;
+            $productMovement->save();
             DB::commit();
             return back()->with('success', 'Ingreso exitoso');
 

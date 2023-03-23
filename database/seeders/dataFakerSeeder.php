@@ -9,6 +9,7 @@ use App\Models\Line;
 use App\Models\ListPrices;
 use App\Models\LocationProduct;
 use App\Models\Product;
+use App\Models\ProductsMovements;
 use App\Models\ProductsTaxes;
 use App\Models\Resolution;
 use App\Models\Tercero;
@@ -64,6 +65,11 @@ class dataFakerSeeder extends Seeder
         $locationProduct1 = LocationProduct::create(['location_id' => 1, 'product_id' => $product1->id, 'stock' => 10]);
         $locationProduct2 = LocationProduct::create(['location_id' => 2, 'product_id' => $product2->id, 'stock' => 20]);
         $locationProduct3 = LocationProduct::create(['location_id' => 1, 'product_id' => $product3->id, 'stock' => 30]);
+
+        //movimiento de products
+        $productMovement = ProductsMovements::create(['type' => 'Creacion', 'quantity' => 10, 'saldo' => 10, 'location_id' => 1, 'product_id' => $product1->id]);
+        $productMovement = ProductsMovements::create(['type' => 'Creacion', 'quantity' => 20, 'saldo' => 20, 'location_id' => 2, 'product_id' => $product2->id]);
+        $productMovement = ProductsMovements::create(['type' => 'Creacion', 'quantity' => 30, 'saldo' => 30, 'location_id' => 1, 'product_id' => $product3->id]);
 
         //crear clientes
         $client1 = Tercero::create(['dni' => '111111111', 'document_type' => '1', 'name' => 'CLIENTES VARIOS']);

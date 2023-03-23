@@ -30,6 +30,7 @@ class StoreProductRequest extends FormRequest
             'bar_code' => 'nullable|unique:products',
             //'line' => 'exists:lines,id',
             'group' => 'exists:groups,id',
+            'profit' => 'required',
         ];
     }
 
@@ -45,6 +46,7 @@ class StoreProductRequest extends FormRequest
         'code.unique' => 'El código de producto ya esta en uso',
         'costo.required' => 'El costo es requerido',
         'group.exists' => 'La linea y el grupo son requeridos',
+        'profit.required' => '% de utilidad debe tener un valor',
     ];
 }
 }

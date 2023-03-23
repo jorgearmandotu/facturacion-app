@@ -416,7 +416,8 @@ return [
         [
             'text' => 'Gestion de documentos',
             'icon' => 'fas fa-file-signature',
-            'url' => 'admin/gestion-documents'
+            'url' => 'admin/gestion-documents',
+            'can' => 'gestion-documents',
         ],
         [
             'text' => 'Reportes xlsx',

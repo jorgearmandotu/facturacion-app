@@ -6,6 +6,7 @@ use App\Models\Cstate;
 use App\Models\DataInvoices;
 use App\Models\Invoice;
 use App\Models\LocationProduct;
+use App\Models\ProductsMovements;
 use App\Models\Receipt;
 use App\Models\Remision;
 use Carbon\Carbon;
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class GestionDocumentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:gestion-documents')->only(['index', 'shareInvoices', 'anularInvoice', 'receiptShare', 'anularReceipt', 'remisionShare', 'anularRemision']);
+    }
+
     public function index(){
         return view('admin.gestion-documents');
     }
@@ -45,15 +52,36 @@ class GestionDocumentsController extends Controller
             $dataInvoice = $invoice->dataInvoices;
             foreach($dataInvoice as $data){
                 $stocks = LocationProduct::where('product_id', $data->product_id)->first();
-                $stocks->stock = $stocks->stock + $data->quantity;
+                $stocks->stock = $stocks->stock + $data->quantity;//como se anula factra se devuelve producto al inventario
                 $stocks->save();
+                $productMovement = ProductsMovements::where('document_type', 'Invoice')
+                                                    ->where('document_id', $invoice->id)
+                                                    ->where('product_id', $data->product_id)->first();
+                if(!$productMovement){
+                    DB::rollBack();
+                    return back()->with('fatal', 'La factura no pudo ser anulada')->withInput();
+                }
+                $productMovement = new ProductsMovements();
+                $productMovement->type = 'Entrada';
+                $productMovement->quantity = $data->quantity;
+                $locations = LocationProduct::where('product_id', $data->product_id)->get();
+                $totalProduct = 0;
+                foreach($locations as $location){
+                    $totalProduct += $location->stock;
+                }
+                $productMovement->saldo = $totalProduct;
+                $productMovement->location_id = $stocks->location_id;
+                $productMovement->product_id = $data->product_id;
+                $productMovement->document_type = 'Anulacion';
+                $productMovement->document_id = $invoice->id;
+                $productMovement->save();
             }
             $invoice->save();
             DB::commit();
-            return back()->with('success', 'La factura fue anulada');
+            return back()->with('success', 'La factura fue anulada')->withInput();
         }catch(\Exception $e){
             DB::rollBack();
-            return back()->with('fatal', 'La factura no pudo ser anulada');
+            return back()->with('fatal', 'La factura no pudo ser anulada'.$e)->withInput();
         }
     }
 

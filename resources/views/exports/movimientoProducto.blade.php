@@ -14,7 +14,7 @@
     <tbody>
 
     @foreach($dataInvoices as $invoice)
-        @if($invoice->shopping_invoice_id)
+        @if($invoice->shopping_invoice_id && $invoice->shoppingInvoice->state->value != 'Anulado')
         <tr>
             <td>{{ $invoice->shoppingInvoice->date_upload }}</td>
             <td>{{ $invoice->product->name }}</td>
@@ -25,7 +25,7 @@
             <td>{{ $invoice->shoppingInvoice->number }}</td>
             <td>{{ $invoice->shoppingInvoice->suppliers->name }}</td>
         </tr>
-        @else
+        @elseif($invoice->invoice && $invoice->invoice->state->value != 'Anulado')
         <tr>
             <td>{{ $invoice->invoice->date_invoice }}</td>
             <td>{{ $invoice->product->name }}</td>

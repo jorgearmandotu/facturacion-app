@@ -7,6 +7,7 @@ use App\Models\ListPrices;
 use App\Models\Location;
 use App\Models\LocationProduct;
 use App\Models\Product;
+use App\Models\ProductsMovements;
 use App\Models\ProductsShoppingInvoice;
 use App\Models\ShoppingInvoice;
 use App\Models\Tercero;
@@ -98,11 +99,31 @@ class ShoppingInvoiceController extends Controller
                     $dataInvoice->save();
                     $total += ($quantity * $vlrUnit);
                     //incrementar cantidad a stock
-                    $locationProducts = new LocationProduct();
-                    $locationProducts->location_id = $request->location;
-                    $locationProducts->product_id = $product_select->id;
-                    $locationProducts->stock = $quantity;
+                    $locationProducts = LocationProduct::where('product_id', $product_select->id)
+                                                    ->where('location_id', $request->location)->first();
+                    if(!$locationProducts){
+                        $locationProducts = new LocationProduct();
+                        $locationProducts->location_id = $request->location;
+                        $locationProducts->product_id = $product_select->id;
+                        $locationProducts->stock = $quantity;
+                    }else{
+                        $locationProducts->stock = $locationProducts->stock + $quantity;
+                    }
                     $locationProducts->save();
+                    $productMovement = new ProductsMovements();
+                    $productMovement->type = 'Entrada';
+                    $productMovement->quantity = $quantity;
+                    $locations = LocationProduct::where('product_id', $product_select->id)->get();
+                    $totalProduct = 0;
+                    foreach($locations as $location){
+                        $totalProduct += $location->stock;
+                    }
+                    $productMovement->saldo = $totalProduct;
+                    $productMovement->location_id = $request->location;
+                    $productMovement->product_id = $product_select->id;
+                    $productMovement->document_type = 'shopping_invoice';
+                    $productMovement->document_id = $invoice->id;
+                    $productMovement->save();
                 }
                 //return response()->json(['msg' => $vlrUnit, 'status' => 200], 200);
             }

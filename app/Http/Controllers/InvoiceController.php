@@ -7,6 +7,7 @@ use App\Models\DataInvoices;
 use App\Models\Invoice as ModelsInvoice;
 use App\Models\LocationProduct;
 use App\Models\Product;
+use App\Models\ProductsMovements;
 use App\Models\ProductsTaxes;
 use App\Models\Resolution;
 use App\Models\Tax;
@@ -132,6 +133,20 @@ class InvoiceController extends Controller
                     $stocks = LocationProduct::where('product_id', $product->id)->first();
                     $stocks->stock = $stocks->stock - $quantity;
                     $stocks->save();
+                    $productMovement = new ProductsMovements();
+                    $productMovement->type = 'Salida';
+                    $productMovement->quantity = $quantity;
+                    $locations = LocationProduct::where('product_id', $product->id)->get();
+                    $totalProduct = 0;
+                    foreach($locations as $location){
+                        $totalProduct += $location->stock;
+                    }
+                    $productMovement->saldo = $totalProduct;
+                    $productMovement->location_id = $stocks->location_id;
+                    $productMovement->product_id = $product->id;
+                    $productMovement->document_type = 'Invoice';
+                    $productMovement->document_id = $invoice->id;
+                    $productMovement->save();
                 }
 
             }
