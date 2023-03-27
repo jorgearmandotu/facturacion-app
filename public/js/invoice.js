@@ -9,7 +9,9 @@ let formProductsList = new FormData();
 
 //invoice
 $(document).ready(function () {
-    $("#selectProducts").select2();
+    $("#selectProducts").select2({
+        placeholder: 'Seleccione un producto'
+    });
 });
 
 $("#selectProducts").on("select2:select", function (e) {

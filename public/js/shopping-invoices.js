@@ -106,8 +106,12 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
 // }
 
 $(document).ready(function() {
-    $('#selectSupplier').select2();
-    $('#selectProducts').select2();
+    $('#selectSupplier').select2({
+        placeholder: 'Seleccione un proveedor',
+    });
+    $('#selectProducts').select2({
+        placeholder: 'Seleccione un Producto',
+    });
 });
 
 //addRow();

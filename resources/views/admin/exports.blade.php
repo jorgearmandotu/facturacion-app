@@ -36,6 +36,7 @@
                 </div>
             </div>
         </form>
+        <hr>
         <label for="">Exportar recibos de caja</label>
         <form action="exportReceipts" method="post">
             @csrf
@@ -53,6 +54,7 @@
                 </div>
             </div>
         </form>
+        <hr>
         <label for="">Exportar facturas de compra</label>
         <form action="exportShoppingInvoices" method="post">
             @csrf
@@ -70,6 +72,7 @@
                 </div>
             </div>
         </form>
+        <hr>
         <label for="">Exportar ingresos por fecha</label>
         <form action="exportIngresos" method="post">
             @csrf
@@ -87,6 +90,7 @@
                 </div>
             </div>
         </form>
+        <hr>
         <label for="">Exportar movimientos por producto</label>
         <form action="exportMovimientoProducto" method="post">
             @csrf

@@ -29,7 +29,8 @@
                     <div class="form-group col-md-4">
                         <label for="proveedor">Proveedor</label>
                         <select name="supplier" id="selectSupplier" class="form-control">
-                            <option value="-1">Seleccione Proveedor</option>
+                            {{-- <option value="-1">Seleccione Proveedor</option> --}}
+                            <option value=""></option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->dni }} - {{ $supplier->name }}</option>
                             @endforeach
@@ -54,7 +55,8 @@
                     <div class="form-group col-md-7">
                         <label for="proveedor">Producto</label>
                         <select name="product" id="selectProducts" class="js-example-theme-single form-control">
-                            <option value="-1">Seleccione Producto</option>
+                            {{-- <option value="-1">Seleccione Producto</option> --}}
+                            <option value=""></option>
                             @foreach ($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
                             @endforeach

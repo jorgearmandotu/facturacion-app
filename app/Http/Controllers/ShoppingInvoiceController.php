@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanyData;
+use App\Models\Cstate;
 use App\Models\DataInvoices;
 use App\Models\ListPrices;
 use App\Models\Location;
@@ -11,9 +13,11 @@ use App\Models\ProductsMovements;
 use App\Models\ProductsShoppingInvoice;
 use App\Models\ShoppingInvoice;
 use App\Models\Tercero;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ShoppingInvoiceController extends Controller
@@ -61,6 +65,9 @@ class ShoppingInvoiceController extends Controller
             $invoice->date_invoice = $request->date;
             $dateUpload = Carbon::now()->format('Y-m-d');
             $invoice->date_upload = $dateUpload;
+            $invoice->user_id = Auth::id();
+            $state = Cstate::where('value', 'Aprobado')->first();
+            $invoice->cstate_id = $state->id;
             $invoice->save();
             //recorrer listado de productos
             $total = 0;
@@ -135,5 +142,16 @@ class ShoppingInvoiceController extends Controller
             DB::rollBack();
             return response()->json(['msg' => 'Verifique Datos Ingresados. '.$e, 'status' => 400], 200);
         }
+    }
+
+    public function print(ShoppingInvoice $invoice){
+        if(!$invoice){
+            return 'Factura no encontrada';
+        }
+        $supplier = Tercero::find($invoice->supplier_id);
+        $user = User::select('name')->find($invoice->user_id);
+        $company = CompanyData::latest('id')->first();
+
+        return view('admin.print-shopping-invoice', compact('invoice', 'supplier', 'user', 'company'));
     }
 }

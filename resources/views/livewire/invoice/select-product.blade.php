@@ -3,7 +3,8 @@
         <div class="col-md-5" wire:ignore>
             <label for="product">Producto</label>
             <select name="product" id="selectProducts" class="form-control" style="width: 100%" onfocus="7">
-                <option value="-1">Seleccione Producto</option>
+                {{-- <option value="-1">Seleccione Producto</option> --}}
+                <option></option>
                 @foreach ($products as $product)
                     <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
                 @endforeach

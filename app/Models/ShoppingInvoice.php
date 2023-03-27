@@ -17,6 +17,7 @@ class ShoppingInvoice extends Model
         'date_invoice',
         'date_upload',
         'cstate_id',
+        'user_id',
     ];
 
     public function suppliers(){
@@ -28,6 +29,10 @@ class ShoppingInvoice extends Model
 
     public function state(){
         return $this->hasOne(Cstate::class, 'id', 'cstate_id');
+    }
+
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
 

@@ -9,6 +9,9 @@ use App\Models\LocationProduct;
 use App\Models\ProductsMovements;
 use App\Models\Receipt;
 use App\Models\Remision;
+use App\Models\ShoppingInvoice;
+use App\Models\Supplier;
+use App\Models\Tercero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +25,8 @@ class GestionDocumentsController extends Controller
     }
 
     public function index(){
-        return view('admin.gestion-documents');
+        $suppliers = Tercero::where('supplier', true)->get();
+        return view('admin.gestion-documents', compact('suppliers'));
     }
 
     public function shareInvoices(Request $request){
@@ -36,6 +40,7 @@ class GestionDocumentsController extends Controller
         }
         $invoice = Invoice::where('prefijo', $prefijo)
                     ->where('number', $number)->first();
+        //if(!$invoice) return back()
         return back()->withInput()->with('invoice', $invoice);
     }
 
@@ -156,6 +161,65 @@ class GestionDocumentsController extends Controller
             DB::rollBack();
             return back()->with('fatal', 'La remisión no pudo ser anulada').$e;
 
+        }
+    }
+
+    public function shareShoppingInvoice(Request $request){
+        $number = $request->numberShoppingInvoice;
+        $supplier = $request->supplierInvoice;
+        if($number == ''){
+            return back()->withInput()->with('fatal', 'numero de factura de compra es requerido');
+        }
+        $supplier = Tercero::find($supplier);
+        if(!$supplier) return back()->withInput()->with('fatal', 'proveedor de factura de compra es requerido');
+
+        $invoiceShopping = ShoppingInvoice::where('number', $number)->where('supplier_id', $supplier->id)->first();
+        return back()->withInput()->with('invoiceShopping', $invoiceShopping);
+    }
+
+    public function anularShoppingInvoice(Request $request){
+        $invoice = ShoppingInvoice::find($request->invoice);
+        if(!$invoice){
+            return back()->with('fatal', 'factura de compra no encontrada');
+        }
+        //cambiar estado de factura a nulada, devolver articulos a inventario
+        DB::beginTransaction();
+        try{
+            $state = Cstate::where('value', 'Anulado')->first();
+            $invoice->cstate_id = $state->id;
+            $dataInvoice = $invoice->products;
+            foreach($dataInvoice as $data){
+                $stocks = LocationProduct::where('product_id', $data->product_id)->first();
+                $stocks->stock = $stocks->stock - $data->quantity;//como se anula factra se resta cantidad al inventario
+                $stocks->save();
+                $productMovement = ProductsMovements::where('document_type', 'shopping_invoice')
+                                                    ->where('document_id', $invoice->id)
+                                                    ->where('product_id', $data->product_id)->first();
+                if(!$productMovement){
+                    DB::rollBack();
+                    return back()->with('fatal', 'La factura de compra no pudo ser anulada')->withInput();
+                }
+                $productMovement = new ProductsMovements();
+                $productMovement->type = 'Salida';
+                $productMovement->quantity = $data->quantity;
+                $locations = LocationProduct::where('product_id', $data->product_id)->get();
+                $totalProduct = 0;
+                foreach($locations as $location){
+                    $totalProduct += $location->stock;
+                }
+                $productMovement->saldo = $totalProduct;
+                $productMovement->location_id = $stocks->location_id;
+                $productMovement->product_id = $data->product_id;
+                $productMovement->document_type = 'Anulacion';
+                $productMovement->document_id = $invoice->id;
+                $productMovement->save();
+            }
+            $invoice->save();
+            DB::commit();
+            return back()->with('success', 'La factura de compra fue anulada')->withInput();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->with('fatal', 'La factura de compra no pudo ser anulada'.$e)->withInput();
         }
     }
 }

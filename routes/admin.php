@@ -50,6 +50,7 @@ Route::middleware([
     //Route::post('shoppinginvoices', [ShoppingInvoiceController::class, 'store'])->name('store', 'shoppinginvoices');
 
     Route::resource('shopping-invoices', ShoppingInvoiceController::class);
+    Route::get('printShoppingInvoice/{invoice}', [ShoppingInvoiceController::class, 'print']);
 
     Route::get('listClients', [ClientController::class, 'listClients']);
     Route::resource('clients', ClientController::class);
@@ -85,6 +86,8 @@ Route::middleware([
     Route::post('anularReceipt', [GestionDocumentsController::class, 'anularReceipt']);
     Route::post('remision-share', [GestionDocumentsController::class, 'remisionShare']);
     Route::post('anularRemision', [GestionDocumentsController::class, 'anularRemision']);
+    Route::post('invoicesShopping-share', [GestionDocumentsController::class, 'shareShoppingInvoice']);
+    Route::post('anularShoppingInvoice', [GestionDocumentsController::class, 'anularShoppingInvoice']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')
