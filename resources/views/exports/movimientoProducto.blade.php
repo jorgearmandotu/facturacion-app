@@ -5,36 +5,61 @@
         <th>Producto</th>
         <th>movimiento</th>
         <th>cantidad</th>
+        <th>saldo</th>
         <th>vlr. unitario</th>
         <th>IVA</th>
-        <th>factura</th>
-        <th>proveedor/cliente</th>
+        <th>Documento</th>
+        <th>Tercero</th>
+        <th>Tipo</th>
     </tr>
     </thead>
     <tbody>
 
-    @foreach($dataInvoices as $invoice)
-        @if($invoice->shopping_invoice_id && $invoice->shoppingInvoice->state->value != 'Anulado')
+    @foreach($movements as $movement)
+        @if($movement->document_type == 'Invoice' || $movement->document_type == 'shopping_invoice' || $movement->document_type == 'Anulacion')
         <tr>
-            <td>{{ $invoice->shoppingInvoice->date_upload }}</td>
-            <td>{{ $invoice->product->name }}</td>
-            <td>Entrada</td>
-            <td>{{ $invoice->quantity }}</td>
-            <td>{{ $invoice->vlr_unit }}</td>
-            <td>{{ $invoice->vlr_tax }}</td>
-            <td>{{ $invoice->shoppingInvoice->number }}</td>
-            <td>{{ $invoice->shoppingInvoice->suppliers->name }}</td>
+            <td>{{ $movement->created_at }}</td>
+            <td>{{ $movement->product->name }}</td>
+            <td>{{ $movement->type }}</td>
+            <td>{{ $movement->quantity }}</td>
+            <td>{{ $movement->saldo }}</td>
+            <td>{{ $movement->invoice->vlr_unit }}</td>
+            <td>{{ $movement->invoice->vlr_tax }}</td>
+            @if($movement->document_type == 'shopping_invoice' || ($movement->document_type == 'Anulacion' && $movement->type == 'Salida'))
+            <td>{{ $movement->shoppingInvoice->shoppingInvoice->number }}</td>
+            <td>{{ $movement->shoppingInvoice->shoppingInvoice->suppliers->name }}</td>
+            @elseif($movement->document_type == 'Invoice' || ($movement->document_type == 'Anulacion' && $movement->type == 'Entrada') )
+            <td>{{ $movement->invoice->invoice->number }}</td>
+            <td>{{ $movement->invoice->invoice->clients->name }}</td>
+            {{-- @elseif($movement->document_type == 'Anulacion' && $movement->type == 'Entrada')
+            <td>{{ $movement->invoice->invoice->number }}</td>
+            <td>{{ $movement->invoice->invoice->clients->name }}</td>
+            @elseif($movement->document_type == 'Anulacion' && $movement->type == 'Salida')
+            <td>{{ $movement->shoppingInvoice->shoppingInvoice->number }}</td>
+            <td>{{ $movement->shoppingInvoice->shoppingInvoice->suppliers->name }}</td> --}}
+            @endif
+            @if($movement->document_type && $movement->document_type == 'Invoice')
+                <td>Factura</td>
+            @elseif($movement->document_type && $movement->document_type == 'shopping_invoice')
+                <td>Factura de compra</td>
+            @elseif($movement->document_type && $movement->document_type == 'Anulacion' && $movement->type == 'Salida')
+                <td>Anulacion de factura de compra</td>
+            @elseif($movement->document_type && $movement->document_type == 'Anulacion' && $movement->type == 'Entrada')
+                <td>Anulacion de factura</td>
+            @endif
         </tr>
-        @elseif($invoice->invoice && $invoice->invoice->state->value != 'Anulado')
+        @else
         <tr>
-            <td>{{ $invoice->invoice->date_invoice }}</td>
-            <td>{{ $invoice->product->name }}</td>
-            <td>Salida</td>
-            <td>{{ $invoice->quantity }}</td>
-            <td>{{ $invoice->vlr_unit }}</td>
-            <td>{{ $invoice->vlr_tax }}</td>
-            <td>{{ $invoice->invoice->number }}</td>
-            <td>{{ $invoice->invoice->clients->name }}</td>
+            <td>{{ $movement->created_at }}</td>
+            <td>{{ $movement->product->name }}</td>
+            <td>{{ $movement->type }}</td>
+            <td>{{ $movement->quantity }}</td>
+            <td>{{ $movement->saldo }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Creación de producto</td>
         </tr>
         @endif
     @endforeach

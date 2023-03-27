@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\DataInvoices;
 use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\ProductsMovements;
 use App\Models\ProductsShoppingInvoice;
 use App\Models\ShoppingInvoice;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -34,7 +35,8 @@ class MovimientoProductExport implements FromView, ShouldAutoSize
     public function view() : View {
         // $data = ShoppingInvoice::join('products_shopping_invoices', 'products_shopping_invoices.invoice_id', 'shopping_invoices.id')
         //                     ->where('date_upload', '>=', $this->dateInitial)->get();
-        $data = DataInvoices::where('product_id', $this->product->id)->get();
-        return view('exports.movimientoProducto', ['dataInvoices' => $data]);
+        $data = ProductsMovements::where('product_id', $this->product->id)
+                                    ->where('created_at', '>=', $this->dateInitial)->get();
+        return view('exports.movimientoProducto', ['movements' => $data]);
     }
 }
