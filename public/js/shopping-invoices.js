@@ -208,6 +208,10 @@ async function sendInvoice(data){//recibo formData
         if(res.status == 200){
             //Livewire.emit('lineAdded')
             messages('success', res.msg, false, 1500);
+            url =`../printShoppingInvoice/${res.invoice}`;
+            // window.location.replace(`printShoppingInvoice/${res.invoice}`);
+            var win = window.open(url, '_blank');
+            //win.focus();
             //productsTable.ajax.reload(null, false);
             //recargarTablas(table);
         }else{

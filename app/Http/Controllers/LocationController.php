@@ -63,4 +63,5 @@ class LocationController extends Controller
             return response()->json(['msg' => 'Error en servidor contacte al administrador: '.$e ], 400);
         }
     }
+
 }

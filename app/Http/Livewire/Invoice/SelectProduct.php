@@ -35,8 +35,12 @@ class SelectProduct extends Component
     public function changeProduct($id){
         try{
             $this->product = Product::find($id);
-            $stock = LocationProduct::where('product_id', $this->product->id)->select('stock')->first();
-            $this->stock = $stock->stock;
+            $locations = LocationProduct::where('product_id', $this->product->id)->select('stock')->get();
+            $stock = 0;
+            foreach($locations as $location){
+                $stock += $location->stock;
+            }
+            $this->stock = $stock;
             if($this->stock < 1){
                 $this->classNegative = 'stock-negative';
             }else{

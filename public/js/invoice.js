@@ -224,7 +224,7 @@ async function sendInvoice(data){//recibo formData
             messages('success', 'Factura generada exitosamente', false, 1500);
             // window.location.replace(`printInvoice/${res.msg}`)
             var win = window.open(`printInvoice/${res.msg}`, '_blank');
-            win.focus();
+            //win.focus();
             //productsTable.ajax.reload(null, false);
             //recargarTablas(table);
         }else{

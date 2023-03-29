@@ -16,4 +16,12 @@ class LocationProduct extends Model
         'product_id',
         'stock'
     ];
+
+    public function product(){
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
+    public function location(){
+        return $this->hasOne(Location::class, 'id', 'location_id');
+    }
 }

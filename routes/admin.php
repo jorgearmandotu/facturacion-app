@@ -36,6 +36,7 @@ Route::middleware([
     Route::get('', [HomeController::class, 'index'])->name('home');
 
     Route::get('gestion-inventario', [GestionInventarioController::class, 'index'])->name('gestion-inventario');
+    Route::get('transfer-location', [GestionInventarioController::class, 'transferLocation'])->name('transfer-location');
     Route::resource('lines', LinesController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('locations', LocationController::class);

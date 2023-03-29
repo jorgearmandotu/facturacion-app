@@ -137,7 +137,7 @@ class ShoppingInvoiceController extends Controller
             $invoice->total = $total;
             $invoice->save();
             DB::commit();
-            return response()->json(['msg' => 'Ingreso Exitoso', 'status' => 200], 200);
+            return response()->json(['msg' => 'Ingreso Exitoso', 'invoice' => $invoice->id, 'status' => 200], 200);
         }catch(Exception $e){
             DB::rollBack();
             return response()->json(['msg' => 'Verifique Datos Ingresados. '.$e, 'status' => 400], 200);
