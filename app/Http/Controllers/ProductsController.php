@@ -102,7 +102,7 @@ class ProductsController extends Controller
             $productMovement->type = 'Creacion';
             $productMovement->quantity = $request->stock;
             $productMovement->saldo = $request->stock;
-            $productMovement->location_id = $request->location;
+            $productMovement->location_id = $locationProduct->location_id;
             $productMovement->product_id = $product->id;
             $productMovement->save();
             DB::commit();

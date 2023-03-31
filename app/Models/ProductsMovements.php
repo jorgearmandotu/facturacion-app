@@ -40,7 +40,11 @@ class ProductsMovements extends Model
     }
 
     public function shoppingInvoice(){
-        return $this->hasOne(DataInvoices::class, 'shopping_invoice_id', 'document_id');
+        return $this->hasOne(DataInvoices::class, 'shopping_invoice_id','document_id');
+    }
+
+    public function transfer(){
+        return $this->hasOne(TransferLocation::class, 'number', 'document_id');
     }
 
 }
