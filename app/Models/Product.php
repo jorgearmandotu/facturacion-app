@@ -50,4 +50,8 @@ class Product extends Model
         return $this->hasMany(ShoppingInvoice::class, 'product_id', 'id');
     }
 
+    public function locations(){
+        return $this->hasMany(LocationProduct::class, 'product_id', 'id');
+    }
+
 }

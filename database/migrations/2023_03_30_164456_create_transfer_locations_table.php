@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products_movements', function (Blueprint $table) {
+        Schema::create('transfer_locations', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['Entrada', 'Salida', 'Creacion']);
+            $table->bigInteger('number');
             $table->foreignId('product_id')->references('id')->on('products');
-            $table->integer('quantity');
-            $table->integer('saldo');
-            $table->enum('document_type', ['Invoice', 'shopping_invoice', 'Anulacion', 'TransferLocation'])->nullable();
-            $table->bigInteger('document_id')->nullable();
-            $table->foreignId('location_id')->constrained('locations', 'id')->nullable();
+            $table->foreignId('fromLocation')->references('id')->on('locations');
+            $table->foreignId('toLocation')->references('id')->on('locations');
+            $table->integer('quantity')->default(0);
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products_movements');
+        Schema::dropIfExists('transfer_locations');
     }
 };

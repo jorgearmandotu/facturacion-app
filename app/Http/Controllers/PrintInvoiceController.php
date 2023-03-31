@@ -28,6 +28,6 @@ class PrintInvoiceController extends Controller
         $resolution = Resolution::find($invoice->resolution);//buscar resolucon con que se hizo factura
 
         // return $invoice->dataInvoices[0]->product;
-        return view('admin.print-invoice', compact('invoice', 'client', 'seller', 'company', 'resolution'));
+        return view('admin.print.print-invoice', compact('invoice', 'client', 'seller', 'company', 'resolution'));
     }
 }

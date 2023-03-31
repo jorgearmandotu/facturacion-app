@@ -37,6 +37,9 @@ Route::middleware([
 
     Route::get('gestion-inventario', [GestionInventarioController::class, 'index'])->name('gestion-inventario');
     Route::get('transfer-location', [GestionInventarioController::class, 'transferLocation'])->name('transfer-location');
+    Route::post('transfer-location', [GestionInventarioController::class, 'transferProduct']);
+    Route::get('transfer-location-table', [GestionInventarioController::class, 'transferLocationTable']);
+    Route::get('print-transfer/{number}', [GestionInventarioController::class, 'printTransfer']);
     Route::resource('lines', LinesController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('locations', LocationController::class);
