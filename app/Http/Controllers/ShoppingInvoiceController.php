@@ -152,6 +152,6 @@ class ShoppingInvoiceController extends Controller
         $user = User::select('name')->find($invoice->user_id);
         $company = CompanyData::latest('id')->first();
 
-        return view('admin.print-shopping-invoice', compact('invoice', 'supplier', 'user', 'company'));
+        return view('admin.print.print-shopping-invoice', compact('invoice', 'supplier', 'user', 'company'));
     }
 }

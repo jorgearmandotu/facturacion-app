@@ -74,7 +74,7 @@ class RemisionController extends Controller
         try{
             $seller = User::find($remision->user_id);
             $company = CompanyData::latest('id')->first();
-            return view('admin.print-remision', compact('company', 'remision', 'seller'));
+            return view('admin.print.print-remision', compact('company', 'remision', 'seller'));
 
         }catch(\Exception $e){
             return 'Ocurrio un error al consultar los datos.';
