@@ -1,21 +1,14 @@
 <html>
     {{-- {{ HTML::style('../../css/export.css') }} --}}
     <head>
-        {{-- <link rel="stylesheet" type="text/css" href="../../public/css/export.css"> --}}
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <style>
-            .header {
-                background-color: #000000;
-                color: #ffffff;
-            }
-
-        </style>
+        <link rel="stylesheet" href="{{ asset('../../css/export.css') }}" >
     </head>
-    <table>
+    <table style="border: 1px solid black;">
         <thead>
         <tr>
-            <th class="header"><b>Fecha</b></th>
-            <th class="header"><b>Producto</b></th>
+            <th class="headerTable"><b>Fecha</b></th>
+            <th class="headerTable"><b>Producto</b></th>
             <th class="header"><b>movimiento</b></th>
             <th class="header"><b>cantidad</b></th>
             <th class="header"><b>saldo</b></th>

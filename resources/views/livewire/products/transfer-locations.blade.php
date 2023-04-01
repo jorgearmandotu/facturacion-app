@@ -4,6 +4,9 @@
         <input type="number" class="form-control data-autofocus" placeholder="Código" name="code" id="inputCode" wire:model.defer="code" wire:change="searchCode">
     </div>
     <div class="row">
+        <label id="nameProduct" for="">@if($product) {{$product->name}} @endif</label>
+    </div>
+    <div class="row">
         <div class="form-group col-md-6">
             <label for="from">Desde</label>
             <select name="from" class="form-control" wire:model="from" wire:change="changeFrom" id="selectFrom">
