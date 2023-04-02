@@ -109,4 +109,13 @@ class GestionInventarioController extends Controller
         $company = CompanyData::latest('id')->first();
         return view('admin.print.print-transfer-location', compact('transfer', 'seller', 'company'));
     }
+
+    public function transferProducts(){
+        $locations = LocationProduct::all();
+        return view('admin.transfer-products');
+    }
+
+    public function transferProductsList(Request $request){
+        dd($request->input('newCode'));
+    }
 }

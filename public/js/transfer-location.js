@@ -63,60 +63,13 @@ function createTransfer(e){
     let formTransfer = document.querySelector('#form-transfer');
     let dataTransfer = new FormData(formTransfer);
 
-    let new_input = document.getElementById('datalist');
-    let newrow = document.createElement('div');
-    newrow.className = "row";
-    let input = document.createElement('input');
-    input.type = "hidden";
-    input.className = "form-control col-md-2";
-    input.name = "newCode";
-    input.value = inputCode.value;
-    let label = document.createElement('pre');
-    label.className = "p-1";
-    label.textContent = `${labelProduct.textContent} `;
-    newrow.appendChild(input);
-    newrow.appendChild(label);
-    input = document.createElement('input');
-    input.type = "hidden";
-    input.className = "form-control col-md-2";
-    input.name = "newFrom";
-    input.value = selectFrom.value;
-    label = document.createElement('pre');
-    label.className = "p-1";
-    label.textContent = `- desde ${selectFrom.options[selectFrom.selectedIndex].text} `;
-    newrow.appendChild(input);
-    newrow.appendChild(label);
-    input = document.createElement('input');
-    input.type = "hidden";
-    input.className = "form-control col-md-2";
-    input.name = "newTo";
-    input.value = selectTo.value;
-    label = document.createElement('pre');
-    label.textContent = ` - hasta ${selectTo.options[selectTo.selectedIndex].text} `;
-    label.className = "p-1";
-    newrow.appendChild(label);
-    newrow.appendChild(input);
-    input = document.createElement('input');
-    input.type = "hidden";
-    input.className = "form-control col-md-2";
-    input.name = "newQuantity";
-    input.value = inputQuantity.value;
-    label = document.createElement('pre');
-    label.textContent = `-cantidad: ${inputQuantity.value} `;
-    label.className = "p-1";
-    newrow.appendChild(label);
-    newrow.appendChild(input);
-    new_input.appendChild(newrow);
-
-    const values = Object.fromEntries(dataTransfer.entries());
-    console.log(values);
     // document.querySelector('#form-transfer').reset();
     // Livewire.emit('resetForm')
     //     while (newrow.firstChild) {
     //         newrow.removeChild(newrow.firstChild);
     //       }
     //listTransfer.append(`code${index}`)
-    //sendTransfer(dataTransfer);
+    sendTransfer(dataTransfer);
 }
 
 async function sendTransfer(data){

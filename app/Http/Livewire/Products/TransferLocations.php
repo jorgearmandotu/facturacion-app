@@ -38,14 +38,14 @@ class TransferLocations extends Component
             $this->to = $this->locationsTo[0]->id;
             $locationSelect = LocationProduct::where('product_id', $this->product->id)->where('location_id', $this->to)->first();
             $this->existenciaTo = ($locationSelect) ? $locationSelect->stock : 0;
-            $this->quantity = 0;
+            $this->quantity = '';
         }else{
             $this->locations = [];
             $this->from = null;
             $this->existenciaFrom = 0;
             // $this->locationsTo = Location::all();
             $this->to = $this->locationsTo[0]->id;
-            $this->quantity = 0;
+            $this->quantity = '';
         }
     }
 
@@ -68,7 +68,8 @@ class TransferLocations extends Component
         $this->existenciaFrom = 0;
         $this->existenciaTo = 0;
         $this->code = null;
-        $this->quantity = 0;
+        $this->quantity = '';
+        $this->product = null;
     }
 
 }

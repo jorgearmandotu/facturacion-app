@@ -15,7 +15,8 @@
     <div class="container-fluid containers">
         <div>
             <div class="row">
-                <button class="btn btn-light border" data-toggle="modal" data-target="#transferModal"><i class="fas fa-solid fa-plus"></i>Nuevo traslado</button>
+                <button class="btn btn-light border" data-toggle="modal" data-target="#transferModal"><i class="fas fa-solid fa-plus"></i>Traslado rapido</button>
+                <a class="btn btn-light border ml-2" href="transfer-products" target="_blanck"><i class="fas fa-solid fa-plus"></i>Nuevo traslado</a>
             </div>
 
             <div class="modal fade" id="transferModal" tabindex="-1" aria-hidden="true">
@@ -27,7 +28,7 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <form id="form-transfer">
+                    <form id="form-transfer" >
                     <div class="modal-body">
                         @csrf
                         <div id="datalist"></div>
