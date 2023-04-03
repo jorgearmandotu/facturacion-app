@@ -11,7 +11,7 @@ class ListPrices extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_product',
+        'product_id',
         'name',
         'price',
     ];

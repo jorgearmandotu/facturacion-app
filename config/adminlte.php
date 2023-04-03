@@ -384,7 +384,7 @@ return [
                     'icon' => 'fas fa-truck-loading',
                 ],
                 [
-                    'text' => 'Translados',
+                    'text' => 'Traslados',
                     'icon' => 'fas fa-dolly',
                     // 'can' => 'shopping-invoices.store',
                     'url' => 'admin/transfer-location'

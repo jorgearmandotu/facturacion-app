@@ -50,7 +50,7 @@ class TransferLocations extends Component
     }
 
     public function changeFrom(){
-        $locationSelect = LocationProduct::find($this->from);
+        $locationSelect = LocationProduct::where('product_id', $this->product->id)->where('location_id', $this->from)->first();;
         if($locationSelect){
             $this->existenciaFrom = $locationSelect->stock;
         }else{

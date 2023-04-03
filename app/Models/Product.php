@@ -20,6 +20,7 @@ class Product extends Model
         'profit',
         //'price',
         'cstate_id',
+        'date',
     ];
 
     public function prices(){

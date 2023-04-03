@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Translados')
+@section('title', 'Traslados')
 
 @section('css')
     <link rel="stylesheet" href="../../css/main.css">
@@ -11,7 +11,7 @@
 @stop
 
 @section('content')
-    <h1>Translados de Bodega</h1>
+    <h1>Traslados de Bodega</h1>
     <div class="container-fluid containers">
         <div>
             <div class="row">
@@ -23,7 +23,7 @@
                 <div class="modal-dialog modal-xl">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Translados por bodega</h5>
+                      <h5 class="modal-title">Traslados por bodega</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success" data-dismiss="modal" onclick="createTransfer(event)">Transladar</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal" onclick="createTransfer(event)">Trasladar</button>
                     </div>
                     </form>
                   </div>

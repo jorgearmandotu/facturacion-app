@@ -8,6 +8,7 @@ let labelProduct = document.querySelector('#nameProduct');
 
 function addInput(){
     let new_inputs = document.getElementById('tbody');
+    let new_inputsform = document.getElementById('form-products')
     let newrow = document.createElement('tr');
     //newrow.className = "row";
     let newcell = document.createElement('td');
@@ -18,7 +19,7 @@ function addInput(){
     let label = document.createElement('label');
     label.className = "form-control";
     label.textContent = `${labelProduct.textContent} `;
-    newcell.appendChild(input);
+    new_inputsform.appendChild(input);
     newcell.appendChild(label);
     newrow.appendChild(newcell);
     input = document.createElement('input');
@@ -29,7 +30,7 @@ function addInput(){
     label.textContent = `${inputQuantity.value}`;
     label.className = "form-control";
     newcell = document.createElement('td');
-    newcell.appendChild(input);
+    new_inputsform.appendChild(input);
     newcell.appendChild(label);
     newrow.appendChild(newcell);
     input = document.createElement('input');
@@ -40,7 +41,7 @@ function addInput(){
     label.className = "form-control";
     label.textContent = `${selectFrom.options[selectFrom.selectedIndex].text}`;
     newcell = document.createElement('td');
-    newcell.appendChild(input);
+    new_inputsform.appendChild(input);
     newcell.appendChild(label);
     newrow.appendChild(newcell);
     input = document.createElement('input');
@@ -51,14 +52,14 @@ function addInput(){
     label.textContent = `${selectTo.options[selectTo.selectedIndex].text}`;
     label.className = "form-control";
     newcell = document.createElement('td');
-    newcell.appendChild(input);
+    new_inputsform.appendChild(input);
     newcell.appendChild(label);
     newrow.appendChild(newcell);
-
     new_inputs.appendChild(newrow);
+    Livewire.emit('resetForm')
 }
 
-function generarTranslado(e){
+function generarTraslado(e){
     // e.preventDefault();
     let formTransfer = document.querySelector('#form-products');
     let dataTransfer = new FormData(formTransfer);
