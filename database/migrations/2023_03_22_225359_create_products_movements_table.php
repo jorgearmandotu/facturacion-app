@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('products_movements', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
+            $table->uuid('id')->primary();
             $table->enum('type', ['Entrada', 'Salida', 'Creacion']);
             $table->foreignId('product_id')->references('id')->on('products');
             $table->integer('quantity');
