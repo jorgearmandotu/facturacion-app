@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cstate;
 use App\Models\DataInvoices;
 use App\Models\Invoice as ModelsInvoice;
+use App\Models\Location;
 use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsMovements;
@@ -130,7 +131,9 @@ class InvoiceController extends Controller
                     $dataInvoice->save();
                     $vlrTotal += $quantity*$price + $quantity*$price*$valueTax/100;
                     //disminuir inventario
-                    $stocks = LocationProduct::where('product_id', $product->id)->first();
+                    $almacen = Location::where('name', 'Almacén')->first();
+                    $locationProduct = LocationProduct::where('product_id', $product->id)->where('location_id', $almacen->id)->first();
+                    $stocks = (!$locationProduct) ? LocationProduct::where('product_id', $product->id)->first() : $locationProduct;
                     $stocks->stock = $stocks->stock - $quantity;
                     $stocks->save();
                     $productMovement = new ProductsMovements();
