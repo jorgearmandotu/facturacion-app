@@ -98,6 +98,6 @@ class dataFakerSeeder extends Seeder
         ]);
 
         //invoco a fabrica de productos
-        //product::factory(1000)->create();
+        // product::factory(1000)->create();
     }
 }

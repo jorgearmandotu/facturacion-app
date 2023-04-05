@@ -353,6 +353,23 @@ return [
                 ],
             ]
         ],
+        [
+            'text' => 'Egresos',
+            'icon' => 'fas fa-money-bill-wave',
+            // 'can' => '',
+            'submenu' => [
+                [
+                    'text' => 'Generar Egreso',
+                    'icon_color' => 'red',
+                    'url' => 'admin/egresos/create',
+                ],
+                [
+                    'text' => 'Categorias Egreso',
+                    'icon_color' => 'green',
+                    'url' => 'admin/egresos',
+                ]
+            ]
+        ],
         ['header' => 'Administración'],
         [
             'text' => 'Iventarios',
@@ -378,7 +395,7 @@ return [
                     'icon' => 'far fa-plus-square',
                 ],
                 [
-                    'text' => 'Gestion Inventario',//lineas, grupos, ubicaciones
+                    'text' => 'Gestion Inventario', //lineas, grupos, ubicaciones
                     'url' => 'admin/gestion-inventario',
                     'can'     => 'gestion-inventario',
                     'icon' => 'fas fa-truck-loading',

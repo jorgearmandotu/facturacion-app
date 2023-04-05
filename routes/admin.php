@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConfigurationCompanyController;
+use App\Http\Controllers\DischargeController;
 use App\Http\Controllers\ExportsController;
 use App\Http\Controllers\GestionDocumentsController;
 use App\Http\Controllers\GestionInventarioController;
@@ -20,10 +21,6 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RemisionController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\UsersController;
-use App\Models\ListPrices;
-use App\Models\Supplier;
-use Illuminate\Support\Facades\DB;
 
 Route::middleware([
     'auth:sanctum',
@@ -94,6 +91,11 @@ Route::middleware([
     Route::post('anularRemision', [GestionDocumentsController::class, 'anularRemision']);
     Route::post('invoicesShopping-share', [GestionDocumentsController::class, 'shareShoppingInvoice']);
     Route::post('anularShoppingInvoice', [GestionDocumentsController::class, 'anularShoppingInvoice']);
+
+    Route::resource('egresos', DischargeController::class);
+    Route::post('categoryDischarge', [DischargeController::class, 'storeCategory']);
+    Route::get('categoriesDischargeList', [DischargeController::class, 'listCategories']);
+    Route::get('printDischarge/{id}', [DischargeController::class, 'printDischarge']);
 
     // Route::get('listado-prueba', function() {
     //     return DB::table('products as p')
