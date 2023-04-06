@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->decimal('mount', 10, 2);
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->timestamps();
         });
     }

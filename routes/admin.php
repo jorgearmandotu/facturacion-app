@@ -21,6 +21,9 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RemisionController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
+use App\Models\Discharge;
+use App\Models\Invoice;
+use App\Models\Remision;
 
 Route::middleware([
     'auth:sanctum',
@@ -77,6 +80,8 @@ Route::middleware([
     Route::post('exportReceipts', [ExportsController::class, 'exportReceipts']);
     Route::post('exportShoppingInvoices', [ExportsController::class, 'exportShoppingInvoices']);
     Route::post('exportIngresos', [ExportsController::class, 'exportIngresos']);
+    Route::post('exportEgresos', [ExportsController::class, 'exportEgresos']);
+    Route::post('exportIngresosDischarge', [ExportsController::class, 'exportIngresosDischarge']);
     Route::post('exportMovimientoProducto', [ExportsController::class, 'exportMovimientoProducto']);
 
     Route::get('users-list', [AdminUsersController::class, 'list']);
@@ -97,17 +102,14 @@ Route::middleware([
     Route::get('categoriesDischargeList', [DischargeController::class, 'listCategories']);
     Route::get('printDischarge/{id}', [DischargeController::class, 'printDischarge']);
 
-    // Route::get('listado-prueba', function() {
-    //     return DB::table('products as p')
-    //     ->join('groups as g', 'p.group_id', '=', 'g.id')
-    //     ->join('lines as l', 'l.id', '=', 'g.line_id')
-    //     ->join('cstates as c', 'p.cstate_id', '=', 'c.id')
-    //     ->join('locations_products as lp', 'lp.product_id', '=', 'p.id')
-    //     ->select('p.id', 'p.name', 'l.name as line', 'g.name as group', 'p.code', 'c.value as state', 'reference', 'costo', 'price', 'profit', DB::raw('SUM(lp.stock) as total'))
-    //     ->groupBy('p.id', 'p.name', 'l.name', 'g.name', 'p.code', 'c.value', 'p.reference', 'p.costo', 'p.price', 'p.profit')
-    //     ->get();
-
-    //     return $products = DB::select('select * from products_list_view');
-    // });
+    Route::get('listado-prueba', function() {
+        $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
+                            ->where('invoices.date_invoice', '<=', '2023-04-05')->get();
+        $remisiones = Remision::where('date_remision', '<=', '2023-04-05')->where('date_remision', '>=', '2023-04-01')->get();
+        $discharges = Discharge::where('date', '>=', '2023-04-01')
+        ->where('date', '<=', '2023-04-05')->get();
+        $data = $discharges->concat($invoices)->concat($remisiones)->sortBy('created_at');
+        return $data;
+    });
 
 });

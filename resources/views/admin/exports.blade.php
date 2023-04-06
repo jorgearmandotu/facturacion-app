@@ -91,6 +91,42 @@
             </div>
         </form>
         <hr>
+        <label for="">Exportar egresos por fecha</label>
+        <form action="exportEgresos" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dateFinal">Fecha Final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <label for="">Exportar ingresos y egresos por fecha</label>
+        <form action="exportIngresosDischarge" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dateFinal">Fecha Final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <hr>
         <label for="">Exportar movimientos por producto</label>
         <form action="exportMovimientoProducto" method="post">
             @csrf

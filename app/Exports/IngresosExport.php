@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Invoice;
 use App\Models\Receipt;
+use App\Models\Remision;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -29,8 +30,11 @@ class IngresosExport implements FromView, ShouldAutoSize
     }
 
     public function view() : View {
-        $data = Invoice::where('invoices.date_invoice', '>=', $this->initial)
-                            ->where('invoices.date_invoice', '<=', $this->final)->get();
+        $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
+                            ->where('invoices.date_invoice', '<=', '2023-04-05')->get();
+        $remisiones = Remision::where('date_remision', '<=', '2023-04-05')
+                            ->where('date_remision', '>=', '2023-04-01')->get();
+        $data = $remisiones->concat($invoices)->sortBy('created_at');
         return view('exports.ingresosFechaExport', ['invoices' => $data]);
     }
 }

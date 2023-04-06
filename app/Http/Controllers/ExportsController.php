@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EgresosExport;
+use App\Exports\IngresosDischargesExport;
 use App\Exports\IngresosExport;
 use App\Exports\InvoicesExport;
 use App\Exports\MovimientoProductExport;
@@ -76,6 +78,30 @@ class ExportsController extends Controller
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
         return Excel::download(new IngresosExport($dateInitial, $dateFinal), 'ingresos por fecha.xlsx');
+    }
+
+    public function exportEgresos(Request $request) {
+        $dateInitial = $request->dateInitial;
+        $dateFinal = $request->dateFinal;
+        if($dateInitial == ''){
+            return back()->with('fatal', 'Fecha inicial de ingresos es requerida');
+        }
+        if($dateFinal == ''){
+            $dateFinal = Carbon::now()->format('Y-m-d');
+        }
+        return Excel::download(new EgresosExport($dateInitial, $dateFinal), 'egresos por fecha.xlsx');
+    }
+
+    public function exportIngresosDischarge(Request $request) {
+        $dateInitial = $request->dateInitial;
+        $dateFinal = $request->dateFinal;
+        if($dateInitial == ''){
+            return back()->with('fatal', 'Fecha inicial de ingresos es requerida');
+        }
+        if($dateFinal == ''){
+            $dateFinal = Carbon::now()->format('Y-m-d');
+        }
+        return Excel::download(new IngresosDischargesExport($dateInitial, $dateFinal), 'ingresos y egresos por fecha.xlsx');
     }
 
     public function exportMovimientoProducto(Request $request){

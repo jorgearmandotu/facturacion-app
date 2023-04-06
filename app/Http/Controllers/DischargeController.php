@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoriesDischarge;
 use App\Models\CompanyData;
+use App\Models\Cstate;
 use App\Models\Discharge;
 use App\Models\User;
 use Carbon\Carbon;
@@ -39,12 +40,14 @@ class DischargeController extends Controller
         ]);
         if($validate){
             try{
+                $state = Cstate::where('value', 'Activo')->first();
                 $discharge = Discharge::create([
                     'category_discharge' => $request->category,
                     'description' => $request->description,
                     'mount' => $request->mount,
                     'date' => Carbon::now()->format('Y-m-d'),
                     'user_id' => Auth::id(),
+                    'cstate_id' => $state->id,
                 ]);
                 return redirect('admin/printDischarge/'.$discharge->id);
             }catch(\Exception $e){
