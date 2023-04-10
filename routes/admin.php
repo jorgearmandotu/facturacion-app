@@ -86,6 +86,7 @@ Route::middleware([
 
     Route::get('users-list', [AdminUsersController::class, 'list']);
     Route::resource('adminUsers', AdminUsersController::class);
+    Route::put('stateUser/{user}', [AdminUsersController::class, 'stateUser']);
 
     Route::get('gestion-documents', [GestionDocumentsController::class, 'index']);
     Route::post('invoices-share', [GestionDocumentsController::class, 'shareInvoices']);

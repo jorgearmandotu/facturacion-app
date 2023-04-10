@@ -124,9 +124,15 @@ $(document).ready(function () {
             {data: 'email'},
             {data: 'phone'},
             {
-                data: null,
+                data: 'id',
                 render: (data, type, row) => {
-                    return `<button class='jsgrid-button btn btn-warning ml-1' onclick="edit(${row.id})" > <i class='far fa-edit'></i></button></div>`;
+                    let classBtn = 'btn-success';
+                    let iconBtn = '<i class="fas fa-check"></i>'
+                    if(!row.is_active){
+                        classBtn = 'btn-danger';
+                        iconBtn = '<i class="fas fa-times"></i>'
+                    }
+                    return `<button class='jsgrid-button btn btn-warning ml-1' onclick="edit(${row.id})" > <i class='far fa-edit'></i></button></div><button type="submit" class='jsgrid-button btn ${classBtn} ml-1' onclick="stateUser(${row.id})" > ${iconBtn}</button></div>`;
                 }
             },
         ],
@@ -214,6 +220,47 @@ async function edit(userId){
     $('#userModal').modal('show');
 }
 
+async function stateUser(userId){
+    const url = `stateUser/${userId}`;
+    try{
+        let data = new FormData();
+        data.append('_method', 'put');
+        let listado = Object.fromEntries(data.entries());
+      console.log(listado);
+        const response = await fetch(url,{
+            method: 'POST',
+            body: data,
+            headers: {
+                //"X-CSRF-TOKEN": values._token,
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+        const res = await response.json();
+        if(res.errors){
+            let msgError = '';
+            for (const prop in res.errors) {
+                msgError += `${res.errors[prop][0]}\n`;
+            }
+            return messages('error', msgError, true);
+        }
+
+
+        if(res.status == 200){
+            messages('success', res.msg, false, 1500);
+            linesTable.ajax.reload(null, false);
+        }else{
+            messages('error', res.msg, true);
+        }
+    }catch(error){
+        console.error(error);
+        messages('error', 'Ocurio un error al procesar la solicitud', true);
+    }
+}
 $('#userModal').on('hidden.bs.modal', function (e) {
     inputId = document.querySelector('#id');
     inputMethod = document.querySelector('#method');

@@ -229,4 +229,14 @@ class AdminUsersController extends Controller
         }
 
     }
+
+    public function stateUser($id, Request $request){
+        $user = User::find($id);
+        if($user){
+            $user->is_active = !$user->is_active;
+            $user->save();
+            return response()->json(['msg' => 'Estado de usuario cambiado con exito', 'status' => 200], 200);
+        }
+        return response()->json(['msg' => 'No fue posible realizar la operacón veriqfique que el usuario exista', 'status' => 400], 200);
+    }
 }
