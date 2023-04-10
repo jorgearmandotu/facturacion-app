@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class GestionInventarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:gestion-inventario')->only(['index']);
+        $this->middleware('can:transferLocations')->only([ 'transferLocation', 'transferProducts', 'transferLocationTable', 'transferProduct', 'printTransfer', 'transferProductsList']);
+    }
     public function index()
     {
         return view('admin.gestion_inventario');

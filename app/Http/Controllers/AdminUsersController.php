@@ -223,6 +223,15 @@ class AdminUsersController extends Controller
                 if($request->users){
                     $user->givePermissionTo( 'admin-users.index', 'admin-users.store' );
                 }
+                if($request->discharges){
+                    $user->givePermissionTo('discharges');
+                }
+                if($request->transferLocations){
+                    $user->givePermissionTo('transferLocations');
+                }
+                if($request->profile){
+                    $user->givePermissionTo('profile');
+                }
 
                 $user->save();
                 return response()->json(['msg' => 'Datos de usuario actualizados con exito', 'status' => 200], 200);

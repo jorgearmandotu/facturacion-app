@@ -25,6 +25,10 @@ let checkReports = document.querySelector('#reportes');
 let checkConfigCompany = document.querySelector('#configurationCompany');
 let checkUsers = document.querySelector('#users');
 let checkgestionDocuments = document.querySelector('#gestionDocuments');
+let checkDischarges = document.querySelector('#discharges');
+let checkTransferLocations = document.querySelector('#transferLocations');
+let checkProfile = document.querySelector('#profile');
+
 
 btnForm.addEventListener('click', function (e){
     e.preventDefault();
@@ -211,6 +215,16 @@ async function edit(userId){
                 break;
             case 'gestion-documents':
                 checkgestionDocuments.checked = true;
+                break;
+            case 'discharges':
+                checkDischarges.checked = true;
+                break;
+            case 'transferLocations':
+                checkTransferLocations.checked = true;
+                break;
+            case 'profile':
+                checkProfile.checked = true;
+                break;
         }
         //   if(permiso.name == 'remision.index'){
         //       checkRemision.checked = true;
@@ -225,8 +239,6 @@ async function stateUser(userId){
     try{
         let data = new FormData();
         data.append('_method', 'put');
-        let listado = Object.fromEntries(data.entries());
-      console.log(listado);
         const response = await fetch(url,{
             method: 'POST',
             body: data,

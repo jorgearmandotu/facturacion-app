@@ -179,9 +179,25 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <div class="form-check form-check-inline col-md-6">
+                                    <div class="form-check form-check-inline col-md-5">
                                         <input class="form-check-input group-all" type="checkbox" id="gestionDocuments" value="gestionDocuments" name="gestionDocuments">
                                         <label class="form-check-label" for="gestionDocuments">Anular Documentos</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="discharges" value="discharges" name="discharges">
+                                        <label class="form-check-label" for="discharges">Egresos</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="transferLocations" value="transferLocations" name="transferLocations">
+                                        <label class="form-check-label" for="transferLocations">Traslados por bodega</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-5">
+                                        <input class="form-check-input group-all" type="checkbox" id="profile" value="profile" name="profile">
+                                        <label class="form-check-label" for="profile">Perfil de usuario</label>
                                     </div>
                                 </div>
                             </div>

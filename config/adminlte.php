@@ -356,7 +356,7 @@ return [
         [
             'text' => 'Egresos',
             'icon' => 'fas fa-money-bill-wave',
-            // 'can' => '',
+            'can' => 'discharges',
             'submenu' => [
                 [
                     'text' => 'Generar Egreso',
@@ -403,7 +403,7 @@ return [
                 [
                     'text' => 'Traslados',
                     'icon' => 'fas fa-dolly',
-                    // 'can' => 'shopping-invoices.store',
+                    'can' => 'transferLocations',
                     'url' => 'admin/transfer-location'
                 ],
                 [
@@ -466,6 +466,7 @@ return [
         [
             'text' => 'Perfil',
             'icon' => 'far fa-user',
+            'can' => 'profile',
             'url' => 'user/profile',
         ],
     ],

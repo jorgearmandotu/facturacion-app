@@ -15,6 +15,11 @@ use Illuminate\Support\MessageBag;
 
 class DischargeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:discharges')->only(['index', 'create', 'store', 'storeCategory', 'listCategories', 'printDischarge']);
+    }
     //crea categorias de egresos
     public function index(){
         return view('admin.categories_discharge');
