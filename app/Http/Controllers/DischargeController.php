@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoriesDischarge;
 use App\Models\CompanyData;
+use App\Models\CpaymentMethods;
 use App\Models\Cstate;
 use App\Models\Discharge;
 use App\Models\User;
@@ -23,7 +24,8 @@ class DischargeController extends Controller
     public function create(){
         $categories = CategoriesDischarge::all();
         $date = Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY');
-        return view('admin.discharge_create', compact('categories', 'date'));
+        $paymentMethods = CpaymentMethods::all();
+        return view('admin.discharge_create', compact('categories', 'date', 'paymentMethods'));
     }
 
     //guarda egresos
@@ -32,11 +34,13 @@ class DischargeController extends Controller
             'category' => 'required',
             'mount' => 'required|numeric|min:1000',
             'description' => 'required|min:5',
+            'method_payment' => 'required',
         ],
         [
             'category.required' => 'La categoria de egreso es requerida',
             'mount' => 'El valor del monto es requerido, y debe ser numerico mayor a 1000',
             'description' => 'La descripción del egreso es requerida',
+            'method_payment' => 'Metodo de pago es requerido',
         ]);
         if($validate){
             try{
@@ -48,6 +52,7 @@ class DischargeController extends Controller
                     'date' => Carbon::now()->format('Y-m-d'),
                     'user_id' => Auth::id(),
                     'cstate_id' => $state->id,
+                    'payment_method' => $request->method_payment,
                 ]);
                 return redirect('admin/printDischarge/'.$discharge->id);
             }catch(\Exception $e){
@@ -75,6 +80,8 @@ class DischargeController extends Controller
             if($validated){
                 $category = new CategoriesDischarge();
                 $category->name = strtoupper($request->name);
+                $state = Cstate::where('value', 'Activo')->first();
+                $category->cstate_id = $state->id;
                 $category->save();
                 return response()->json(['msg' => 'Categoria creada con exito', 'status' => 200], 200);
             }

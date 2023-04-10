@@ -31,7 +31,7 @@ class User extends Authenticatable
         'password',
         'dni',
         'phone',
-        'cstate_id',
+        'is_active',
     ];
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cstate;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class CstateSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('cstates')->insert([
+        $activo = Cstate::create([
             'value' => 'Activo',
         ]);
         DB::table('cstates')->insert([
@@ -38,6 +39,22 @@ class CstateSeeder extends Seeder
         ]);
         DB::table('cstates')->insert([
             'value' => 'Aprobado',
+        ]);
+        DB::table('cpayment_methods')->insert([
+            'value' => 'Efectivo',
+            'cstate_id' => $activo->id,
+        ]);
+        DB::table('cpayment_methods')->insert([
+            'value' => 'Tarjeta',
+            'cstate_id' => $activo->id,
+        ]);
+        DB::table('cpayment_methods')->insert([
+            'value' => 'Transferencia',
+            'cstate_id' => $activo->id,
+        ]);
+        DB::table('categories_discharges')->insert([
+            'name' => 'GASTOS VARIOS',
+            'cstate_id' => $activo->id,
         ]);
     }
 }

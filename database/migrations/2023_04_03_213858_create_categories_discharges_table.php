@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('categories_discharges', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
+            $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->timestamps();
         });
     }

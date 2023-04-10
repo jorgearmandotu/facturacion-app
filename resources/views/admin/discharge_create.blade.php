@@ -33,9 +33,23 @@
                     </div>
 
                 </div>
-                <div class="form-group">
-                    <label for="mount">Monto $</label>
-                    <input type="number" class="form-control" name="mount" value="{{ old('mount')}}">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="mount">Monto $</label>
+                        <input type="number" class="form-control" name="mount" value="{{ old('mount')}}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="method_payment">Forma de pago</label>
+                        <select name="method_payment" id="" class="form-control">
+                            @foreach($paymentMethods as $method)
+                                @if(old('method_payment') && old('method_payment')== $method->value)
+                                    <option value="{{$method->value}}" selected>{{$method->value}}</option>
+                                @else
+                                    <option value="{{$method->value}}">{{$method->value}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <label for="description">Descripción</label>

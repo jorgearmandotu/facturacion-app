@@ -12,6 +12,7 @@ class CategoriesDischarge extends Model
     protected $table = 'categories_discharges';
     protected $fillable = [
         'name',
+        'cstate_id',
     ];
 
     public function category(){
