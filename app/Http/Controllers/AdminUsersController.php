@@ -114,6 +114,15 @@ class AdminUsersController extends Controller
                 if($request->gestionDocuments){
                     $user->givePermissionTo('gestion-documents');
                 }
+                if($request->discharges){
+                    $user->givePermissionTo('discharges');
+                }
+                if($request->transferLocations){
+                    $user->givePermissionTo('transferLocations');
+                }
+                if($request->profile){
+                    $user->givePermissionTo('profile');
+                }
 
                 $user->save();
                 return response()->json(['msg' => 'Usuario creado con exito', 'status' => 200], 200);
@@ -182,55 +191,95 @@ class AdminUsersController extends Controller
                 $user->phone = $request->phone;
                 if($request->remision){
                     $user->givePermissionTo('remision.index', 'remision.store', 'printRemision');
+                }else{
+                    $user->revokePermissionTo(['remision.index', 'remision.store', 'printRemision']);
                 }
                 if($request->invoice){
                     $user->givePermissionTo('invoices.store', 'invoices.index', 'print-invoices');
+                }else{
+                    $user->revokePermissionTo(['invoices.store', 'invoices.index', 'print-invoices']);
                 }
                 if($request->receipt){
                     $user->givePermissionTo('receipt.index', 'receipt.store', 'print-receipt');
+                }else{
+                    $user->revokePermissionTo(['receipt.index', 'receipt.store', 'print-receipt']);
                 }
                 if($request->pendingInvoices){
                     $user->givePermissionTo('pending-invoices');
+                }else{
+                    $user->revokePermissionTo(['pending-invoices']);
                 }
                 if($request->listRemision){
                     $user->givePermissionTo( 'listRemisiones' );
+                }else{
+                    $user->revokePermissionTo( ['listRemisiones' ]);
                 }
                 if($request->createProducts){
                     $user->givePermissionTo( 'products.store', 'products.update', 'products.index');
+                }else{
+                    $user->revokePermissionTo([ 'products.store', 'products.update', 'products.index']);
                 }
                 if($request->listProducts){
                     $user->givePermissionTo( 'products-list' );
+                }else{
+                    $user->revokePermissionTo( ['products-list'] );
                 }
                 if($request->gestionInventario){
                     $user->givePermissionTo( 'gestion-inventario', 'lines.index', 'lines.store', 'lines.update', 'groups.index',
                     'groups.store', 'groups.update', 'locations.index', 'locations.store', 'locations.update' );
+                }else{
+                    $user->revokePermissionTo([ 'gestion-inventario', 'lines.index', 'lines.store', 'lines.update', 'groups.index',
+                    'groups.store', 'groups.update', 'locations.index', 'locations.store', 'locations.update'] );
                 }
                 if($request->shoppingInvoices){
                     $user->givePermissionTo( 'shopping-invoices.store' );
+                }else{
+                    $user->revokePermissionTo( ['shopping-invoices.store'] );
                 }
                 if($request->terceros){
                     $user->givePermissionTo( 'list-terceros', 'terceros.index', 'terceros.store', 'terceros.show', 'terceros.update' );
+                }else{
+                    $user->revokePermissionTo( ['list-terceros', 'terceros.index', 'terceros.store', 'terceros.show', 'terceros.update' ]);
                 }
                 if($request->suppliers){
                     $user->givePermissionTo( 'suppliers-list', 'suppliers.index' );
+                }else{
+                    $user->revokePermissionTo( ['suppliers-list', 'suppliers.index'] );
                 }
                 if($request->reports){
                     $user->givePermissionTo( 'exports', 'exports-invoice' , 'exports-receipt' );
+                }else{
+                    $user->revokePermissionTo( ['exports', 'exports-invoice' , 'exports-receipt'] );
                 }
                 if($request->configCompany){
                     $user->givePermissionTo( 'resolution-store', 'config-company.index', 'config-company.store' );
+                }else{
+                    $user->revokePermissionTo( ['resolution-store', 'config-company.index', 'config-company.store'] );
                 }
                 if($request->users){
                     $user->givePermissionTo( 'admin-users.index', 'admin-users.store' );
+                }else{
+                    $user->revokePermissionTo( ['admin-users.index', 'admin-users.store'] );
+                }
+                if($request->gestionDocuments){
+                    $user->givePermissionTo('gestion-documents');
+                }else{
+                    $user->revokePermissionTo('gestion-documents');
                 }
                 if($request->discharges){
                     $user->givePermissionTo('discharges');
+                }else{
+                    $user->revokePermissionTo('discharges');
                 }
                 if($request->transferLocations){
                     $user->givePermissionTo('transferLocations');
+                }else{
+                    $user->revokePermissionTo('transferLocations');
                 }
                 if($request->profile){
                     $user->givePermissionTo('profile');
+                }else{
+                    $user->revokePermissionTo('profile');
                 }
 
                 $user->save();

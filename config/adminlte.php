@@ -467,7 +467,7 @@ return [
             'text' => 'Perfil',
             'icon' => 'far fa-user',
             'can' => 'profile',
-            'url' => 'user/profile',
+            'url' => 'admin/profile',
         ],
     ],
 

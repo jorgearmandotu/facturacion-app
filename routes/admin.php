@@ -21,6 +21,7 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RemisionController;
 use App\Http\Controllers\ShoppingInvoiceController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserProfileController;
 use App\Models\Discharge;
 use App\Models\Invoice;
 use App\Models\Remision;
@@ -102,6 +103,8 @@ Route::middleware([
     Route::post('categoryDischarge', [DischargeController::class, 'storeCategory']);
     Route::get('categoriesDischargeList', [DischargeController::class, 'listCategories']);
     Route::get('printDischarge/{id}', [DischargeController::class, 'printDischarge']);
+
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
 
     Route::get('listado-prueba', function() {
         $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
