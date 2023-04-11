@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cstate;
 use App\Models\DataInvoices;
+use App\Models\Discharge;
 use App\Models\Invoice;
 use App\Models\LocationProduct;
 use App\Models\ProductsMovements;
@@ -220,6 +221,34 @@ class GestionDocumentsController extends Controller
         }catch(\Exception $e){
             DB::rollBack();
             return back()->with('fatal', 'La factura de compra no pudo ser anulada'.$e)->withInput();
+        }
+    }
+
+    public function dischargeShare(Request $request){
+        if($request->numberDischarge == ''){
+            return back()->with('fatal', 'Número de egreso es requerido');
+        }
+        $discharge = Discharge::find($request->numberDischarge);
+        if(!$discharge){
+            return back()->withInput()->with('fatal', 'Egreso no encontrado');
+        }
+        return back()->withInput()->with('discharge', $discharge);
+    }
+
+    public function anularDischarge(Request $request){
+        $discharge = Discharge::find($request->discharge);
+        if(!$discharge){
+            return back()->with('fatal', 'Egreso no encontrado');
+        }
+        //cambiar estado de remision a anulado y quitar de receipt si esta ligado a alguno
+        try{
+            $state = Cstate::where('value', 'Anulado')->first();
+            $discharge->cstate_id = $state->id;
+            $discharge->save();
+            return back()->with('success', 'El egreso fue anulado');
+        }catch(\Exception $e){
+            return back()->with('fatal', 'El egreso no pudo ser anulado').$e;
+
         }
     }
 }

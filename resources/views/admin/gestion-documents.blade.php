@@ -158,6 +158,38 @@
                 </form>
             </div>
             @endif
+
+            <hr>
+
+            <div class="row">
+                <label for="">Egresos</label>
+            </div>
+            <form action="discharge-share" method="post">
+                @csrf
+                <div class="form-row form">
+                    <div class="form-group col-md-3">
+                        <label for="number">Número</label>
+                        <input type="number" class="form-control" name="numberDischarge" value="{{old('numberDischarge')}}" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <button type="submit" class="btn btn-info mt-4" >Buscar</button>
+                    </div>
+                </div>
+            </form>
+            @if(session('discharge'))
+            <div class="row">
+                <p><a href="printDischarge/{{ session('discharge')->id }}" target="_blank" class="btn btn-warning mr-2">Ver egreso</a></p>
+                <form action="anularDischarge" method="post">
+                    @csrf
+                    <input type="hidden" name="discharge" value="{{ session('discharge')->id }}">
+                    @if(session('discharge')->state->value != 'Anulado')
+                        <button type="submit" class="btn btn-danger">Anular</button>
+                    @else
+                        <strong>Factura se encuentra anulada</strong>
+                    @endif
+                </form>
+            </div>
+            @endif
         </div>
         @section('plugins.Select2', true)
 @stop

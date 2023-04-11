@@ -98,6 +98,8 @@ Route::middleware([
     Route::post('anularRemision', [GestionDocumentsController::class, 'anularRemision']);
     Route::post('invoicesShopping-share', [GestionDocumentsController::class, 'shareShoppingInvoice']);
     Route::post('anularShoppingInvoice', [GestionDocumentsController::class, 'anularShoppingInvoice']);
+    Route::post('discharge-share', [GestionDocumentsController::class, 'dischargeShare']);
+    Route::post('anularDischarge', [GestionDocumentsController::class, 'anularDischarge']);
 
     Route::resource('egresos', DischargeController::class);
     Route::post('categoryDischarge', [DischargeController::class, 'storeCategory']);

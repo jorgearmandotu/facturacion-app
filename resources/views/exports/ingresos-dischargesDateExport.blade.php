@@ -1,14 +1,14 @@
 <table>
     <thead>
         <tr>
-            <th>Fecha</th>
-            <th>Prefijo</th>
-            <th>número</th>
-            <th>Total</th>
-            <th>Metodo de pago</th>
+            <th><b>Fecha</b></th>
+            <th><b>Prefijo</b></th>
+            <th><b>número</b></th>
+            <th><b>Total</b></th>
+            <th><b>Metodo de pago</b></th>
             {{-- <th>Estado</th> --}}
-            <th>Documento</th>
-            <th>Usuario</th>
+            <th><b>Documento</b></th>
+            <th><b>Usuario</b></th>
         </tr>
     </thead>
     <tbody>

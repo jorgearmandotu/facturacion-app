@@ -7,6 +7,7 @@
             <th><b>Concepto</b></th>
             <th><b>Categoria</b></th>
             <th><b>Usuario</b></th>
+            <th><b>Estado</b></th>
         </tr>
     </thead>
     <tbody>
@@ -21,8 +22,10 @@
                 <td>{{ $discharge->description }}</td>
                 <td>{{ $discharge->category->name }}</td>
                 <td>{{ $discharge->user->name }}</td>
+                <td>{{ $discharge->state->value }}</td>
             </tr>
             @php
+            if($discharge->state->value != 'Anulado')
                 $total += $discharge->mount;
             @endphp
         @endforeach

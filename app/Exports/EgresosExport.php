@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Discharge;
+use App\Models\Cstate;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -28,6 +29,7 @@ class EgresosExport implements FromView, ShouldAutoSize
     }
 
     public function view() : View {
+        $state = Cstate::where('value', 'Activo')->first();
         $data = Discharge::where('discharges.date', '>=', $this->initial)
                             ->where('discharges.date', '<=', $this->final)->get();
         return view('exports.dischargesDateExport', ['discharges' => $data]);
