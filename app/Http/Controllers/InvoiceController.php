@@ -131,8 +131,10 @@ class InvoiceController extends Controller
                     $dataInvoice->save();
                     $vlrTotal += $quantity*$price + $quantity*$price*$valueTax/100;
                     //disminuir inventario
-                    $almacen = Location::where('name', 'Almacén')->first();
-                    $locationProduct = LocationProduct::where('product_id', $product->id)->where('location_id', $almacen->id)->first();
+                    // $locationMain = ($product->locationMain) ? Location::find($product->locationMain) :  null;
+                    // $almacen = Location::where('name', 'Almacén')->first();
+                    // $almacen = Location::where('name', 'Almacén')->first();
+                    $locationProduct = ($product->locationMain) ? LocationProduct::where('product_id', $product->id)->where('location_id', $product->locationMain->id)->first() : null;
                     $stocks = (!$locationProduct) ? LocationProduct::where('product_id', $product->id)->first() : $locationProduct;
                     $stocks->stock = $stocks->stock - $quantity;
                     $stocks->save();

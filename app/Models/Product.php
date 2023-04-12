@@ -18,7 +18,7 @@ class Product extends Model
         'reference',
         'costo',
         'profit',
-        //'price',
+        'location_main',
         'cstate_id',
         'date',
     ];
@@ -53,6 +53,10 @@ class Product extends Model
 
     public function locations(){
         return $this->hasMany(LocationProduct::class, 'product_id', 'id');
+    }
+
+    public function locationMain(){
+        return $this->hasOne(Location::class, 'id', 'location_main');
     }
 
 }
