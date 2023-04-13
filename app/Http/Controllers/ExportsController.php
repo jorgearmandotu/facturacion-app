@@ -9,6 +9,7 @@ use App\Exports\InvoicesExport;
 use App\Exports\MovimientoProductExport;
 use App\Exports\ReceiptsExport;
 use App\Exports\ShoppingInvoicesExport;
+use App\Exports\VentaProductExport;
 use App\Models\Product;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
@@ -114,6 +115,22 @@ class ExportsController extends Controller
             return back()->with('fatal', 'No se encontro producto');
         }
         return Excel::download(new MovimientoProductExport($product, $dateInitial), 'movimiento de producto'.$product->name.'.xlsx');
+    }
+
+    public function exportVentaProducto(Request $request){
+        $dateInitial = $request->dateInitial;
+        $product = Product::find($request->product);
+        $dateFinal = $request->dateFinal;
+        if($dateInitial == ''){
+            return back()->with('fatal', 'Fecha inicial de movimiento es requerida');
+        }
+        if(!$product){
+            return back()->with('fatal', 'No se encontro producto');
+        }
+        if($dateFinal == ''){
+            $dateFinal = Carbon::now()->format('Y-m-d');
+        }
+        return Excel::download(new VentaProductExport($product, $dateInitial, $dateFinal), 'venta por producto-'.$product->name.'.xlsx');
     }
 
     public function exportInventario(){

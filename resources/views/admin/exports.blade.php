@@ -135,9 +135,13 @@
                     <label for="dateInitial">Fecha inical</label>
                     <input type="date" class="form-control" name="dateInitial">
                 </div>
+                {{-- <div class="form-group col-md-3">
+                    <label for="dateDinal">Fecha final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div> --}}
                 <div class="form-group col-md-3">
                     <label for="product">Producto</label>
-                    <select name="product" id="selectProducts" class="form-control" style="width: 100%" >
+                    <select name="product" id="selectProducts" class="form-control selectProducts style="width: 100%" >
                         <option value="-1">Seleccione Producto</option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
@@ -149,6 +153,34 @@
                 </div>
             </div>
         </form>
+        <hr>
+        <label for="">Exportar ventas por producto</label>
+        <form action="exportVentaProducto" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-3">
+                    <label for="dateInitial">Fecha inical</label>
+                    <input type="date" class="form-control" name="dateInitial" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dateFinal">Fecha final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="product">Producto</label>
+                    <select name="product" id="selectProductsVenta" class="form-control selectProducts" style="width: 100%" >
+                        <option value="-1">Seleccione Producto</option>
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <hr>
     </div>
 
 @stop

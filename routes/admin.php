@@ -84,6 +84,7 @@ Route::middleware([
     Route::post('exportEgresos', [ExportsController::class, 'exportEgresos']);
     Route::post('exportIngresosDischarge', [ExportsController::class, 'exportIngresosDischarge']);
     Route::post('exportMovimientoProducto', [ExportsController::class, 'exportMovimientoProducto']);
+    Route::post('exportVentaProducto', [ExportsController::class, 'exportVentaProducto']);
 
     Route::get('users-list', [AdminUsersController::class, 'list']);
     Route::resource('adminUsers', AdminUsersController::class);
