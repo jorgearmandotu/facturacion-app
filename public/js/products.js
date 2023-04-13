@@ -63,7 +63,7 @@ $(document).ready(function () {
                             return number;
                         }
                     },
-                    {data: null,
+                    {data: 'price',
                         render: (data, type, row)=>{
                             number = row.price;
                             number.toLocaleString('es-CO');
@@ -71,7 +71,7 @@ $(document).ready(function () {
                             return number;
                         }
                     },
-                    {data: null,
+                    {data: 'profit',
                     render: (data, type, row)=> {
                         if(row.profit < 1){
                             return `<span style="color:red">${row.profit}</span>`;
@@ -80,12 +80,13 @@ $(document).ready(function () {
                     }
                 },
                     {data: 'total'},
+                    {data: 'locationMain'},
                     {data: 'line'},
                     {data: 'group'},
                     {data: 'code'},
                     {data: 'state'},
                     {
-                        data: null,
+                        data: 'state',
                         render: (data, type, row) => {
                             const isActivo = row.state == 'Activo';
                             const classBtn = isActivo ? 'btn-success' : 'btn-danger';
@@ -160,6 +161,7 @@ async function edit(id){
     let inputId = document.getElementById('inputId');
     let selectTax = document.getElementById('selectTax');
     let checkActivo = document.getElementById('checkState');
+    let selectLocationMain = document.getElementById('locationMain')
     inputCode.value = product.code;
     inputName.value = product.name;
     inputCosto.value = product.costo;
@@ -169,6 +171,7 @@ async function edit(id){
     inputBarCode.value = (product.bar_code) ? product.bar_code : '';
     inputId.value = product.id;
     selectTax.value = product.tax;
+    selectLocationMain.value = product.location_main;
     (product.state === 'Activo') ? checkActivo.checked = true : checkActivo.checked = false;
 
 

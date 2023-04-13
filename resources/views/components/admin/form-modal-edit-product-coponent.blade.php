@@ -69,9 +69,17 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label for="bar_code">Cod Barras</label>
                                 <input type="text" name="bar_code" class="form-control" id="inputBarCode">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="location_main">Ubicación Principal</label>
+                                <select name="location_main" class="form-control" id="locationMain">
+                                    @foreach($locations as $location)
+                                    <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

@@ -22,6 +22,7 @@
                 <th>Precio 1</th>
                 <th>% utilidad</th>
                 <th>Existencias</th>
+                <th>Ub. principal</th>
                 <th>Linea</th>
                 <th>grupo</th>
                 <th>Código</th>

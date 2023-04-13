@@ -72,7 +72,7 @@
                     <input type="text" name="bar_code" class="form-control" value="{{ old('bar_code') }}">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="location">Ubicación</label>
+                    <label for="location">Ubicación principal</label>
                     <select name="location" id="" class="form-control">
                         @foreach($locations as $location)
                             @if(old('location'))

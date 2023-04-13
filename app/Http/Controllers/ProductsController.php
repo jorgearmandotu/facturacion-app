@@ -48,8 +48,9 @@ class ProductsController extends Controller
     }
 
     public function viewProducts(){
-        $taxes = Tax::all();
-        return view('admin.products', compact('taxes'));
+        // $taxes = Tax::all();
+        // $locations = Location::all();
+        return view('admin.products');
     }
 
     public function listPrices(){
@@ -81,6 +82,7 @@ class ProductsController extends Controller
             //$now = new \DateTime();
             //echo $now->format('d-m-Y H:i:s');
             $product->date = Carbon::now()->format('Y-m-d');
+            $product->location_main = $request->location;
             $product->save();
             //crear listado de precios
             $listPrice = new ListPrices();
@@ -155,7 +157,17 @@ class ProductsController extends Controller
             //$product->price = $request->price;
             $state = (!$request->state) ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
             $product->cstate_id = $state->id;
+            $product->location_main = $request->location_main;
+            //creo location_product si no existia ubicacion de producto
             $product->save();
+            $locationProduct = LocationProduct::where('product_id', $product->id)->where('location_id', $product->location_main)->first();
+            if(!$locationProduct){
+                $locationProduct = new LocationProduct();
+                $locationProduct->location_id = $product->location_main;
+                $locationProduct->product_id = $product->id;
+                $locationProduct->stock = 0;
+                $locationProduct->save();
+            }
             $listPrice = ListPrices::where('product_id', $product->id)->where('name', 'precio 1')->first();
             $listPrice->price = $request->price;
             $listPrice->save();
@@ -178,7 +190,7 @@ class ProductsController extends Controller
                     ->join('list_prices', 'products.id', 'list_prices.product_id')
                     ->where('products.id', $product)
                     ->where('list_prices.name', 'precio 1')
-                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo', 'profit', 'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group')->first();
+                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo', 'profit', 'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main')->first();
         return response()->json($product);
     }
 }

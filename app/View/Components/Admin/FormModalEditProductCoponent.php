@@ -2,6 +2,7 @@
 
 namespace App\View\Components\admin;
 
+use App\Models\Location;
 use App\Models\Tax;
 use Illuminate\View\Component;
 
@@ -13,9 +14,11 @@ class FormModalEditProductCoponent extends Component
      * @return void
      */
     public $taxes;
+    public $locations;
     public function __construct()
     {
         $this->taxes = Tax::all();
+        $this->locations = Location::all();
     }
 
     /**
