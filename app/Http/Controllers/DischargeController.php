@@ -7,10 +7,12 @@ use App\Models\CompanyData;
 use App\Models\CpaymentMethods;
 use App\Models\Cstate;
 use App\Models\Discharge;
+use App\Models\Tercero;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 
 class DischargeController extends Controller
@@ -40,16 +42,34 @@ class DischargeController extends Controller
             'mount' => 'required|numeric|min:1000',
             'description' => 'required|min:5',
             'method_payment' => 'required',
+            'dni' => 'required|numeric',
+            'document_type' => 'required',
+            'nameClient'    => 'required',
         ],
         [
             'category.required' => 'La categoria de egreso es requerida',
             'mount' => 'El valor del monto es requerido, y debe ser numerico mayor a 1000',
             'description' => 'La descripción del egreso es requerida',
             'method_payment' => 'Metodo de pago es requerido',
+            'dni.required' => 'La identificación es requerida.',
+            'dni.numeric' => 'La identificación debe ser numerica.',
+            'document_type' => 'El tipo de documento es requerido.',
+            'nameClient' => 'El nombre es requerido.',
         ]);
         if($validate){
+            DB::beginTransaction();
             try{
-                $state = Cstate::where('value', 'Activo')->first();
+                //$tercero = Tercero::where('dni', $request->dni)->first();
+                $tercero = Tercero::updateOrCreate(
+                    ['dni' => $request->dni],
+                    ['document_type' => $request->document_type,
+                    'name' => strtoupper($request->nameClient),
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'email' => strtoupper($request->email),
+                    'supplier' => true,]
+                );
+                $state = Cstate::where('value', 'Pagado')->first();
                 $discharge = Discharge::create([
                     'category_discharge' => $request->category,
                     'description' => $request->description,
@@ -58,9 +78,12 @@ class DischargeController extends Controller
                     'user_id' => Auth::id(),
                     'cstate_id' => $state->id,
                     'payment_method' => $request->method_payment,
+                    'tercero_id' => $tercero->id,
                 ]);
+                DB::commit();
                 return redirect('admin/printDischarge/'.$discharge->id);
             }catch(\Exception $e){
+                DB::rollBack();
                 return back()->withInput()->with('fatal', 'No fue posible generar el egreso, intyente mas tarde o contacte con el administrador del sistema'.$e);
             }
         }

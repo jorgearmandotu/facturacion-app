@@ -4,7 +4,7 @@
 
 @section('css')
     <link rel="stylesheet" href="../../css/main.css">
-    {{-- @livewireStyles --}}
+    @livewireStyles
 @stop
 
 @section('content_header')
@@ -18,6 +18,7 @@
             <div class="row justify-content-end"> <h3>{{ $date }}</h3> </div>
             <form action="{{ route('egresos.store')}}" method="POST">
                 @csrf
+                <livewire:invoice.search-clients />
                 <div class="row">
                     <div class="form-group">
                         <label for="category">Categoria</label>
@@ -70,5 +71,5 @@
 @section('js')
     <script src="../../js/tools.js"></script>
     {{-- <script src="../../js/clients.js"></script> --}}
-    {{-- @livewireScripts --}}
+    @livewireScripts
  @stop

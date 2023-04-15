@@ -34,16 +34,33 @@
                 <p>Fecha: {{ str_replace('-', '/', $discharge->date) }}</p>
             </div>
         </div>
-        <div class="row container-fluid">
-            <div class="col justify-start col-md-5">
-                <p>Quien realiza: {{ $discharge->user->name }}</p>
-            </div>
-            <div class="col col-md-3">
-                <p> Valor: {{ number_format($discharge->mount, 2, ',', '.') }}</p>
-            </div>
-            <div class="col col-md-3">
-                <p>  {{ $discharge->category->name }}</p>
-            </div>
+        <div class="row col-md-12">
+            <table width=100%>
+                <tr>
+                    <td class="invoiceTitle">Nombre:</td>
+                    <td class="invoiceText">{{Str::substr($discharge->tercero->name, 0, 35) }}</td>
+                    <td class="invoiceTitle">Identificación:</td>
+                    <td class="invoiceText">{{ $discharge->tercero->dni }}</td>
+                </tr>
+                <tr>
+                    <td>Dirección:</td>
+                    <td>{{ substr($discharge->tercero->address, 0, 35) }}</td>
+                    <td>Teléfono:</td>
+                    <td>{{ $discharge->tercero->phone }}</td>
+                </tr>
+                <tr>
+                    <td>e-mail:</td>
+                    <td>{{Str::substr($discharge->tercero->email, 0, 35) }}</td>
+                    <td>Quien realiza:</td>
+                    <td>{{ $discharge->user->name }}</td>
+                </tr>
+                <tr>
+                    <td>Valor: </td>
+                    <td>${{ number_format($discharge->mount, 2, ',', '.') }}</td>
+                    <td></td>
+                    <td>{{ $discharge->category->name }}</td>
+                </tr>
+            </table>
         </div>
         <div class="row col-md-12 justify-start">
             <hr>

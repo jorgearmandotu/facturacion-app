@@ -70,7 +70,9 @@ class GestionInventarioController extends Controller
             $stockTo->save();
             $stockFrom->stock -= $quantity;
             $stockFrom->save();
-
+            // $locations = LocationProduct::where('product_id', $product->id)->get();
+            $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = '.$product->id.';');
+            $stockReal = $locations[0]->total;
             //creo documento
             $document = new TransferLocation();
             $oldDocument = TransferLocation::latest('id')->first();
@@ -86,7 +88,7 @@ class GestionInventarioController extends Controller
             $movement->type = 'Salida';
             $movement->product_id = $product->id;
             $movement->quantity = $quantity;
-            $movement->saldo = $stockFrom->stock;
+            $movement->saldo = $stockReal - $quantity;
             $movement->document_type = 'TransferLocation';
             $movement->document_id = $document->number;
             $movement->location_id = $locationFrom->id;
@@ -95,7 +97,7 @@ class GestionInventarioController extends Controller
             $movement->type = 'Entrada';
             $movement->product_id = $product->id;
             $movement->quantity = $quantity;
-            $movement->saldo = $stockTo->stock;
+            $movement->saldo = $stockReal;
             $movement->document_type = 'TransferLocation';
             $movement->document_id = $document->number;
             $movement->location_id = $locationTo->id;
@@ -159,6 +161,9 @@ class GestionInventarioController extends Controller
                     $stockFrom->stock -= $quantity;
                     $stockFrom->save();
 
+                    $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = '.$product->id.';');
+                    $stockReal = $locations[0]->total;
+
                     //creo documento
                     $document = new TransferLocation();
                     $document->number = (!$oldDocument) ? 1 : $oldDocument->id + 1;
@@ -173,7 +178,7 @@ class GestionInventarioController extends Controller
                     $movement->type = 'Salida';
                     $movement->product_id = $product->id;
                     $movement->quantity = $quantity;
-                    $movement->saldo = $stockFrom->stock;
+                    $movement->saldo = $stockReal - $quantity;
                     $movement->document_type = 'TransferLocation';
                     $movement->document_id = $document->number;
                     $movement->location_id = $locationFrom->id;
@@ -182,7 +187,7 @@ class GestionInventarioController extends Controller
                     $movement->type = 'Entrada';
                     $movement->product_id = $product->id;
                     $movement->quantity = $quantity;
-                    $movement->saldo = $stockTo->stock;
+                    $movement->saldo = $stockReal;
                     $movement->document_type = 'TransferLocation';
                     $movement->document_id = $document->number;
                     $movement->location_id = $locationTo->id;

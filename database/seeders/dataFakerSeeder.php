@@ -46,9 +46,9 @@ class dataFakerSeeder extends Seeder
         $grupo7 = Group::create(['name'=> 'INSTITUCIONALES', 'cstate_id' => 1, 'line_id' => $linea4->id]);
 
         //crear productos
-        $product1 = Product::create(['name'=>'DEPORTIVO PASTO 2022', 'group_id' => $grupo1->id, 'code' => '1', 'costo' => 35000, 'profit' => '0', 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d')]);
-        $product2 = Product::create(['name'=>'RODILLERA', 'group_id' => $grupo2->id, 'code' => '2', 'costo' => 15000, 'profit' => '0', 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d')]);
-        $product3 = Product::create(['name'=>'CHAQUETA DOBLE ALA', 'group_id' => $grupo3->id, 'code' => '3', 'costo' => 85000, 'profit' => '0', 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d')]);
+        $product1 = Product::create(['name'=>'DEPORTIVO PASTO 2022', 'group_id' => $grupo1->id, 'code' => '1', 'costo' => 35000, 'profit' => '0', 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d'), 'location_main' => '1']);
+        $product2 = Product::create(['name'=>'RODILLERA', 'group_id' => $grupo2->id, 'code' => '2', 'costo' => 15000, 'profit' => '0', 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d'), 'location_main' => '2']);
+        $product3 = Product::create(['name'=>'CHAQUETA DOBLE ALA', 'group_id' => $grupo3->id, 'code' => '3', 'costo' => 85000, 'profit' => '0', 'cstate_id' => 1, 'date' => Carbon::now()->format('Y-m-d'), 'location_main' => '1']);
 
         //crear lista de precios
         $price1 = ListPrices::create(['product_id' => $product1->id, 'name' => 'precio 1', 'price' => 35000 ]);

@@ -73,7 +73,7 @@
             </div>
         </form>
         <hr>
-        <label for="">Exportar ingresos por fecha</label>
+        <label for="">Exportar recaudos por fecha</label>
         <form action="exportIngresos" method="post">
             @csrf
             <div class="form-row form">
@@ -109,7 +109,7 @@
             </div>
         </form>
         <hr>
-        <label for="">Exportar ingresos y egresos por fecha</label>
+        <label for="">Exportar auxiliar por documento</label>
         <form action="exportIngresosDischarge" method="post">
             @csrf
             <div class="form-row form">
@@ -135,10 +135,10 @@
                     <label for="dateInitial">Fecha inical</label>
                     <input type="date" class="form-control" name="dateInitial">
                 </div>
-                {{-- <div class="form-group col-md-3">
+                <div class="form-group col-md-3">
                     <label for="dateDinal">Fecha final</label>
                     <input type="date" class="form-control" name="dateFinal">
-                </div> --}}
+                </div>
                 <div class="form-group col-md-3">
                     <label for="product">Producto</label>
                     <select name="product" id="selectProducts" class="form-control selectProducts style="width: 100%" >

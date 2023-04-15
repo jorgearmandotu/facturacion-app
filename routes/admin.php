@@ -25,6 +25,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Models\Discharge;
 use App\Models\Invoice;
 use App\Models\Remision;
+use Illuminate\Support\Facades\DB;
 
 Route::middleware([
     'auth:sanctum',
@@ -111,13 +112,15 @@ Route::middleware([
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
 
     Route::get('listado-prueba', function() {
-        $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
-                            ->where('invoices.date_invoice', '<=', '2023-04-05')->get();
-        $remisiones = Remision::where('date_remision', '<=', '2023-04-05')->where('date_remision', '>=', '2023-04-01')->get();
-        $discharges = Discharge::where('date', '>=', '2023-04-01')
-        ->where('date', '<=', '2023-04-05')->get();
-        $data = $discharges->concat($invoices)->concat($remisiones)->sortBy('created_at');
-        return $data;
+        $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = 1;');
+        dd($locations[0]->total);
+        // $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
+        //                     ->where('invoices.date_invoice', '<=', '2023-04-05')->get();
+        // $remisiones = Remision::where('date_remision', '<=', '2023-04-05')->where('date_remision', '>=', '2023-04-01')->get();
+        // $discharges = Discharge::where('date', '>=', '2023-04-01')
+        // ->where('date', '<=', '2023-04-05')->get();
+        // $data = $discharges->concat($invoices)->concat($remisiones)->sortBy('created_at');
+        // return $data;
     });
 
 });

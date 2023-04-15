@@ -29,7 +29,7 @@ class EgresosExport implements FromView, ShouldAutoSize
     }
 
     public function view() : View {
-        $state = Cstate::where('value', 'Activo')->first();
+        $state = Cstate::where('value', 'Pagado')->first();
         $data = Discharge::where('discharges.date', '>=', $this->initial)
                             ->where('discharges.date', '<=', $this->final)->get();
         return view('exports.dischargesDateExport', ['discharges' => $data]);

@@ -20,7 +20,7 @@
                             @if ($movement->state->value != 'Anulado')
                                 <tr>
                                     <td>{{ $receipt->date }}</td>
-                                    <td>Recibo</td>
+                                    <td></td>
                                     <td>{{ $receipt->id }}</td>
                                     <td>{{ $receipt->vlr_payment }}</td>
                                     <td>{{ $receipt->type }}</td>
@@ -32,7 +32,7 @@
                                 @if ($receipt->remision->state->value != 'Anulado')
                                     <tr>
                                         <td>{{ $receipt->remision->date_remision }}</td>
-                                        <td>Remision</td>
+                                        <td></td>
                                         <td>{{ $receipt->remision->id }}</td>
                                         <td>{{ $receipt->remision->vlr_payment }}</td>
                                         <td>{{ $receipt->remision->payment_method }}</td>
@@ -58,7 +58,7 @@
                     {{-- es remision --}}
                     <tr>
                         <td>{{ $movement->date_remision }}</td>
-                        <td>Remision</td>
+                        <td></td>
                         <td>{{ $movement->id }}</td>
                         <td>{{ $movement->vlr_payment }}</td>
                         <td>{{ $movement->payment_method }}</td>
@@ -69,7 +69,7 @@
                 {{-- es egreso --}}
                 <tr>
                     <td>{{ $movement->date }}</td>
-                    <td>Egreso</td>
+                    <td></td>
                     <td>{{ $movement->id }}</td>
                     <td>{{ $movement->mount }}</td>
                     <td>EFECTIVO</td>

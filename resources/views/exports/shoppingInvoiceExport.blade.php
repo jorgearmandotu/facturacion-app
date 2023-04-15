@@ -1,16 +1,16 @@
 <table>
     <thead>
         <tr>
-            <th>Fecha</th>
-            <th>número</th>
-            <th>Producto</th>
-            <th>cantidad</th>
-            <th>vlr. unitario</th>
-            <th>sub.total</th>
-            <th>Total factura</th>
-            <th>Proveedor</th>
-            <th>identificación</th>
-            <th>Fecha Subida</th>
+            <th><b>Fecha</b></th>
+            <th><b>número</b></th>
+            <th><b>Producto</b></th>
+            <th><b>cantidad</b></th>
+            <th><b>vlr. unitario</b></th>
+            <th><b>sub.total</b></th>
+            <th><b>Total factura</b></th>
+            <th><b>Proveedor</b></th>
+            <th><b>identificación</b></th>
+            <th><b>Fecha Subida</b></th>
         </tr>
     </thead>
     <tbody>

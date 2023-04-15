@@ -21,10 +21,12 @@ class MovimientoProductExport implements FromView, ShouldAutoSize
 
     public $product;
     public $dateInitial;
+    public $dateFinal;
 
-    public  function __construct(Product $product, $dateInitial){
+    public  function __construct(Product $product, $dateInitial, $dateFinal){
         $this->product = $product;
         $this->dateInitial = $dateInitial;
+        $this->dateFinal = $dateFinal.' 23:59:59';
     }
 
     public function collection()
@@ -36,6 +38,7 @@ class MovimientoProductExport implements FromView, ShouldAutoSize
         // $data = ShoppingInvoice::join('products_shopping_invoices', 'products_shopping_invoices.invoice_id', 'shopping_invoices.id')
         //                     ->where('date_upload', '>=', $this->dateInitial)->get();
         $data = ProductsMovements::where('product_id', $this->product->id)
+                                    ->where('created_at', '<=', $this->dateFinal)
                                     ->where('created_at', '>=', $this->dateInitial)->get();
         return view('exports.movimientoProducto', ['movements' => $data]);
     }

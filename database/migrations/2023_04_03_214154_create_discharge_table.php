@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('discharges', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tercero_id')->references('id')->on('terceros');
             $table->foreignId('category_discharge')->references('id')->on('categories_discharges');
             $table->string('description', 250);
             $table->date('date');

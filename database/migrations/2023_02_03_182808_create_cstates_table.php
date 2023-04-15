@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('cstates', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 10);
+            $table->string('value', 50);
             $table->timestamps();
         });
     }

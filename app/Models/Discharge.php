@@ -11,6 +11,7 @@ class Discharge extends Model
     use HasFactory;
     protected $fillable = [
         'category_discharge',
+        'tercero_id',
         'description',
         'date',
         'mount',
@@ -18,6 +19,7 @@ class Discharge extends Model
         'user_id',
         'cstate_id'
     ];
+
 
     public function category(){
         return $this->hasOne(CategoriesDischarge::class, 'id', 'category_discharge');
@@ -29,5 +31,9 @@ class Discharge extends Model
 
     public function state() {
         return $this->hasOne(Cstate::class, 'id', 'cstate_id');
+    }
+
+    public function tercero() {
+        return $this->hasOne(Tercero::class, 'id', 'tercero_id');
     }
 }

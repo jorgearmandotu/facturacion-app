@@ -78,35 +78,36 @@ class ExportsController extends Controller
         if($dateFinal == ''){
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
-        return Excel::download(new IngresosExport($dateInitial, $dateFinal), 'ingresos por fecha.xlsx');
+        return Excel::download(new IngresosExport($dateInitial, $dateFinal), 'recaudo por fecha'.$dateInitial.'-'.$dateFinal.'xlsx');
     }
 
     public function exportEgresos(Request $request) {
         $dateInitial = $request->dateInitial;
         $dateFinal = $request->dateFinal;
         if($dateInitial == ''){
-            return back()->with('fatal', 'Fecha inicial de ingresos es requerida');
+            return back()->with('fatal', 'Fecha inicial de Egresos es requerida');
         }
         if($dateFinal == ''){
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
-        return Excel::download(new EgresosExport($dateInitial, $dateFinal), 'egresos por fecha.xlsx');
+        return Excel::download(new EgresosExport($dateInitial, $dateFinal), 'egresos por fecha '.$dateInitial.'-'.$dateFinal.'.xlsx');
     }
 
     public function exportIngresosDischarge(Request $request) {
         $dateInitial = $request->dateInitial;
         $dateFinal = $request->dateFinal;
         if($dateInitial == ''){
-            return back()->with('fatal', 'Fecha inicial de ingresos es requerida');
+            return back()->with('fatal', 'Fecha inicial es requerida');
         }
         if($dateFinal == ''){
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
-        return Excel::download(new IngresosDischargesExport($dateInitial, $dateFinal), 'ingresos y egresos por fecha.xlsx');
+        return Excel::download(new IngresosDischargesExport($dateInitial, $dateFinal), 'Auxiliar por docuemnto '.$dateInitial.'-'.$dateFinal.'.xlsx');
     }
 
     public function exportMovimientoProducto(Request $request){
         $dateInitial = $request->dateInitial;
+        $dateFinal = $request->dateFinal;
         $product = Product::find($request->product);
         if($dateInitial == ''){
             return back()->with('fatal', 'Fecha inicial de movimiento es requerida');
@@ -114,7 +115,10 @@ class ExportsController extends Controller
         if(!$product){
             return back()->with('fatal', 'No se encontro producto');
         }
-        return Excel::download(new MovimientoProductExport($product, $dateInitial), 'movimiento de producto'.$product->name.'.xlsx');
+        if($dateFinal == ''){
+            $dateFinal = Carbon::now()->format('Y-m-d');
+        }
+        return Excel::download(new MovimientoProductExport($product, $dateInitial, $dateFinal), 'movimiento de producto'.$product->name.'.xlsx');
     }
 
     public function exportVentaProducto(Request $request){
