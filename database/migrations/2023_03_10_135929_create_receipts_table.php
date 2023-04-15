@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('invoice_id')->references('id')->on('invoices');//para cruzar con factura
             $table->decimal('vlr_invoice', 10, 2);
             $table->decimal('vlr_payment', 10, 2)->default(0);//valor q paga
-            $table->enum('type', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA'])->default('EFECTIVO');
+            $table->text('type', '50')->default('EFECTIVO');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->date('date');
             $table->foreignId('remision_id')->nullable()->constrained('remisiones' ,'id');

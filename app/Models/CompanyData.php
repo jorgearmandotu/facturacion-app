@@ -17,5 +17,6 @@ class CompanyData extends Model
         'phone',
         'regimen',
         'actividad_economica',
+        'email'
     ];
 }

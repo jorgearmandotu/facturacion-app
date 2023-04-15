@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRemisionRequest;
 use App\Models\CompanyData;
+use App\Models\CpaymentMethods;
 use App\Models\Cstate;
 use App\Models\Remision;
 use App\Models\Tercero;
@@ -28,7 +29,8 @@ class RemisionController extends Controller
     }
 
     public function index(){
-        return view('admin.create_remision');
+        $paymentMethods = CpaymentMethods::all();
+        return view('admin.create_remision', compact('paymentMethods'));
     }
 
     public function store(StoreRemisionRequest $request){

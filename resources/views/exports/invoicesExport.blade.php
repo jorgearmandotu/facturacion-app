@@ -1,17 +1,17 @@
 <table>
     <thead>
     <tr>
-        <th>Fecha</th>
-        <th>Prefijo</th>
-        <th>número</th>
-        <th>Subtotal</th>
-        <th>IVA</th>
-        <th>Total</th>
-        <th>Identificacion</th>
-        <th>Cliente</th>
-        <th>Forma de pago</th>
-        <th>Metodo de pago</th>
-        <th>Estado</th>
+        <th><b>Fecha</b></th>
+        <th><b>Prefijo</b></th>
+        <th><b>número</b></th>
+        <th><b>Subtotal</b></th>
+        <th><b>IVA</b></th>
+        <th><b>Total</b></th>
+        <th><b>Identificacion</b></th>
+        <th><b>Cliente</b></th>
+        <th><b>Forma de pago</b></th>
+        <th><b>Metodo de pago</b></th>
+        <th><b>Estado de pago</b></th>
     </tr>
     </thead>
     <tbody>

@@ -40,6 +40,14 @@ class CstateSeeder extends Seeder
         DB::table('cstates')->insert([
             'value' => 'Aprobado',
         ]);
+        DB::table('cstates')->insert([
+            'value' => 'Pagado',
+        ]);
+        DB::table('cstates')->insert([
+            'value' => 'Pendiente por pagar',
+        ]);
+
+
         DB::table('cpayment_methods')->insert([
             'value' => 'Efectivo',
             'cstate_id' => $activo->id,

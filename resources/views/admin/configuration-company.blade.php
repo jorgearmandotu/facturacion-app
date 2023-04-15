@@ -13,6 +13,70 @@
 @section('content')
     <h1>Configuración de empresa</h1>
     <div class="container">
+        <h3>Datos de empresa</h3>
+        <hr>
+        @forelse ($errors->all() as $error)
+            <div class="alert alert-danger" role="alert">
+                <li>{{ $error }}</li>
+            </div>
+        @empty
+        @endforelse
+        @if(session('fatal'))
+        <div class="alert alert-danger" role="alert">
+            <li>{{ session('fatal') }}</li>
+        </div>
+        @endif
+        @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            <li>{{ session('success') }}</li>
+        </div>
+        @endif
+        <form action="{{ route('config-company.store') }}" method="post">
+            @csrf
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="razon-social">Razon social</label>
+                    <span class="form-control">{{ $company->razon_social }}</span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="nit">Nit</label>
+                    <span class="form-control">{{ $company->dni }}</span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="nameComercial">Nombre comercial</label>
+                    <input type="text" class="form-control" name="nameComercial" value="{{ $company->name_view }}"
+                        required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Dirección</label>
+                    <input type="text" name="address" class="form-control" value="{{ $company->address }}" >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="phone">teléfono</label>
+                    <input type="text" class="form-control" name="phone" value="{{ $company->phone }}" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="phone">Correo electrónico</label>
+                    <input type="email" class="form-control" name="email" value="{{ $company->email }}" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="regimen">Responsabilidad fiscal</label>
+                    <input type="text" class="form-control" name="regimen" value="{{ $company->regimen }}" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="activity">Actividad economica</label>
+                    <input type="text" class="form-control" name="activity" value="{{ $company->actividad_economica }}"
+                        required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <button class="btn btn-success" type="submit">Actualizar</button>
+            </div>
+        </form>
+        <hr>
+
         <h3>Resolucion de factura</h3>
         <label for="">Resolución actual</label><br>
         <div class="row">
@@ -40,22 +104,7 @@
             </div>
         </div>
         <hr>
-        @forelse ($errors->all() as $error)
-            <div class="alert alert-danger" role="alert">
-                <li>{{ $error }}</li>
-            </div>
-        @empty
-        @endforelse
-        @if(session('fatal'))
-        <div class="alert alert-danger" role="alert">
-            <li>{{ session('fatal') }}</li>
-        </div>
-        @endif
-        @if(session('success'))
-        <div class="alert alert-success" role="alert">
-            <li>{{ session('success') }}</li>
-        </div>
-        @endif
+
         <form action="resolutionStore" method="post">
             @csrf
             <div class="form-row">
@@ -97,47 +146,37 @@
             </div>
         </form>
         <hr>
-        <h3>Datos de empresa</h3>
-        <form action="{{ route('config-company.store') }}" method="post">
+
+        <h3>Metodos de pago autorizados</h3>
+        <form action="paymentMethodsStore" method="post">
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label for="nameComercial">Nombre comercial</label>
-                    <input type="text" class="form-control" name="nameComercial" value="{{ $company->name_view }}"
-                        required>
+                    <label for="value">Metodo de pago</label>
+                    <input type="text" class="form-control" name="value" value="" required />
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="razon-social">Razon social</label>
-                    <span class="form-control">{{ $company->razon_social }}</span>
+                    <button type="submit" class="btn btn-success mt-4">Agregar</button>
                 </div>
-                <div class="form-group col-md-3">
-                    <label for="nit">Nit</label>
-                    <span class="form-control">{{ $company->dni }}</span>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="address">Dirección</label>
-                    <input type="text" name="address" class="form-control" value="{{ $company->address }}" >
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="phone">teléfono</label>
-                    <input type="text" class="form-control" name="phone" value="{{ $company->phone }}" required>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="regimen">Regimen</label>
-                    <input type="text" class="form-control" name="regimen" value="{{ $company->regimen }}" required>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="activity">Actividad economica</label>
-                    <input type="text" class="form-control" name="activity" value="{{ $company->actividad_economica }}"
-                        required>
-                </div>
-            </div>
-            <div class="form-row justify-content-center">
-                <button class="btn btn-success" type="submit">Actualizar</button>
             </div>
         </form>
+        <table id="linesTable" class="table table-striped table-bordered bg-light" style="width:30%">
+            <thead>
+                <tr>
+                    <th>Metodos de pago</th>
+                    {{-- <th>Estado</th>
+                    <th>Opciones</th> --}}
+                </tr>
+                <tbody>
+                    @foreach ($methods_payment as $method)
+                    <tr>
+                        <td>{{ $method->value }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </thead>
+        </table>
+        <hr>
     </div>
 @stop
 

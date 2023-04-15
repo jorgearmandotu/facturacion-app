@@ -22,7 +22,8 @@ return new class extends Migration
             $table->date('date_remision');
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->enum('payment_method', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA']);
+            $table->text('payment_method', '50')->default('EFECTIVO');
+            // $table->enum('payment_method', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA']);
             $table->timestamps();
         });
     }

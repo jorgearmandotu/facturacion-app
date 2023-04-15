@@ -24,7 +24,7 @@ return new class extends Migration
             $table->decimal('discount',10 ,2)->default(0);
             $table->foreignId('user_id')->references('id')->on('users');
             $table->enum('type', ['CONTADO', 'CREDITO'])->default('CONTADO');
-            $table->enum('payment_method', ['EFECTIVO', 'TARJETA', 'TRANSFERENCIA']);
+            $table->text('payment_method', '50')->default('EFECTIVO');
             $table->foreignId('resolution')->references('id')->on('resolutions');
             $table->timestamps();
         });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCompanyDataRequest;
 use App\Http\Requests\StoreResolutionRequest;
 use App\Models\CompanyData;
+use App\Models\CpaymentMethods;
+use App\Models\Cstate;
 use App\Models\Resolution;
 use Illuminate\Http\Request;
 
@@ -21,7 +23,8 @@ class ConfigurationCompanyController extends Controller
     public function index(){
         $resolution = Resolution::latest('id')->first();
         $company = CompanyData::latest('id')->first();
-        return view('admin.configuration-company', compact('resolution', 'company'));
+        $methods_payment = CpaymentMethods::all();
+        return view('admin.configuration-company', compact('resolution', 'company', 'methods_payment'));
     }
 
     public function store(StoreCompanyDataRequest $request){
@@ -31,6 +34,7 @@ class ConfigurationCompanyController extends Controller
             $company->address = $request->address;
             $company->phone = $request->phone;
             $company->regimen = $request->regimen;
+            $company->email = $request->email;
             $company->actividad_economica = $request->activity;
             $company->save();
             return back()->with('success', 'Datos de emprea actualizados');
@@ -53,6 +57,22 @@ class ConfigurationCompanyController extends Controller
             return back()->with('success', 'Datos de resolución actualizados');
         }catch(\Exception $e){
             return back()->with('fatal', 'No fue posible actualizar datos de resolución');
+        }
+    }
+
+    public function paymentMethodsStore(Request $request){
+        try{
+            if($request->value == ''){
+            return back()->with('fatal', 'El nombre de metodo de pago no puede ser vacio.');
+            }
+            $method = new CpaymentMethods();
+            $method->value = strtoupper($request->value);
+            $state = Cstate::where('value', 'Activo')->first();
+            $method->cstate_id = $state->id;
+            $method->save();
+            return back()->with('success', 'Metodo de pago agregado.');
+        }catch(\Exception $e){
+            return back()->with('fatal', 'No fue posible crear metodo de pago.');
         }
     }
 }

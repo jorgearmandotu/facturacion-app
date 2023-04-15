@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CpaymentMethods;
 use App\Models\Cstate;
 use App\Models\DataInvoices;
 use App\Models\Invoice as ModelsInvoice;
@@ -31,7 +32,8 @@ class InvoiceController extends Controller
 
     public function index(){
         $products = Product::join('cstates', 'cstate_id', 'cstates.id')->where('value', '==', 'Activo')->get();
-        return view('admin.invoices', compact('products'));
+        $paymentMethods = CpaymentMethods::all();
+        return view('admin.invoices', compact('products', 'paymentMethods'));
     }
 
     public function store(Request $request) {
@@ -76,7 +78,7 @@ class InvoiceController extends Controller
             if($invoice->type == 'CREDITO'){
                 $state = Cstate::where('value', 'Pendiente')->first();
             }else{
-                $state = Cstate::where('value', 'Finalizado')->first();
+                $state = Cstate::where('value', 'Pagado')->first();
             }
             $invoice->cstate_id = $state->id;
             //se obtiene numero inicial de resolucion, y se compara si es mayor al ultim numero ingreado

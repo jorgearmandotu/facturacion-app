@@ -29,9 +29,9 @@
                 <div class="form-group col-md-3">
                     <label for="paymentMethod">Forma de pago</label>
                     <select name="paymentMethod" id="" class="form-control">
-                        <option value="EFECTIVO">Efectivo</option>
-                        <option value="TARJETA">Tarjeta</option>
-                        <option value="TRANSFERENCIA">Transferencia</option>
+                        @foreach($paymentMethods as $method)
+                        <option value="{{$method->value}}">{{$method->value}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

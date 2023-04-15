@@ -71,6 +71,7 @@ Route::middleware([
 
     Route::post('resolutionStore', [ConfigurationCompanyController::class, 'resolutionStore']);
     Route::resource('config-company', ConfigurationCompanyController::class);
+    Route::post('paymentMethodsStore',[ConfigurationCompanyController::class, 'paymentMethodsStore']);
 
     Route::get('printRemision/{remision}', [RemisionController::class, 'printRemision']);
     Route::get('listRemisiones', [RemisionController::class, 'listRemisiones']);

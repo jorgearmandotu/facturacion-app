@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('dni', 50);
             $table->string('address', 50);
             $table->string('phone', 50);
+            $table->string('email', 70);
             $table->string('regimen', 20);
             $table->string('actividad_economica', 50);
             $table->timestamps();

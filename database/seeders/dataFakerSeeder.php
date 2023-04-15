@@ -95,6 +95,7 @@ class dataFakerSeeder extends Seeder
             'phone' => '315 8465 247',
             'regimen' => 'simplificado',
             'actividad_economica' => '04753',
+            'email' => 'empresa@email.com',
         ]);
 
         //invoco a fabrica de productos

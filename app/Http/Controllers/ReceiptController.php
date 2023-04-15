@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReceiptRequest;
+use App\Models\CpaymentMethods;
 use App\Models\Cstate;
 use App\Models\Invoice;
 use App\Models\Receipt;
@@ -21,7 +22,8 @@ class ReceiptController extends Controller
     }
 
     public function index() {
-        return view('admin.receipt');
+        $paymentMethods = CpaymentMethods::all();
+        return view('admin.receipt', compact('paymentMethods'));
     }
 
     public function store(StoreReceiptRequest $request) {
@@ -50,6 +52,7 @@ class ReceiptController extends Controller
             }else{
                 $receipt->remision_id = null;
             }
+            $state = Cstate::where('value', 'Pagado')->first();
             $receipt->cstate_id = $state->id;
             $receipt->save();
 

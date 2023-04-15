@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Cstate;
 use App\Models\Invoice;
 use App\Models\Receipt;
 use App\Models\Remision;
@@ -16,12 +17,12 @@ class IngresosExport implements FromView, ShouldAutoSize
     * @return \Illuminate\Support\Collection
     */
 
-    public $initial;
-    public $final;
+    public $dateInitial;
+    public $dateFinal;
 
     public  function __construct($dateInital, $dateFinal){
-        $this->initial = $dateInital;
-        $this->final = $dateFinal;
+        $this->dateInitial = $dateInital;
+        $this->dateFinal = $dateFinal;
     }
 
     public function collection()
@@ -30,10 +31,13 @@ class IngresosExport implements FromView, ShouldAutoSize
     }
 
     public function view() : View {
-        $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
-                            ->where('invoices.date_invoice', '<=', '2023-04-05')->get();
-        $remisiones = Remision::where('date_remision', '<=', '2023-04-05')
-                            ->where('date_remision', '>=', '2023-04-01')->get();
+        $state = Cstate::where('value', 'Anulado')->first();
+        $invoices = Invoice::where('invoices.date_invoice', '>=', $this->dateInitial)
+                            ->where('invoices.date_invoice', '<=', $this->dateFinal)->where('cstate_id', '!=', $state->id)->get();
+        $remisiones = Remision::where('date_remision', '<=', $this->dateFinal)
+                            ->where('date_remision', '>=', $this->dateInitial)->where('cstate_id', '!=', $state->id)->get();
+        // $receipts = Receipt::where('date', '>=', $this->dateInitial)
+        //                     ->where('date', '<=', $this->dateFinal)->where('cstate_id', '!=', $state->id)->get();
         $data = $remisiones->concat($invoices)->sortBy('created_at');
         return view('exports.ingresosFechaExport', ['invoices' => $data]);
     }
