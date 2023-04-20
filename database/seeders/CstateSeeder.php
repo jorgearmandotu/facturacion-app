@@ -48,16 +48,21 @@ class CstateSeeder extends Seeder
         ]);
 
 
+        DB::table('categories_discharges')->insert([
+            'name' => 'FACTURAS DE COMPRA',
+            'cstate_id' => $activo->id,
+        ]);
+
         DB::table('cpayment_methods')->insert([
-            'value' => 'Efectivo',
+            'value' => 'EFECTIVO',
             'cstate_id' => $activo->id,
         ]);
         DB::table('cpayment_methods')->insert([
-            'value' => 'Tarjeta',
+            'value' => 'TARJETA',
             'cstate_id' => $activo->id,
         ]);
         DB::table('cpayment_methods')->insert([
-            'value' => 'Transferencia',
+            'value' => 'TRANSFERENCIA',
             'cstate_id' => $activo->id,
         ]);
         DB::table('categories_discharges')->insert([

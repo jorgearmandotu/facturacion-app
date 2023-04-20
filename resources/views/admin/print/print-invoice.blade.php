@@ -124,6 +124,12 @@
         </table>
     </div>
     <hr>
+    <div class="col-md-12">
+        <strong>Observaciones:</strong>
+        <p>{!! nl2br(e($invoice->observation)) !!}</p>
+        {{-- <textarea name="" id="" cols="30" rows="3" class="form-control" disabled>{{$invoice->observation}}</textarea> --}}
+    </div>
+    <hr>
     <div class="justify-content-center col-md-12 text-center">
         <span class="text-center">Favor revisar su mercancia andes de salir del establecimiento, una vez entregado no se aceptan Reclamaciones.<br></span>
     <span class="">Numero de resolucion: {{ $resolution->number }}<br>
@@ -137,6 +143,7 @@
 @stop
 
 @section('footer')
+
 @stop
 
 @section('plugins.Datatables', true)

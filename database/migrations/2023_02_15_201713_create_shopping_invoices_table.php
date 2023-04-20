@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->date('date_invoice');
             $table->date('date_upload');
+            $table->enum('type',['CONTADO', 'CREDITO'])->default('CONTADO');
+            $table->text('payment_method', '50')->default('EFECTIVO');
             $table->timestamps();
         });
     }

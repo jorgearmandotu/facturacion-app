@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoriesDischarge;
 use App\Models\CompanyData;
+use App\Models\CpaymentMethods;
 use App\Models\Cstate;
 use App\Models\DataInvoices;
+use App\Models\Discharge;
 use App\Models\ListPrices;
 use App\Models\Location;
 use App\Models\LocationProduct;
@@ -12,6 +15,7 @@ use App\Models\Product;
 use App\Models\ProductsMovements;
 use App\Models\ProductsShoppingInvoice;
 use App\Models\ShoppingInvoice;
+use App\Models\Tax;
 use App\Models\Tercero;
 use App\Models\User;
 use Carbon\Carbon;
@@ -42,11 +46,13 @@ class ShoppingInvoiceController extends Controller
     }
 
     public function create(){
+        $paymentMethods = CpaymentMethods::all();
+        $taxes = Tax::all();
         $suppliers = Tercero::where('supplier', true)->get();
         $products = Product::all();
         $locations = Location::join('cstates', 'locations.cstate_id', 'cstates.id')
                     ->where('value', 'Activo')->select('name', 'locations.id')->get();
-        return view('admin.shopping_invoices', compact('suppliers', 'products', 'locations'));
+        return view('admin.shopping_invoices', compact('suppliers', 'products', 'locations', 'taxes', 'paymentMethods'));
     }
 
     public function store(Request $request){
@@ -65,9 +71,16 @@ class ShoppingInvoiceController extends Controller
             $invoice->date_invoice = $request->date;
             $dateUpload = Carbon::now()->format('Y-m-d');
             $invoice->date_upload = $dateUpload;
+            $invoice->type = $request->typeInvoice;
             $invoice->user_id = Auth::id();
-            $state = Cstate::where('value', 'Aprobado')->first();
-            $invoice->cstate_id = $state->id;
+            if($invoice->type == 'CREDITO'){
+                $state = Cstate::where('value', 'Pendiente')->first();
+                $invoice->cstate_id = $state->id;
+            }else{
+                $state = Cstate::where('value', 'Pagado')->first();
+                $invoice->cstate_id = $state->id;
+            }
+            $invoice->payment_method = $request->paymentMethod;
             $invoice->save();
             //recorrer listado de productos
             $total = 0;
@@ -77,8 +90,14 @@ class ShoppingInvoiceController extends Controller
                 $product = $request->$val;
                 $val = 'cant'.$position;
                 $quantity = $request->$val;
+                // $val = 'location'.$request->$val;
+                // $location = $request->$val;
                 $val = 'vlrUnit'.$position;
                 $vlrUnit = $request->$val;
+                $val = 'tax'.$position;
+                $vlrTax = $request->$val;
+                $tax = Tax::find($vlrTax);
+                $vlrTax = ($tax) ? $tax->value : 0;
                 if($product && $quantity && $vlrUnit){
                     //agregar producto
                     $product_select = Product::find($product);
@@ -103,6 +122,7 @@ class ShoppingInvoiceController extends Controller
                     $dataInvoice->quantity = $quantity;
                     $dataInvoice->vlr_unit = $vlrUnit;
                     $dataInvoice->shopping_invoice_id = $invoice->id;
+                    $dataInvoice->vlr_tax = $vlrTax;
                     $dataInvoice->save();
                     $total += ($quantity * $vlrUnit);
                     //incrementar cantidad a stock
@@ -136,6 +156,8 @@ class ShoppingInvoiceController extends Controller
             }
             $invoice->total = $total;
             $invoice->save();
+            //generar egreso si es de contado  o cuenta por pagar si es credito
+
             DB::commit();
             return response()->json(['msg' => 'Ingreso Exitoso', 'invoice' => $invoice->id, 'status' => 200], 200);
         }catch(Exception $e){

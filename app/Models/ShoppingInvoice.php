@@ -18,6 +18,8 @@ class ShoppingInvoice extends Model
         'date_upload',
         'cstate_id',
         'user_id',
+        'type',
+        'payment_method',
     ];
 
     public function suppliers(){

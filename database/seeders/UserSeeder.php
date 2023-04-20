@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategoriesDischarge;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -236,5 +237,6 @@ class UserSeeder extends Seeder
         'invoices.store', 'invoices.index', 'print-invoices', 'pending-invoices', 'receipt.index', 'receipt.store',
         'print-receipt', 'resolution-store', 'config-company.index', 'config-company.store', 'exports',
         'exports-invoice' , 'exports-receipt', 'admin-users.index', 'admin-users.store', 'gestion-documents', 'discharges', 'transferLocations', 'profile');
+
     }
 }

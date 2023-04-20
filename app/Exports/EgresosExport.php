@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Discharge;
 use App\Models\Cstate;
+use App\Models\ShoppingInvoice;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -32,6 +33,10 @@ class EgresosExport implements FromView, ShouldAutoSize
         $state = Cstate::where('value', 'Pagado')->first();
         $data = Discharge::where('discharges.date', '>=', $this->initial)
                             ->where('discharges.date', '<=', $this->final)->get();
-        return view('exports.dischargesDateExport', ['discharges' => $data]);
+        $shoppingInvoices = ShoppingInvoice::where('type', 'CONTADO')
+                                ->where('date_invoice', '>=', $this->initial)
+                                ->where('date_invoice', '<=', $this->final)->get();
+        $discharges = $data->concat($shoppingInvoices)->sortBy('created_at');
+        return view('exports.dischargesDateExport', ['discharges' => $discharges]);
     }
 }

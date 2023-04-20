@@ -20,6 +20,7 @@ class Receipt extends Model
         'remision_id',
         'observation',
         'cstate_id',
+        'shopping_invoice_id'
     ];
 
     public function remision(){

@@ -1,5 +1,7 @@
 let selectProducts = document.getElementById('selectProducts');
+let selectTax = document.getElementById('selectTax');
 let inputQuantity = document.getElementById('inputQuantity');
+let inputLocation = document.getElementById('location');
 let inputVlrUnit = document.getElementById('inputVlrUnitario');
 let inputVlrTotal = document.getElementById('inputVlrTotal');
 let formProducts = document.getElementById('formProducts');
@@ -18,7 +20,7 @@ function changeVlrUnit(){
     }
 }
 
-function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
+function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, taxtText){
     const rowForm = document.getElementById('rowForm');
     let row = document.createDocumentFragment();
     const divRow = document.createElement('div');
@@ -33,7 +35,7 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
     inputNumber.setAttribute('class', 'form-control col-md-12 inputDisabled');
     inputNumber.setAttribute('disabled', '');
     const divProduct = document.createElement('div');
-    divProduct.setAttribute('class', 'col-md-5 border border-dark p-0');
+    divProduct.setAttribute('class', 'col-md-4 border border-dark p-0');
     const inputProduct = document.createElement('input');
     inputProduct.setAttribute('type', 'text');
     inputProduct.setAttribute('value', productText);
@@ -53,12 +55,20 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
     inputUnit.setAttribute('value', new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(vlrUnit));
     inputUnit.setAttribute('class', 'form-control col-md-12 inputDisabled');
     inputUnit.setAttribute('disabled', '');
+    const divTaxt = document.createElement('div');
+    divTaxt.setAttribute('class', 'col-md-1 border border-dark p-0');
+    const inputTax = document.createElement('input');
+    inputTax.setAttribute('class', 'form-control col-md-12 inputDisabled');
+    inputTax.setAttribute('disabled', '');
+    inputTax.setAttribute('type', 'text');
+    inputTax.setAttribute('value', taxtText);
+
     const divTotal = document.createElement('div');
     divTotal.setAttribute('class', 'col-md-2 border border-dark p-0');
     const inputTotal = document.createElement('input');
     inputTotal.setAttribute('type', 'text');
     inputTotal.setAttribute('value', new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(VlrTotal));
-    inputTotal.setAttribute('class', 'form-control col-md-12 inputDisabled');
+    inputTotal.setAttribute('class', 'form-control col-md-12 inputDisabled  text-right');
     inputTotal.setAttribute('disabled', '');
     const divOptions = document.createElement('div');
     divOptions.setAttribute('class', 'col-md-1  ')
@@ -76,11 +86,13 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal){
     divNumber.append(inputNumber);
     divCant.append(inputCant);
     divUnit.append(inputUnit);
+    divTaxt.append(inputTax);
     divTotal.append(inputTotal);
     divRow.appendChild(divNumber);
     divRow.appendChild(divProduct);
     divRow.appendChild(divCant);
     divRow.appendChild(divUnit);
+    divRow.appendChild(divTaxt);
     divRow.appendChild(divTotal);
     divRow.appendChild(divOptions);
     row.appendChild(divRow);
@@ -123,10 +135,13 @@ function clickPlus(e){
 
 function add(){
     let quantity = inputQuantity.value;
+    let location = inputLocation.value;
     let vlrUnit = inputVlrUnit.value;
     let VlrTotal = inputVlrTotal.value;
     let productText = selectProducts.options[selectProducts.selectedIndex].text;
     let product = selectProducts.value;
+    let tax = selectTax.value;
+    let taxText = selectTax.options[selectTax.selectedIndex].text;
     if(quantity !== '' && vlrUnit !== '' && VlrTotal !== '' && product > 0){
         itemsTotal++;
         itemsView++;
@@ -137,8 +152,10 @@ function add(){
         formProductsList.append(`product${itemsView}`, product);
         formProductsList.append(`cant${itemsView}`, quantity);
         formProductsList.append(`vlrUnit${itemsView}`, vlrUnit);
+        formProductsList.append(`tax${itemsView}`, tax);
+        formProductsList.append(`location${itemsView}`, location);
 
-        addRow(quantity, vlrUnit, VlrTotal, itemsView, productText, itemsTotal);
+        addRow(quantity, vlrUnit, VlrTotal, itemsView, productText, itemsTotal, taxText);
         formProducts.reset();
         $('#selectProducts').val(null).trigger('change');
 
@@ -151,6 +168,9 @@ function rowRemove(item, valueTotal){
     formProductsList.delete(`product${item}`);
     formProductsList.delete(`cant${item}`);
     formProductsList.delete(`vlrUnit${item}`);
+    formProductsList.delete(`tax${item}`);
+    formProductsList.delete(`location${item}`);
+
     itemsTotal--;
     formProductsList.append('totalItems', itemsTotal)
     totalInvoice -= valueTotal;
@@ -176,12 +196,13 @@ function send(){
     for (const [nombre, valor] of dataSupllier.entries()) {
         formProductsList.append(nombre, valor);
       }
-      const values = Object.fromEntries(formProductsList.entries());
-      if(values.date == '' || values.numberInvoice == '' || values.supplier < 1 || values.location < 1){
+    //    const values = Object.fromEntries(formProductsList.entries());
+
+      if(formProductsList.get('date') == '' || formProductsList.get('numberInvoice') == '' || formProductsList.get('supplier') < 1 || formProductsList.get('location') < 1){
         return messages('error', 'Verifique Proveedor, numero de factura, ubicación y fecha', true)
       }
 
-      if(itemsTotal < 1 || values.totalItems < 1){
+      if(itemsTotal < 1 || formProductsList.get('totalItems') < 1){
         return messages('error', 'Ingrese productos de factura', true)
       }
 

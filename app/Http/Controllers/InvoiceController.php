@@ -97,6 +97,7 @@ class InvoiceController extends Controller
             }
             $invoice->resolution = $resolution->id;
             // $invoice->number = $invoice->id;//resolucion dian
+            $invoice->observation = $request->observation;
             $invoice->save();
 
             //si hay cuota inical se crea nota para cruzar solo con facturas credito

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tercero_id')->references('id')->on('terceros');
             $table->foreignId('invoice_id')->references('id')->on('invoices');//para cruzar con factura
+            $table->foreignId('shopping_invoice_id')->references('id')->on('shopping_invoices');//para cruzar con factura de compra
             $table->decimal('vlr_invoice', 10, 2);
             $table->decimal('vlr_payment', 10, 2)->default(0);//valor q paga
             $table->text('type', '50')->default('EFECTIVO');

@@ -28,14 +28,7 @@
                         <option value="CREDITO">Crédito</option>
                     </select>
                 </div>
-                {{-- <div class="form-group col-md-3">
-                    <label for="discount">Descuento $</label>
-                    <input type="number" name="discount" class="form-control" min="0" value="0">
-                </div> --}}
-                {{-- <div class="form-group col-md-3">
-                    <label for="payment">Cuota inicial $</label>
-                    <input type="number" name="payment" class="form-control" min="0" value="0" id="payment" disabled>
-                </div> --}}
+
                 <div class="form-group col-md-3">
                     <label for="paymentMethod">Forma de pago</label>
                     <select name="paymentMethod" id="" class="form-control">
@@ -43,6 +36,12 @@
                             <option value="{{$method->value}}">{{$method->value}}</option>
                         @endforeach
                     </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="observation">Observación</label>
+                    <textarea name="observation" id="" cols="30" rows="3" class="form-control"></textarea>
                 </div>
             </div>
         </form>

@@ -19,6 +19,7 @@ class Invoice extends Model
         'user_id',
         'type',
         'payment_method',
+        'observation',
     ];
 
     public function dataInvoices(){

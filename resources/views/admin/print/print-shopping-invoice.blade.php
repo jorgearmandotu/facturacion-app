@@ -70,11 +70,11 @@
                 <tr>
                     {{-- <td style="width: 5%;" class="text-center">#</td> --}}
                     <td style="width: 10%" class="text-center">CÓDIGO</td>
-                    <td style="width: 40%" class="text-center">DESCRIPCIÓN</td>
+                    <td style="width: 30%" class="text-center">DESCRIPCIÓN</td>
                     <td style="width: 10%" class="text-center">CANT.</td>
                     <td style="width: 15%" class="text-center">Vr UNITARIO</td>
-                    {{-- <td style="width: 10%" class="text-center">%IVA</td> --}}
-                    <td style="width: 20%" class="text-center">SUB. TOTAL</td>
+                    <td style="width: 10%" class="text-center">%IVA</td>
+                    <td style="width: 10%" class="text-center">SUB. TOTAL</td>
                 </tr>
             </thead>
             <tbody>
@@ -89,7 +89,7 @@
                     <td>{{ $item->product->name }}</td>
                     <td class="text-center">{{ $item->quantity }}</td>
                     <td class="text-right">{{ number_format($item->vlr_unit, 2, ',','.') }}</td>
-                    {{-- <td class="text-center">{{ $item->vlr_tax }}</td> --}}
+                    <td class="text-center">{{ $item->vlr_tax }}</td>
                     @php
                     $value = $item->quantity*$item->vlr_unit;
                     $subTotal += $value;
@@ -100,23 +100,8 @@
                 @endforeach
             </tbody>
             <tfoot class="border-top">
-                {{-- <tr>
-                    <td colspan="4"></td>
-                    <td colspan="2" class="text-right"><strong>Sub. Total</strong></td>
-                    <td class="text-right">{{ number_format($subTotal, 2, ',', '.') }}</td>
-                </tr> --}}
-                {{-- <tr>
-                    <td colspan="4"></td>
-                    <td colspan="2" class="text-right"><strong>Descuento</strong></td>
-                    <td class="text-right">{{ number_format($invoice->discount, 2, ',', '.') }}</td>
-                </tr> --}}
-                {{-- <tr>
-                    <td colspan="5"></td>
-                    <td class="text-right"><strong>IVA:</strong></td>
-                    <td class="text-right">{{ number_format($iva,2 ,',', '.') }}</td>
-                </tr> --}}
                 <tr>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                     <td class="text-right"><strong>Total:</strong></td>
                     <td class="text-right">{{ number_format(($invoice->total ), 2, ',', '.') }}</td>
                 </tr>
