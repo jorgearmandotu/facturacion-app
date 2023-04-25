@@ -198,7 +198,7 @@ function send(){
       }
     //    const values = Object.fromEntries(formProductsList.entries());
 
-      if(formProductsList.get('date') == '' || formProductsList.get('numberInvoice') == '' || formProductsList.get('supplier') < 1 || formProductsList.get('location') < 1){
+      if(formProductsList.get('date') == '' || formProductsList.get('numberInvoice') == '' || formProductsList.get('supplier_id') < 1 || formProductsList.get('location') < 1){
         return messages('error', 'Verifique Proveedor, numero de factura, ubicación y fecha', true)
       }
 
@@ -259,3 +259,7 @@ async function sendInvoice(data){//recibo formData
         return messages('error', 'Ocurio un error inesperado contacte al administrador del sistema', true)
     }
 }
+
+selectProducts.addEventListener('change', (eventy) => {
+console.log('cambio');
+});

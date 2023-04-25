@@ -28,7 +28,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="proveedor">Proveedor</label>
-                        <select name="supplier" id="selectSupplier" class="form-control col-md-12">
+                        <select name="supplier_id" id="selectSupplier" class="form-control col-md-12">
                             {{-- <option value="-1">Seleccione Proveedor</option> --}}
                             <option value=""></option>
                             @foreach ($suppliers as $supplier)
@@ -81,15 +81,18 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1"></div>
                         <div class="form-group col-md-2">
                             <label for="quantity">Cantidad</label>
                             <input type="number" class="form-control" id="inputQuantity" onchange="changeVlrUnit()">
                         </div>
+                        <div class="form-group col-md-2">
+                            <label for="ult.costo">Ultimo Costo</label>
+                            <label for="" class="form-control" id="ult-costo"></label>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="vlr-Unitario">Vlr. Unitario</label>
+                            <label for="vlr-Unitario">Costo Unitario</label>
                             <input type="number" class="form-control" id="inputVlrUnitario" placeholder="$ 0"
                                 onchange="changeVlrUnit()">
                         </div>
@@ -110,7 +113,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="vlr-Total">Vlr. Total</label>
+                            <label for="vlr-Total">Costo Total</label>
                             <span class="form-control" id="inputVlrTotal"></span>
                             {{-- <input type="number" class="form-control" id="inputVlrTotal" placeholder="$ 0" tabindex="-1" disabled> --}}
                         </div>
@@ -134,7 +137,7 @@
                         <label for="">Cant</label>
                     </div>
                     <div class="col-md-2 border border-dark">
-                        <label for="">Vlr.Unit</label>
+                        <label for="">Costo.Unit</label>
                     </div>
                     <div class="col-md-1 border border-dark">
                         <label for="">IVA</label>

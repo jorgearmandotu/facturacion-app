@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('date');
             $table->decimal('mount', 10, 2);
             $table->text('payment_method', 50);
+            $table->foreignId('shopping_invoice_id')->nullable()->constrained('shopping_invoices' ,'id');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->timestamps();

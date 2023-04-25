@@ -37,5 +37,8 @@ class ShoppingInvoice extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    public function discharges(){
+        return $this->hasMany(Discharge::class, 'shopping_invoice_id', 'id');
+    }
 
 }

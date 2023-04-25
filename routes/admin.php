@@ -106,8 +106,11 @@ Route::middleware([
 
     Route::resource('egresos', DischargeController::class);
     Route::post('categoryDischarge', [DischargeController::class, 'storeCategory']);
+    Route::get('payInvoice/{invoice}', [DischargeController::class, 'dischargeOfInvoice']);
     Route::get('categoriesDischargeList', [DischargeController::class, 'listCategories']);
     Route::get('printDischarge/{id}', [DischargeController::class, 'printDischarge']);
+
+    Route::get('acounts_payables', [DischargeController::class, 'getPendingCreditInvoices']);
 
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
 

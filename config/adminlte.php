@@ -367,6 +367,11 @@ return [
                     'text' => 'Categorias Egreso',
                     'icon_color' => 'green',
                     'url' => 'admin/egresos',
+                ],
+                [
+                    'text' => 'Cuentas por pagar',
+                    'icon_color' => 'yellow',
+                    'url' => 'admin/acounts_payables',
                 ]
             ]
         ],

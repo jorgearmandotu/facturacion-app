@@ -7,6 +7,8 @@ use App\Models\CompanyData;
 use App\Models\CpaymentMethods;
 use App\Models\Cstate;
 use App\Models\Discharge;
+use App\Models\Invoice;
+use App\Models\ShoppingInvoice;
 use App\Models\Tercero;
 use App\Models\User;
 use Carbon\Carbon;
@@ -32,7 +34,16 @@ class DischargeController extends Controller
         $categories = CategoriesDischarge::all();
         $date = Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY');
         $paymentMethods = CpaymentMethods::all();
-        return view('admin.discharge_create', compact('categories', 'date', 'paymentMethods'));
+        $invoice = null;
+        return view('admin.discharge_create', compact('categories', 'date', 'paymentMethods', 'invoice'));
+    }
+    //crea egreso de factura
+    public function dischargeOfInvoice(ShoppingInvoice $invoice){
+        $categories = CategoriesDischarge::all();
+        $date = Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY');
+        $paymentMethods = CpaymentMethods::all();
+        //$invoice = null;
+        return view('admin.discharge_create', compact('categories', 'date', 'paymentMethods', 'invoice'));
     }
 
     //guarda egresos
@@ -80,6 +91,11 @@ class DischargeController extends Controller
                     'payment_method' => $request->method_payment,
                     'tercero_id' => $tercero->id,
                 ]);
+                $shoppingInvoice = ShoppingInvoice::find($request->shopping_invoice);
+                if($shoppingInvoice){
+                    $discharge->shopping_invoice_id = $shoppingInvoice->id;
+                    $discharge->save();
+                }
                 DB::commit();
                 return redirect('admin/printDischarge/'.$discharge->id);
             }catch(\Exception $e){
@@ -128,5 +144,13 @@ class DischargeController extends Controller
         $company = CompanyData::latest('id')->first();
         $user = User::find($discharge->user_id);
         return view('admin.print.print-discharge', compact('discharge', 'company', 'user'));
+    }
+
+    public function getPendingCreditInvoices(){
+        // $state = Cstate::where('value', 'Pendiente')->first();
+        $invoices = ShoppingInvoice::where('type', 'CREDITO')->whereHas('state', function ($query) {
+            $query->where('value', 'Pendiente');
+        })->with('suppliers', 'user')->get();
+        return view('admin.acounts_payables', compact('invoices'));
     }
 }

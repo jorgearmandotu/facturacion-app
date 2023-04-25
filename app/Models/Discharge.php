@@ -17,7 +17,8 @@ class Discharge extends Model
         'mount',
         'payment_method',
         'user_id',
-        'cstate_id'
+        'cstate_id',
+        'shopping_invoice_id',
     ];
 
 

@@ -23,6 +23,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ShoppingInvoiceController extends Controller
 {
@@ -56,17 +57,32 @@ class ShoppingInvoiceController extends Controller
     }
 
     public function store(Request $request){
-        if(!$request->date || !$request->numberInvoice || !$request->supplier || !$request->location){
+        if(!$request->date || !$request->numberInvoice || !$request->supplier_id || !$request->location){
             return response()->json(['msg' => 'Verifique Datos de Factura', 'status' => 400], 200);
         }
         if(!$request->totalItems || $request->totalItems < 1 || !$request->totalView) {
             return response()->json(['msg' => 'Verifique Productos de Factura', 'status' => 400], 200);
         }
+        //validar que factura de proveedor no exista
+        try{
+            $request->validate([
+                'supplier_id' => [
+                    'required',
+                    Rule::unique('shopping_invoices')->where(function ($query) use ($request) {
+                        $state = Cstate::where('value', 'Anulado')->first();
+                        return $query->where('number', $request->numberInvoice)->where('cstate_id', '!=', $state->id);
+                    }),
+                ],
+                'numberInvoice' => 'required',
+            ]);
+        }catch (\Exception $e){
+            return response()->json(['msg' => 'Ya se encuentra registrado este numero de factura a este proveedor'. $e, 'status' => 400], 200);
+        }
         //crear factura
         DB::beginTransaction();
         try{
             $invoice = new ShoppingInvoice();
-            $invoice->supplier_id = $request->supplier;
+            $invoice->supplier_id = $request->supplier_id;
             $invoice->number = $request->numberInvoice;
             $invoice->date_invoice = $request->date;
             $dateUpload = Carbon::now()->format('Y-m-d');
