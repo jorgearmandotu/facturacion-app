@@ -14,9 +14,10 @@ class ListPrices extends Model
         'product_id',
         'name',
         'price',
+        'utilidad',
     ];
 
-    public function products(){
-        return $this->hasOne(Product::class);
+    public function product(){
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

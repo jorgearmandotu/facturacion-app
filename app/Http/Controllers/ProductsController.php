@@ -54,7 +54,8 @@ class ProductsController extends Controller
     }
 
     public function listPrices(){
-        return view ('admin.list_prices');
+        $products = Product::orderBy('id', 'desc')->get();
+        return view ('admin.list_prices', compact('products'));
     }
 
     public function store(StoreProductRequest $request) {

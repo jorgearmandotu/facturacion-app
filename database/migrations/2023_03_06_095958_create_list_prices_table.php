@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('product_id')->references('id')->on('products');
             $table->text('name', 10);
             $table->decimal('price', 10, 2)->default(0);
+            $table->decimal('utilidad', 10, 2)->default(0);
             $table->timestamps();
         });
     }
