@@ -70,26 +70,7 @@
                 <div class="container bg-white">
                     <label for="">Agregar Productos</label>
                     <form id="formProducts">
-                    <div class="form-row">
-                        <div class="form-group col-md-7">
-                            <label for="proveedor">Producto</label>
-                            <select name="product" id="selectProducts" class="js-example-theme-single form-control">
-                                {{-- <option value="-1">Seleccione Producto</option> --}}
-                                <option value=""></option>
-                                @foreach ($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="quantity">Cantidad</label>
-                            <input type="number" class="form-control" id="inputQuantity" onchange="changeVlrUnit()">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="ult.costo">Ultimo Costo</label>
-                            <label for="" class="form-control" id="ult-costo"></label>
-                        </div>
-                    </div>
+                    <livewire:shopping-invoice.search-products/>
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="vlr-Unitario">Costo Unitario</label>
@@ -102,12 +83,12 @@
                                 @foreach($taxes as $tax)
                                     @if(old('tax'))
                                         @if(old('tax') == $tax->id)
-                                            <option value="{{$tax->id}}" selected>{{$tax->name}}</option>
+                                            <option value="{{$tax->value}}" selected>{{$tax->name}}</option>
                                         @else
-                                            <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                            <option value="{{$tax->value}}">{{$tax->name}}</option>
                                         @endif
                                     @else
-                                        <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                        <option value="{{$tax->value}}">{{$tax->name}}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -151,6 +132,15 @@
                 </div>
                 <div class="form-row justify-content-end">
                     <div class="col-md-2 border border-dark p-0">
+                        <label for="">Total Iva:</label>
+                    </div>
+                    <div class="col-md-2 border border-dark p-0">
+                        <input type="text" class="form-control col-md-12 text-right" id="inputIvaTotal" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="form-row justify-content-end">
+                    <div class="col-md-2 border border-dark p-0">
                         <label for="">Total:</label>
                     </div>
                     <div class="col-md-2 border border-dark p-0">
@@ -174,5 +164,5 @@
     <script src="../../js/shopping-invoices.js"></script>
     <script src="../../js/tools.js"></script>
 
-    {{-- @livewireScripts --}}
+    @livewireScripts
 @stop

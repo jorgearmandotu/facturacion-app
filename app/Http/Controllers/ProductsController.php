@@ -74,7 +74,7 @@ class ProductsController extends Controller
             $product->code = $request->code;
             $product->name = mb_strtoupper($request->name,"UTF-8");
             $product->costo = $request->costo;
-            $product->profit = $request->profit;
+            // $product->profit = $request->profit;
             //$product->price = $request->price;
             $product->reference = $request->reference;
             $product->bar_code = $request->bar_code;
@@ -90,6 +90,7 @@ class ProductsController extends Controller
             $listPrice->product_id = $product->id;
             $listPrice->price = $request->price;
             $listPrice->name = 'precio 1';
+            $listPrice->utilidad = $request->profit;
             $listPrice->save();
 
             $product_taxes = new ProductsTaxes();
@@ -154,7 +155,7 @@ class ProductsController extends Controller
             $product->bar_code = $request->bar_code;
             $product->reference = $request->reference;
             $product->costo = $request->costo;
-            $product->profit = $request->profit;
+            //$product->profit = $request->profit;
             //$product->price = $request->price;
             $state = (!$request->state) ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
             $product->cstate_id = $state->id;
@@ -171,6 +172,7 @@ class ProductsController extends Controller
             }
             $listPrice = ListPrices::where('product_id', $product->id)->where('name', 'precio 1')->first();
             $listPrice->price = $request->price;
+            $listPrice->utilidad = $request->profit;
             $listPrice->save();
             $product_taxes = ProductsTaxes::where('product_id', $product->id)->first();
             $product_taxes->product_id = $product->id;
@@ -191,7 +193,7 @@ class ProductsController extends Controller
                     ->join('list_prices', 'products.id', 'list_prices.product_id')
                     ->where('products.id', $product)
                     ->where('list_prices.name', 'precio 1')
-                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo', 'profit', 'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main')->first();
+                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo',  'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main', 'utilidad')->first();
         return response()->json($product);
     }
 }

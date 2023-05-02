@@ -50,10 +50,9 @@ class ShoppingInvoiceController extends Controller
         $paymentMethods = CpaymentMethods::all();
         $taxes = Tax::all();
         $suppliers = Tercero::where('supplier', true)->get();
-        $products = Product::all();
         $locations = Location::join('cstates', 'locations.cstate_id', 'cstates.id')
                     ->where('value', 'Activo')->select('name', 'locations.id')->get();
-        return view('admin.shopping_invoices', compact('suppliers', 'products', 'locations', 'taxes', 'paymentMethods'));
+        return view('admin.shopping_invoices', compact('suppliers', 'locations', 'taxes', 'paymentMethods'));
     }
 
     public function store(Request $request){
@@ -112,8 +111,8 @@ class ShoppingInvoiceController extends Controller
                 $vlrUnit = $request->$val;
                 $val = 'tax'.$position;
                 $vlrTax = $request->$val;
-                $tax = Tax::find($vlrTax);
-                $vlrTax = ($tax) ? $tax->value : 0;
+                // $tax = Tax::find($vlrTax);
+                // $vlrTax = ($tax) ? $tax->value : 0;
                 if($product && $quantity && $vlrUnit){
                     //agregar producto
                     $product_select = Product::find($product);
@@ -123,9 +122,10 @@ class ShoppingInvoiceController extends Controller
                         , 'status' => 400], 200);
                     }
                     $product_select->costo = $vlrUnit;
-                    $price = ListPrices::where('name', "precio 1")
-                                        ->where('product_id', $product_select->id)->first();
-                    $product_select->profit = ($price->price - $vlrUnit)/$vlrUnit*100;//(price-costo)/costo*100
+                    // $price = ListPrices::where('name', "precio 1")
+                                        // ->where('product_id', $product_select->id)->first();
+                    //actualizo lista de precios de acuerdo a utilidad
+                    // $product_select->profit = ($price->price - $vlrUnit)/$vlrUnit*100;//(price-costo)/costo*100
                     $product_select->save();
                     // $product_shopping_invoice = new ProductsShoppingInvoice();
                     // $product_shopping_invoice->product_id = $product_select->id;
@@ -140,7 +140,7 @@ class ShoppingInvoiceController extends Controller
                     $dataInvoice->shopping_invoice_id = $invoice->id;
                     $dataInvoice->vlr_tax = $vlrTax;
                     $dataInvoice->save();
-                    $total += ($quantity * $vlrUnit);
+                    $total += ($quantity * ($vlrUnit+$vlrUnit*$vlrTax/100));
                     //incrementar cantidad a stock
                     $locationProducts = LocationProduct::where('product_id', $product_select->id)
                                                     ->where('location_id', $request->location)->first();
@@ -167,6 +167,20 @@ class ShoppingInvoiceController extends Controller
                     $productMovement->document_type = 'shopping_invoice';
                     $productMovement->document_id = $invoice->id;
                     $productMovement->save();
+
+                    //actualizo listado de precio
+                    $listprices =  ListPrices::where('product_id',$product_select->id)->get();
+                    foreach($listprices as $price){
+                        $price->price = $product_select->costo+($product_select->costo*$price->utilidad/100);
+                        $price->save();
+                    }
+                    // $priceBeforeIva = $product_select->costo+($product_select->costo*$listprice->utilidad/100);
+                    $taxes = 0;
+                    foreach($product_select->taxes as $tax){
+                        $taxes += $tax->value;
+                    }
+                    // $listprice->price = $priceBeforeIva+($priceBeforeIva*$taxes/100);
+                    // $listprice->save();
                 }
                 //return response()->json(['msg' => $vlrUnit, 'status' => 200], 200);
             }

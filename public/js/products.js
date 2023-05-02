@@ -165,7 +165,7 @@ async function edit(id){
     inputCode.value = product.code;
     inputName.value = product.name;
     inputCosto.value = product.costo;
-    inputProfit.value = product.profit;
+    inputProfit.value = product.utilidad;
     inputPrice.value = product.price;
     inputReference.value = (product.reference ) ? product.reference : '';
     inputBarCode.value = (product.bar_code) ? product.bar_code : '';

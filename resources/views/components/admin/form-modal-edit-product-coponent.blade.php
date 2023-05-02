@@ -48,7 +48,7 @@
                                     placeholder="%" onchange="changePercent()" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="price">Precio</label>
+                                <label for="price">Precio 1</label>
                                 <input type="number" class="form-control" name="price" id="inputPrice"
                                     placeholder="$" onchange="changePrice()" />
                             </div>

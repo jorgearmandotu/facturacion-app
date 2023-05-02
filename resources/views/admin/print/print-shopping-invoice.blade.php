@@ -93,13 +93,18 @@
                     @php
                     $value = $item->quantity*$item->vlr_unit;
                     $subTotal += $value;
-                    // $iva += ($value)*$item->vlr_tax/100;
+                    $iva += ($value)*$item->vlr_tax/100;
                     @endphp
                     <td class="text-right">{{ number_format($item->vlr_unit*$item->quantity, 2, ',', '.') }}</td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot class="border-top">
+                <tr>
+                    <td colspan="4"></td>
+                    <td class="text-right"><strong>Iva:</strong></td>
+                    <td class="text-right">{{ number_format(($iva ), 2, ',', '.') }}</td>
+                </tr>
                 <tr>
                     <td colspan="4"></td>
                     <td class="text-right"><strong>Total:</strong></td>
