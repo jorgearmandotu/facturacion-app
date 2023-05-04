@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\CategoriesDischarge;
+use App\Models\CompanyData;
+use App\Models\Resolution;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -237,6 +239,28 @@ class UserSeeder extends Seeder
         'invoices.store', 'invoices.index', 'print-invoices', 'pending-invoices', 'receipt.index', 'receipt.store',
         'print-receipt', 'resolution-store', 'config-company.index', 'config-company.store', 'exports',
         'exports-invoice' , 'exports-receipt', 'admin-users.index', 'admin-users.store', 'gestion-documents', 'discharges', 'transferLocations', 'profile');
+
+        //crear datos de compania
+        $dataCompany = CompanyData ::create([
+            'name_view' => 'Aetius',
+            'razon_social' => 'La casa del estampado',
+            'dni' => '9.547.458-3',
+            'address' => 'calle 16 #23-15',
+            'phone' => '315 8465 247',
+            'regimen' => 'simplificado',
+            'actividad_economica' => '04753',
+            'email' => 'empresa@email.com',
+        ]);
+
+        //crear datos de resolucion
+        $resolution = Resolution::create([
+            'number'=> '18764024704502',
+            'date_resolution' => '2023-01-29',
+            'expiration_date' => '2024-01-29',
+            'validity' => '24 meses',
+            'prefijo' => 'FP',
+            'initial_number' => '1',
+            'final_number' => '1000',]);
 
     }
 }

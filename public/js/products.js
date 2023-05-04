@@ -55,7 +55,7 @@ $(document).ready(function () {
                 columns: [
                     {data: 'name'},
                     {data: 'reference'},
-                    {data: null,
+                    {data: 'costo',
                         render: (data, type, row)=>{
                             number = row.costo;
                             number.toLocaleString('es-CO');
@@ -77,9 +77,16 @@ $(document).ready(function () {
                             return `<span style="color:red">${row.profit}</span>`;
                         }
                         return row.profit;
-                    }
-                },
-                    {data: 'total'},
+                        }
+                    },
+                    {data: 'total',
+                    render: (data) => {
+                        if(data < 1){
+                            return `<span style="color:red">${data}</span>`;
+                        }
+                        return data;
+                        }
+                    },
                     {data: 'locationMain'},
                     {data: 'line'},
                     {data: 'group'},
