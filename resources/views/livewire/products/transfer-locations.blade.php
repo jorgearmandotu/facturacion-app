@@ -1,7 +1,34 @@
 <div>
     <div class="form-group row">
-        <label for="name">Codigo de Producto</label>
-        <input type="number" class="form-control data-autofocus" placeholder="Código" name="code" id="inputCode" wire:model.defer="code" wire:change="searchCode">
+        <label for="name">Producto</label>
+        <input wire:model="code" id="inputCode" wire:keydown.enter="asignarFirst()" class="form-control" placeholder="Código de producto">
+        @error("code")
+        <small class="form-text text-danger">{{ $message}}</small>
+        @else
+            @if(count($products)>0)
+                @if(!$product)
+                    <div class="shadow rounded px-3 pt-3 pb-0">
+                    @foreach($products as $productItem)
+                        <div style="cursor: pointer;">
+                            <a wire:click="asignarProduct('{{ $productItem->code }}')">
+                                {{ $productItem->code.' - '.$productItem->name }}
+                            </a>
+                        </div>
+                            <hr>
+                    @endforeach
+                    </div>
+                @endif
+            @else
+                <small class="form-text text-muted">Buscar próducto</small>
+            @endif
+        @enderror
+        {{-- <select name="product" id="selectProducts" class="form-control" style="width: 100%" onfocus="7"> --}}
+                {{-- <option></option>
+            @foreach ($products as $product)
+                <option value="{{ $product->code }}">{{ $product->code }} - {{ $product->name }}</option>
+            @endforeach
+        </select> --}}
+        {{-- <input type="number" class="form-control data-autofocus" placeholder="Código" name="code" id="inputCode" wire:model.defer="code" wire:change="searchCode"> --}}
     </div>
     <div class="row">
         <label id="nameProduct" for="">@if($product) {{$product->name}} @endif</label>
@@ -31,4 +58,6 @@
         <label for="quantity">Cantidad</label>
         <input type="number" min="1" name="quantity" class="form-control" wire:model.defer="quantity" id="quantity">
     </div>
+
+    @section('plugins.Select2', true)
 </div>

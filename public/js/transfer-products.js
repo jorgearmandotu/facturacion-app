@@ -66,3 +66,10 @@ function generarTraslado(e){
     const valores = Object.fromEntries(dataTransfer.entries());
     console.log(valores);
 }
+
+$(document).ready(function () {
+    $("#selectProducts").select2({
+        placeholder: 'Seleccione un producto',
+        allowClear: true,
+    });
+});

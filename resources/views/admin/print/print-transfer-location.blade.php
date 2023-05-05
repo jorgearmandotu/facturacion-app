@@ -14,7 +14,7 @@
 
 <div class="container col-md-10">
     <div class="d-print-none">
-        <h1>Detalle de translado</h1>
+        <h1>Detalle de traslado</h1>
     </div>
     <div class="row justify-content-center container-fluid col-md-12">
         <div class="col col-md-12 text-center">
@@ -35,7 +35,7 @@
             <strong>No. {{$transfer[0]->number}}</strong>
         </div>
         <div class="col">
-            <p> Translado de bodega</p>
+            <p> Traslado de bodega</p>
         </div>
         <div class="col text-center">
             <p>Fecha: {{ str_replace('-','/', $transfer[0]->created_at) }}</p>
@@ -57,8 +57,8 @@
                     <td style="width: 10%" class="text-center">CÓDIGO</td>
                     <td style="width: 40%" class="text-center">PRODUCTO</td>
                     <td style="width: 10%" class="text-center">CANT.</td>
-                    <td style="width: 15%" class="text-center">UBICACIÓN</td>
-                    <td style="width: 10%" class="text-center">DETALLE</td>
+                    <td style="width: 15%" class="text-center">SALE</td>
+                    <td style="width: 10%" class="text-center">INGRESA</td>
                 </tr>
             </thead>
             <tbody>
@@ -68,14 +68,16 @@
                     <td class="text-center">{{ $transferLocation->product->name }}</td>
                     <td class="text-center">{{ $transferLocation->quantity }}</td>
                     <td class="text-center">{{ $transferLocation->fromLocations->name }}</td>
-                    <td class="text-right">Sale</td>
+                    <td class="text-center">{{ $transferLocation->toLocations->name }}</td>
+
+                    {{-- <td class="text-right">Sale</td>
                 </tr>
                 <tr>
                     <td class="text-center">{{ $transferLocation->product->code }}</td>
                     <td class="text-center">{{ $transferLocation->product->name }}</td>
                     <td class="text-center">{{ $transferLocation->quantity }}</td>
                     <td class="text-center">{{ $transferLocation->toLocations->name }}</td>
-                    <td class="text-right">Entra</td>
+                    <td class="text-right">Entra</td> --}}
                 </tr>
                 @endforeach
             </tbody>
