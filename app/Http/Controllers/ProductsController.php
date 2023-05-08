@@ -55,7 +55,7 @@ class ProductsController extends Controller
 
     public function listPrices(){
         $products = Product::orderBy('id', 'desc')->get();
-        return view ('admin.list_prices', compact('products'));
+        return view('admin.list_prices', compact('products'));
     }
 
     public function store(StoreProductRequest $request) {
@@ -195,5 +195,37 @@ class ProductsController extends Controller
                     ->where('list_prices.name', 'precio 1')
                     ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo',  'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main', 'utilidad')->first();
         return response()->json($product);
+    }
+
+    public function showProductPrices($product){
+        $product = Product::find($product);
+        $prices = ListPrices::where('product_id', $product->id)->get();
+        return view('admin.edit_prices_product', compact('prices', 'product'));
+        return response()->json($prices);
+    }
+    public function updatePrices(Product $product, Request $request){
+        // return $request;
+        if($product){
+            for($i=0; $i<count($request->utilidad); $i++){
+                if($request->price_id[$i] != 'newPrecio'){
+                    $price = ListPrices::find($request->price_id[$i]);
+                    if($price->product_id == $product->id)
+                    $price->name = (!$price->name == 'precio 1') ? $request->name_precio[$i-1] : $price->name;
+                    $price->price = $request->value_price[$i];
+                    $price->utilidad = $request->utilidad[$i];
+                    $price->save();
+                }else{
+                    if($request->name_precio[$i-1] != '' && $request->value_price[$i] != '' && $request->utilidad[$i] != ''){
+                        $price = new ListPrices();
+                        $price->name = $request->name_precio[$i-1];
+                        $price->price = $request->value_price[$i];
+                        $price->utilidad = $request->utilidad[$i];
+                        $price->product_id = $product->id;
+                        $price->save();
+                    }
+                }
+            }
+        }
+        return redirect()->to('admin/list-prices')->with('success', 'Cambios realizados');
     }
 }

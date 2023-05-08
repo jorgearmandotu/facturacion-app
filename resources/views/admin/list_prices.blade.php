@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'lisatados')
+@section('title', 'listado de precios')
 
 @section('css')
 <link rel="stylesheet" href="../../css/main.css">
@@ -14,6 +14,7 @@
 <h1>listado de precios</h1>
 <div class="container-fluid">
     <div class="container tables">
+        <x-messages_flash />
         <table id="pricesTable" class="table table-striped table-bordered bg-light" style="width:100%">
             <thead>
                 <tr>
@@ -34,13 +35,14 @@
                         <li><strong>{{$price->name}}: </strong>{{ number_format($price->price, 2, ',', '.').' / '.$price->utilidad.' %' }}</li>
                         @endforeach
                     </td>
-                    <td>Editar Precios</td>
+                    <td><a href="prices_product/{{$product->id}}">Editar</a>{{$product->id}}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 </div>
+
 @stop
 
 @section('footer')
