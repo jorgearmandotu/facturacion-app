@@ -31,7 +31,7 @@
             <label for="price">Precio:</label>
             <select name="price" class="form-control" wire:model.defer='price' wire:change='changePrice' id="selectPrice" >
                 @foreach($prices as $price)
-                <option value="{{$price->price}}">{{$price->name}} - {{$price->price}}</option>
+                <option value="{{$price->price}}">{{$price->name}} - $ {{ number_format($price->price, '0', ',', '.')}}</option>
                 @endforeach
             </select>
         </div>

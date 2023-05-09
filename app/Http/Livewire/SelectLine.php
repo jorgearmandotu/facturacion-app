@@ -25,6 +25,7 @@ class SelectLine extends Component
 
     public function refreshLines(){
         $this->lines = Line::join('cstates', 'cstate_id', '=', 'cstates.id')
+        ->select('lines.id as id', 'name')
         ->where('value', 'Activo')->get();
     }
 }

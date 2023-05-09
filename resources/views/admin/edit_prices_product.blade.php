@@ -14,9 +14,8 @@
 <h1>Editar precios</h1>
 <h2>{{$product->name}}</h2>
 <h3>Ultimo costo {{number_format($product->costo, 2, ',', '.')}}</h3>
-<h4>IVA</h4>
 @foreach ($product->taxes as $tax)
-<h4>{{$tax->name}}</h4>
+<h4>IVA {{$tax->name}}</h4>
 @endforeach
 <div class="row">
     <div class="col-md-3">Precio</div>

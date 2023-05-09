@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('lines', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20);
+            $table->string('name', 70);
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->timestamps();
         });

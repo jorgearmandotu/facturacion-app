@@ -29,13 +29,13 @@
                 @foreach ($products as $product)
                 <tr>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->costo}}</td>
+                    <td>$ {{ number_format($product->costo, '2', ',', '.') }}</td>
                     <td>
                         @foreach($product->prices as $price)
                         <li><strong>{{$price->name}}: </strong>{{ number_format($price->price, 2, ',', '.').' / '.$price->utilidad.' %' }}</li>
                         @endforeach
                     </td>
-                    <td><a href="prices_product/{{$product->id}}">Editar</a>{{$product->id}}</td>
+                    <td><a href="prices_product/{{$product->id}}"><button class="btn btn-warning"><i class="far fa-edit"></i></button></a></td>
                 </tr>
                 @endforeach
             </tbody>
