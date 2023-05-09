@@ -28,7 +28,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="proveedor">Proveedor</label>
-                        <select name="supplier_id" id="selectSupplier" class="form-control col-md-12">
+                        <select name="supplier_id" id="selectSupplier" class="form-control col-md-12 select2" autofocus>
                             {{-- <option value="-1">Seleccione Proveedor</option> --}}
                             <option value=""></option>
                             @foreach ($suppliers as $supplier)

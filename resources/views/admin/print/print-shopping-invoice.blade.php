@@ -17,17 +17,37 @@
         <h1>Detalle de factura de compra</h1>
     </div>
     <div class="row justify-content-center container-fluid col-md-12">
-        <div class="col col-md-12 text-center">
-            <h3 class="p-0 m-0">{{ $company->name_view }}</h3>
+        {{-- <div class="col-md-3">
+            <h3 class="p-0 m-0"><img src="../../assets/aetius-logo-transparencia.png"  style="max-width: 70px" alt="">{{ $company->name_view }}</h3>
             <span>{{ $company->razon_social }}<br>
                 Nit. {{ $company->dni }}<br>
                 {{ $company->address }}<br>
                 {{ $company->phone }}</span>
-            {{-- <p class="p-0 m-0">{{ $company->razon_social }}</p>
-            <p class="p-0 m-0">Nit. {{ $company->dni }}</p>
-            <p class="p-0 m-0">{{ $company->address }}</p>
-            <p class="p-0 m-0">{{ $company->phone }} </p> --}}
         </div>
+        <div class="col col-md-5 ">
+                <strong>Factura No. {{$invoice->number}}</strong>
+                <p>Fecha factura: {{ $invoice->date_invoice }}<br>
+                Fecha de cargue: {{ str_replace('-','/', $invoice->date_upload) }}<br>
+                Proveedor: {{Str::substr($supplier->name, 0, 35) }}<br>
+                Nit/CC : {{ $supplier->dni }}<br>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                Dirección: {{ substr($supplier->address, 0, 35) }}<br>
+                Télefono: {{ $supplier->phone }}<br>
+                Córreo electronico: {{Str::substr($supplier->email, 0, 35) }}<br>
+                Usuario: {{ $user->name }}
+            </p>
+        </div> --}}
+        <div class="col col-md-12 text-center">
+            <h3 class="p-0 m-0">{{ $company->name_view }}</h3>
+            <span>{{ $company->razon_social }}<br>
+            Nit. {{ $company->dni }}<br>
+            {{ $company->address }}<br>
+            {{ $company->phone }}</span>
+        </div>
+
     </div>
     <hr>
     <div class="row container-fluid col-md-12">

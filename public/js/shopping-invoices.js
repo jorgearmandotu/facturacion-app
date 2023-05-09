@@ -127,6 +127,19 @@ $(document).ready(function() {
     $('#selectSupplier').select2({
         placeholder: 'Seleccione un proveedor',
     });
+    $('#selectSupplier').on('select2:open', function() {
+        // $("#selectSupplier").trigger('select2:open');
+        document.querySelector('.select2-search__field').focus();
+    });
+    $('#selectSupplier').on('select2:select', function() {
+        // $("#selectSupplier").trigger('select2:open');
+        document.querySelector('#location').focus();
+    });
+    // $("#selectSupplier").on('select2:opening', function (e) {
+    //     // Establece el enfoque en la entrada de búsqueda del Select2
+
+    //     $('.select2-search__field').trigger('focus');
+    //   });
     // $('#selectProducts').select2({
     //     placeholder: 'Seleccione un Producto',
     // });

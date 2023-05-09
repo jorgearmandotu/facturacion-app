@@ -29,6 +29,12 @@
                 //@this.set('productId', this.value);
                 @this.changeProduct(this.value);
             });
+            $('#selectProducts').on('select2:open', function () {
+                document.querySelector('.select2-search__field').focus();
+            });
+            $('#selectProducts').on('select2:select', function () {
+                document.querySelector('#inputQuantity').focus();
+            });
         });
     </script>
 </div>
