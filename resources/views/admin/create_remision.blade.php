@@ -19,12 +19,12 @@
             <livewire:invoice.search-clients />
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label for="vlr_total">Valor del servicio</label>
-                    <input type="number" class="form-control" name="vlr_total">
+                    <label for="vlr_total">Valor del servicio. $ </label><label id="aPagar" class="text-primary"> </label>
+                    <input type="number" class="form-control" name="vlr_total" id="inputValor">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="payment">Anticipo</label>
-                    <input type="number" class="form-control" name="payment">
+                    <label for="payment">Anticipo. $</label><label id="anticipo" class="text-primary"> </label>
+                    <input type="number" class="form-control" name="payment" id="inputAnticipo">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="paymentMethod">Forma de pago</label>

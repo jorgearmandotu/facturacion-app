@@ -39,8 +39,8 @@
                 <livewire:invoice.search-suppliers :invoice="$invoice"/>
                 <div class="row">
                     <div class="form-group col-md-4">
-                        <label for="mount">Monto $</label>
-                        <input type="number" class="form-control" name="mount" value="{{ old('mount')}}">
+                        <label for="mount">Monto $</label><label id="aPagar" class="text-primary"></label>
+                        <input type="number" class="form-control" name="mount" value="{{ old('mount')}}" id="inputValor">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="method_payment">Forma de pago</label>

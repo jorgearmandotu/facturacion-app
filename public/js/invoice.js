@@ -12,6 +12,14 @@ $(document).ready(function () {
     $("#selectProducts").select2({
         placeholder: 'Seleccione un producto'
     });
+    $('#selectProducts').on('select2:open', function() {
+        // $("#selectSupplier").trigger('select2:open');
+        document.querySelector('.select2-search__field').focus();
+    });
+    $('#selectProducts').on('select2:select', function() {
+        // $("#selectSupplier").trigger('select2:open');
+        document.querySelector('#inputQuantity').focus();
+    });
 });
 
 $("#selectProducts").on("select2:select", function (e) {

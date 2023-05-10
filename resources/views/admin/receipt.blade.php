@@ -19,8 +19,8 @@
         <livewire:receipt.select-invoice />
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="vlr_payment">Valor a pagar</label>
-                <input type="number" class="form-control" name="vlr_payment">
+                <label for="vlr_payment">Valor a pagar. $</label><label id="aPagar" class="text-primary">  </label>
+                <input type="number" class="form-control" name="vlr_payment" id="inputValor">
             </div>
             <div class="form-group col-md-3">
                 <label for="paymentMethod">Metodo de pago</label>
@@ -55,6 +55,6 @@
 @section('plugins.Datatables', true)
 @section('js')
     <script src="../../js/tools.js"></script>
-    {{-- <script src="../../js/products.js"></script> --}}
+    {{-- <script src="../../js/receipts.js"></script> --}}
     @livewireScripts
 @stop
