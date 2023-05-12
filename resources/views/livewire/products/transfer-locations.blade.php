@@ -1,7 +1,7 @@
 <div>
     <div class="form-group row">
         <label for="name">Producto</label>
-        <input wire:model="code" id="inputCode" wire:keydown.enter="asignarFirst()" class="form-control" placeholder="Código de producto">
+        <input wire:model="code" name="code" id="inputCode" wire:keydown.enter="asignarFirst()" class="form-control" placeholder="Código de producto">
         @error("code")
         <small class="form-text text-danger">{{ $message}}</small>
         @else

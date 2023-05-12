@@ -205,27 +205,36 @@ class ProductsController extends Controller
     }
     public function updatePrices(Product $product, Request $request){
         // return $request;
-        if($product){
-            for($i=0; $i<count($request->utilidad); $i++){
-                if($request->price_id[$i] != 'newPrecio'){
-                    $price = ListPrices::find($request->price_id[$i]);
-                    if($price->product_id == $product->id)
-                    $price->name = (!$price->name == 'precio 1') ? $request->name_precio[$i-1] : $price->name;
-                    $price->price = $request->value_price[$i];
-                    $price->utilidad = $request->utilidad[$i];
-                    $price->save();
-                }else{
-                    if($request->name_precio[$i-1] != '' && $request->value_price[$i] != '' && $request->utilidad[$i] != ''){
-                        $price = new ListPrices();
-                        $price->name = $request->name_precio[$i-1];
+        try{
+            if($product){
+                for($i=0; $i<count($request->utilidad); $i++){
+                    if(!is_numeric($request->value_price[$i]) || !is_numeric($request->utilidad[$i])){
+                        return back()->withInput()->with('fatal', 'Los campos utilidad y precio deben ser numericos');
+                    }
+                    if($request->price_id[$i] != 'newPrecio'){
+                        $price = ListPrices::find($request->price_id[$i]);
+                        if($price->product_id == $product->id)
+                        $price->name = (!$price->name == 'precio 1') ? $request->name_precio[$i-1] : $price->name;
                         $price->price = $request->value_price[$i];
                         $price->utilidad = $request->utilidad[$i];
-                        $price->product_id = $product->id;
                         $price->save();
+                    }else{
+                        if($request->name_precio[$i-1] != '' && $request->value_price[$i] != '' && $request->utilidad[$i] != ''){
+                            $price = new ListPrices();
+                            $price->name = $request->name_precio[$i-1];
+                            $price->price = $request->value_price[$i];
+                            $price->utilidad = $request->utilidad[$i];
+                            $price->product_id = $product->id;
+                            $price->save();
+                        }
                     }
                 }
+                return redirect()->to('admin/list-prices')->with('success', 'Cambios realizados');
             }
+            return back()->with('fatal', 'No se encontro producto')->withInput();
+        }catch(\Exception $e){
+            return back()->with('fatal', 'No fue posible realizar los cambios')->withInput();
         }
-        return redirect()->to('admin/list-prices')->with('success', 'Cambios realizados');
+
     }
 }

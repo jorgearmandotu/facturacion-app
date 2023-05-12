@@ -16,11 +16,11 @@ class LocationsSeder extends Seeder
     public function run()
     {
         DB::table('locations')->insert([
-            'name' => 'Bodega',
+            'name' => 'BODEGA',
             'cstate_id' => '1',
         ]);
         DB::table('locations')->insert([
-            'name' => 'Almacén',
+            'name' => 'ALMACÉN',
             'cstate_id' => '1',
         ]);
     }

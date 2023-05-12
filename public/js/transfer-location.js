@@ -52,8 +52,6 @@ function createTransfer(e){
     e.preventDefault();
     let quantity = inputQuantity.value;
     let stock = inputStock.value;
-    console.log(stock);
-    console.log(quantity);
     if(Number(stock) < Number(quantity)){
         return messages('error', 'La cantidad supera el stock disponible en esta ubicación', true);
     }
@@ -69,7 +67,11 @@ function createTransfer(e){
     //         newrow.removeChild(newrow.firstChild);
     //       }
     //listTransfer.append(`code${index}`)
-    sendTransfer(dataTransfer);
+    console.log(dataTransfer.get('code'));
+    console.log(dataTransfer.get('from'));
+    console.log(dataTransfer.get('to'));
+    console.log(dataTransfer.get('quantity'));
+   sendTransfer(dataTransfer);
 }
 
 async function sendTransfer(data){

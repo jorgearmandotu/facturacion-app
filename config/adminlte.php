@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+
 return [
 
     /*
@@ -316,7 +320,8 @@ return [
         ],
         [
             'text'        => 'Facturación',
-            //'url'         => 'admin/facturation',
+            'can'         => ['remision.index', 'invoices.index', 'receipt.index', 'admin/pending-invoices', 'admin/listRemisiones'],
+            // 'can' => '',
             'icon'        => 'fas fa-fw fa-file-invoice-dollar',
             'submenu' => [
                 [
@@ -378,7 +383,7 @@ return [
         ['header' => 'Administración'],
         [
             'text' => 'Iventarios',
-            //'url'  => 'admin/settings',
+            'can'  => ['products-list', 'list-prices', 'products.store', 'gestion-inventario', 'transferLocations', 'shopping-invoices.store'],
             'icon' => 'fas fa-fw fa-boxes',
             'submenu' => [
                 [
@@ -429,6 +434,7 @@ return [
         [
             'text' => 'Terceros',
             'icon' => 'fas fa-user-friends',
+            'can' => ['terceros.index', 'suppliers.index'],
             'submenu' => [
                 [
                     'text'  => 'Terceros',

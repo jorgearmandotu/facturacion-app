@@ -57,7 +57,7 @@
                         {{-- <td>{{ number_format($saldo, 2, ',', '.') }}</td>
                         <td><a href="printInvoice/{{$invoice->id}}">Ver</a></td> --}}
                         <td>{{ $invoice->user->name }}</td>
-                        <td> <a href="payInvoice/{{$invoice->id}}">Pagar</a></td>
+                        <td> <a href="payInvoice/{{$invoice->id}}"><button type="button" class="btn btn-success">Pagar</button></a> <a href="printShoppingInvoice/{{$invoice->id}}" target="blank"><button class="btn btn-info" type="button"><i class="far fa-eye"></i></button></a></td>
                     </tr>
                     @endforeach
                 </tbody>

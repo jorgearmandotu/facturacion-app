@@ -53,6 +53,7 @@ function addPriceRow(){
     inputUtilidad.setAttribute('class', 'form-control utilidad');
     inputUtilidad.setAttribute('id', `utilidad${numeroDePrecios}`);
     inputUtilidad.setAttribute('type', 'number');
+    inputUtilidad.setAttribute('step', '0.01');
     inputUtilidad.setAttribute('name', 'utilidad[]');
     inputUtilidad.setAttribute('value', '');
     cellUtilidad.appendChild(inputUtilidad);
@@ -62,6 +63,7 @@ function addPriceRow(){
     let inputPrecio = document.createElement('input');
     inputPrecio.setAttribute('class', 'form-control price');
     inputPrecio.setAttribute('type', 'number');
+    inputPrecio.setAttribute('step', '0.01');
     inputPrecio.setAttribute('name', 'value_price[]');
     inputPrecio.setAttribute('id', `price${numeroDePrecios}`);
     inputPrecio.setAttribute('value', '');

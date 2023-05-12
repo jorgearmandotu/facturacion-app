@@ -17,6 +17,7 @@
 @foreach ($product->taxes as $tax)
 <h4>IVA {{$tax->name}}</h4>
 @endforeach
+<x-messages_flash />
 <div class="row">
     <div class="col-md-3">Precio</div>
     <div class="col-md-3">% utilidad</div>
@@ -40,8 +41,8 @@
             @else
             <div class="col-md-3"><input type="text" class="form-control" name="name_precio[]" value="{{$price->name}}"></div>
             @endif
-            <div class="col-md-3"><input type="number"  class="form-control utilidad" name="utilidad[]" id="utilidad{{$list}}" value="{{$price->utilidad}}" step='0,1'></div>
-            <div class="col-md-3"><input type="number"  class="form-control price" id="price{{$list}}"  name="value_price[]" value="{{$price->price}}"></div>
+            <div class="col-md-3"><input type="number"  class="form-control utilidad" name="utilidad[]" id="utilidad{{$list}}" value="{{$price->utilidad}}" step='0.01'></div>
+            <div class="col-md-3"><input type="number"  class="form-control price" id="price{{$list}}" step="0.01" name="value_price[]" value="{{$price->price}}"></div>
             <input type="hidden" name="price_id[]" value="{{$price->id}}">
         </div>
         @endforeach

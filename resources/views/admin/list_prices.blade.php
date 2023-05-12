@@ -51,6 +51,6 @@
 @section('plugins.Datatables', true)
 @section('js')
     <script src="../../js/tools.js"></script>
-    <script src="../../js/products.js"></script>
+    <script src="../../js/list-prices.js"></script>
     @livewireScripts
 @stop
