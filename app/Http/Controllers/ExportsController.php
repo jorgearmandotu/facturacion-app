@@ -7,9 +7,11 @@ use App\Exports\IngresosDischargesExport;
 use App\Exports\IngresosExport;
 use App\Exports\InvoicesExport;
 use App\Exports\MovimientoProductExport;
+use App\Exports\MovimientoProductLocationExport;
 use App\Exports\ReceiptsExport;
 use App\Exports\ShoppingInvoicesExport;
 use App\Exports\VentaProductExport;
+use App\Models\Location;
 use App\Models\Product;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
@@ -27,7 +29,8 @@ class ExportsController extends Controller
 
     public function index(){
         $products = Product::all();
-        return view('admin.exports', compact('products'));
+        $locations = Location::all();
+        return view('admin.exports', compact('products', 'locations'));
     }
     public function exportInvoices(Request $request){
         $dateInitial = $request->dateInitial;
@@ -118,7 +121,27 @@ class ExportsController extends Controller
         if($dateFinal == ''){
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
-        return Excel::download(new MovimientoProductExport($product, $dateInitial, $dateFinal), 'movimiento de producto'.$product->name.'.xlsx');
+        return Excel::download(new MovimientoProductExport($product, $dateInitial, $dateFinal), 'movimiento de producto'.str_replace('/','-',$product->name).'.xlsx');
+    }
+
+    public function exportMovimientoProductLocation(Request $request){
+        $dateInitial = $request->dateInitial;
+        $dateFinal = $request->dateFinal;
+        $product = Product::find($request->product);
+        $location = Location::find($request->location);
+        if($dateInitial == ''){
+            return back()->with('fatal', 'Fecha inicial de movimiento es requerida');
+        }
+        if(!$product){
+            return back()->with('fatal', 'No se encontro producto');
+        }
+        if(!$location){
+            return back()->with('fatal', 'No se encontro ubicación de producto');
+        }
+        if($dateFinal == ''){
+            $dateFinal = Carbon::now()->format('Y-m-d');
+        }
+        return Excel::download(new MovimientoProductLocationExport($product, $dateInitial, $dateFinal, $location), 'movimiento de producto'.str_replace('/','-',$product->name).' en '.str_replace('/','-',$location->name).'.xlsx');
     }
 
     public function exportVentaProducto(Request $request){

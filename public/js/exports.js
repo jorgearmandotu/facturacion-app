@@ -1,4 +1,6 @@
 $(document).ready(function () {
-    $(".selectProducts").select2();
+    $(".selectProducts").select2({
+        placeholder: 'Seleccione un producto',
+    });
     // $("#selectProducts").select2();
 });

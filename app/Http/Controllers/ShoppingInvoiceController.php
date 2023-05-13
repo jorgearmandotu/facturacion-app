@@ -75,7 +75,7 @@ class ShoppingInvoiceController extends Controller
                 'numberInvoice' => 'required',
             ]);
         }catch (\Exception $e){
-            return response()->json(['msg' => 'Ya se encuentra registrado este numero de factura a este proveedor'. $e, 'status' => 400], 200);
+            return response()->json(['msg' => 'Ya se encuentra registrado este numero de factura a este proveedor', 'status' => 400], 200);
         }
         //crear factura
         DB::beginTransaction();
@@ -192,7 +192,7 @@ class ShoppingInvoiceController extends Controller
             return response()->json(['msg' => 'Ingreso Exitoso', 'invoice' => $invoice->id, 'status' => 200], 200);
         }catch(Exception $e){
             DB::rollBack();
-            return response()->json(['msg' => 'Verifique Datos Ingresados. '.$e, 'status' => 400], 200);
+            return response()->json(['msg' => 'Verifique Datos Ingresados. ', 'status' => 400], 200);
         }
     }
 

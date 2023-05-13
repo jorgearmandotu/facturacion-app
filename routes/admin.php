@@ -24,6 +24,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserProfileController;
 use App\Models\Discharge;
 use App\Models\Invoice;
+use App\Models\ProductsMovements;
 use App\Models\Remision;
 use Illuminate\Support\Facades\DB;
 
@@ -88,6 +89,7 @@ Route::middleware([
     Route::post('exportEgresos', [ExportsController::class, 'exportEgresos']);
     Route::post('exportIngresosDischarge', [ExportsController::class, 'exportIngresosDischarge']);
     Route::post('exportMovimientoProducto', [ExportsController::class, 'exportMovimientoProducto']);
+    Route::post('exportMovimientoProductoLocation', [ExportsController::class, 'exportMovimientoProductLocation']);
     Route::post('exportVentaProducto', [ExportsController::class, 'exportVentaProducto']);
 
     Route::get('users-list', [AdminUsersController::class, 'list']);
@@ -117,6 +119,15 @@ Route::middleware([
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
 
     Route::get('listado-prueba', function() {
+
+        $data = ProductsMovements::join('locations_products', function($join){
+            $join->on('locations_products.product_id', '=', 'products_movements.product_id')->on('locations_products.location_id', '=','products_movements.location_id');
+        })->where('products_movements.product_id', '7')
+        // ->where('products_movements.created_at', '<=', $this->dateFinal)
+        // ->where('products_movements.created_at', '>=', $this->dateInitial)
+        ->where('products_movements.location_id', '1')
+        ->select('type', 'products_movements.product_id', 'quantity', 'document_type', 'document_id', 'products_movements.location_id', 'products_movements.created_at')->get();
+        dd($data);
         $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = 1;');
         dd($locations[0]->total);
         // $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')

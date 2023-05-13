@@ -17,4 +17,5 @@ class Location extends Model
     public function cstates(){
         return $this->hasOne(Cstate::class, 'id', 'cstate_id');
     }
+
 }

@@ -141,14 +141,50 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="product">Producto</label>
-                    <select name="product" id="selectProducts" class="form-control selectProducts style="width: 100%" >
-                        <option value="-1">Seleccione Producto</option>
+                    <select name="product" id="selectProducts" class="form-control selectProducts" style="width: 100%" >
+                        <option value=""></option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-info mt-4" >Generar</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <label for="">Exportar movimiento de producto por ubicación</label>
+        <form action="exportMovimientoProductoLocation" method="post">
+            @csrf
+            <div class="form-row form">
+                <div class="form-group col-md-2">
+                    <label for="dateInitial">Fecha inicial</label>
+                    <input type="date" class="form-control" name="dateInitial">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="dateDinal">Fecha final</label>
+                    <input type="date" class="form-control" name="dateFinal">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="product">Producto</label>
+                    <select name="product" id="selectProducts" class="form-control selectProducts" style="width: 100%" >
+                        <option value=""></option>
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="Location">Ubicación</label>
+                    <select name="location" id="selectLocations" class="form-control selectLocations" >
+                        {{-- <option value="-1">Seleccione Producto</option> --}}
+                        @foreach ($locations as $location)
+                            <option value="{{ $location->id }}">{{ $location->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-1">
                     <button type="submit" class="btn btn-info mt-4" >Generar</button>
                 </div>
             </div>
