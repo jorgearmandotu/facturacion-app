@@ -31,6 +31,34 @@ $(document).ready(function () {
     try{
 
             productsTable = $('#productsTable').DataTable({
+                dom: 'lBfrtip',//lBfrtip agregará la opción de longitud de página (l), los botones de exportación (B), la búsqueda (f), la tabla en sí (r), la información de paginación (t) y los botones de proceso (i y p)
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="far fa-file-excel"></i>',
+                        titleAttr: 'Exportar a Excel',
+                        className: 'btn btn-success',
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="far fa-file-pdf"></i>',
+                        titleAttr: 'Exportar a Pdf',
+                        className: 'btn btn-danger',
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="fas fa-file-csv"></i>',
+                        titleAttr: 'Exportar a csv',
+                        className: 'btn btn-warning',
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i>',
+                        titleAttr: 'Imprimir',
+                        className: 'btn btn-info',
+                    },
+            // 'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
                 ajax: '/admin/products',
                 responsive: true,
                 autoWidth: false,

@@ -10,6 +10,39 @@ let index = 1;
 let labelProduct = document.querySelector('#nameProduct');
 $(document).ready(function () {
     productsTable = $('#tableLocationsProducts').DataTable({
+        lengthMenu: [
+            [10, 20, 30],//-1 para all
+            //[5, 10, 50, "All"],
+            [10, 20, 30],
+        ],
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-success',
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'Exportar a Pdf',
+                className: 'btn btn-danger',
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'Exportar a csv',
+                className: 'btn btn-warning',
+            },
+            {
+                extend: 'print',
+                text: '<i class="fas fa-print"></i>',
+                titleAttr: 'Imprimir',
+                className: 'btn btn-info',
+            },
+            // 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         ajax: '/admin/transfer-location-table',
         responsive: true,
         autoWidth: false,
@@ -27,11 +60,6 @@ $(document).ready(function () {
             infoEmpty: "No hay coincidencias",
             infoFiltered: "(Filtrado de _MAX_ registros totales)",
             },
-        lengthMenu: [
-            [10, 20, 30],//-1 para all
-            //[5, 10, 50, "All"],
-            [10, 20, 30],
-        ],
         columns: [
             {data: 'code'},
             {data: 'product'},
