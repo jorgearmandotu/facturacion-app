@@ -11,7 +11,7 @@
 @stop
 
 @section('content')
-    <h1>Configuración de empresa</h1>
+    <h1>Datos de empresa</h1>
     <div class="container">
         <h3>Datos de empresa</h3>
         <hr>
@@ -147,36 +147,7 @@
         </form>
         <hr>
 
-        <h3>Metodos de pago autorizados</h3>
-        <form action="paymentMethodsStore" method="post">
-            @csrf
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="value">Metodo de pago</label>
-                    <input type="text" class="form-control" name="value" value="" required />
-                </div>
-                <div class="form-group col-md-3">
-                    <button type="submit" class="btn btn-success mt-4">Agregar</button>
-                </div>
-            </div>
-        </form>
-        <table id="linesTable" class="table table-striped table-bordered bg-light" style="width:30%">
-            <thead>
-                <tr>
-                    <th>Metodos de pago</th>
-                    {{-- <th>Estado</th>
-                    <th>Opciones</th> --}}
-                </tr>
-                <tbody>
-                    @foreach ($methods_payment as $method)
-                    <tr>
-                        <td>{{ $method->value }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </thead>
-        </table>
-        <hr>
+
     </div>
 @stop
 

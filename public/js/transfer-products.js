@@ -67,7 +67,7 @@ function generarTraslado(e){
     console.log(valores);
 }
 
-$(document).ready(function () {
+jQuery(function ($) {
     $("#selectProducts").select2({
         placeholder: 'Seleccione un producto',
         allowClear: true,

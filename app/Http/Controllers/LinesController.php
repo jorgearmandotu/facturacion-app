@@ -60,7 +60,7 @@ class LinesController extends Controller
                 return response()->json(['msg' => 'Operacion exitosa', 'status' => 200], 200);
             }
         }catch(Exception $e){
-            return response()->json(['msg' => 'Error en servidor contacte al administrador: '.$e ], 400);
+            return response()->json(['msg' => 'Error en servidor contacte al administrador: ' ], 400);
         }
     }
 }

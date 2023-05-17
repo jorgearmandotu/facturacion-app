@@ -14,4 +14,8 @@ class CpaymentMethods extends Model
         'value',
         'cstate_id'
     ];
+
+    public function state(){
+        return $this->hasOne(Cstate::class, 'id', 'cstate_id');
+    }
 }

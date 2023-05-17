@@ -51,11 +51,11 @@
 @section('js')
     <script src="../../js/tools.js"></script>
     <script src="../../js/remision.js"></script>
-    <script src="../../js/datatables-buttons/dataTables.buttons.min.js"></script>
+    {{-- <script src="../../js/datatables-buttons/dataTables.buttons.min.js"></script>
     <script src="../../js/datatables-buttons/jszip.min.js"></script>
     <script src="../../js/datatables-buttons/pdfmake.min.js"></script>
     <script src="../../js/datatables-buttons/vfs_fonts.js"></script>
     <script src="../../js/datatables-buttons/buttons.html5.min.js"></script>
-    <script src="../../js/datatables-buttons/buttons.print.min.js"></script>
+    <script src="../../js/datatables-buttons/buttons.print.min.js"></script> --}}
     {{-- @livewireScripts --}}
 @stop

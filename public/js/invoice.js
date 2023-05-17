@@ -8,7 +8,7 @@ let totalInvoice = 0;
 let formProductsList = new FormData();
 
 //invoice
-$(document).ready(function () {
+jQuery(function ($) {
     $("#selectProducts").select2({
         placeholder: 'Seleccione un producto'
     });

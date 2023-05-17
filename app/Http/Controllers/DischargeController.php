@@ -33,7 +33,9 @@ class DischargeController extends Controller
     public function create(){
         $categories = CategoriesDischarge::all();
         $date = Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY');
-        $paymentMethods = CpaymentMethods::all();
+        $paymentMethods = CpaymentMethods::join('cstates', 'cstates.id', 'cpayment_methods.cstate_id')
+                                        ->where('cstates.value', 'Activo')
+                                        ->select('cpayment_methods.id as id', 'cpayment_methods.value as value')->get();
         $invoice = null;
         return view('admin.discharge_create', compact('categories', 'date', 'paymentMethods', 'invoice'));
     }
@@ -41,7 +43,9 @@ class DischargeController extends Controller
     public function dischargeOfInvoice(ShoppingInvoice $invoice){
         $categories = CategoriesDischarge::all();
         $date = Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY');
-        $paymentMethods = CpaymentMethods::all();
+        $paymentMethods = CpaymentMethods::join('cstates', 'cstates.id', 'cpayment_methods.cstate_id')
+                                        ->where('cstates.value', 'Activo')
+                                        ->select('cpayment_methods.id as id', 'cpayment_methods.value as value')->get();
         //$invoice = null;
         return view('admin.discharge_create', compact('categories', 'date', 'paymentMethods', 'invoice'));
     }

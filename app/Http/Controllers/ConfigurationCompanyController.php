@@ -23,8 +23,8 @@ class ConfigurationCompanyController extends Controller
     public function index(){
         $resolution = Resolution::latest('id')->first();
         $company = CompanyData::latest('id')->first();
-        $methods_payment = CpaymentMethods::all();
-        return view('admin.configuration-company', compact('resolution', 'company', 'methods_payment'));
+        //$methods_payment = CpaymentMethods::all();
+        return view('admin.configuration-company', compact('resolution', 'company'));
     }
 
     public function store(StoreCompanyDataRequest $request){
@@ -60,19 +60,5 @@ class ConfigurationCompanyController extends Controller
         }
     }
 
-    public function paymentMethodsStore(Request $request){
-        try{
-            if($request->value == ''){
-            return back()->with('fatal', 'El nombre de metodo de pago no puede ser vacio.');
-            }
-            $method = new CpaymentMethods();
-            $method->value = strtoupper($request->value);
-            $state = Cstate::where('value', 'Activo')->first();
-            $method->cstate_id = $state->id;
-            $method->save();
-            return back()->with('success', 'Metodo de pago agregado.');
-        }catch(\Exception $e){
-            return back()->with('fatal', 'No fue posible crear metodo de pago.');
-        }
-    }
+
 }

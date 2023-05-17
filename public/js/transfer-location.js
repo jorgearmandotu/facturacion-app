@@ -8,14 +8,10 @@ let productsTable;
 let listTransfer = new FormData();
 let index = 1;
 let labelProduct = document.querySelector('#nameProduct');
-$(document).ready(function () {
+jQuery(function ($) {
     productsTable = $('#tableLocationsProducts').DataTable({
-        lengthMenu: [
-            [10, 20, 30],//-1 para all
-            //[5, 10, 50, "All"],
-            [10, 20, 30],
-        ],
-        dom: 'lBfrtip',
+        lengthMenu: [10, 20, 30],//-1 para all //[5, 10, 50, "All"],
+        dom: 'Bflrtipl',
         buttons: [
             {
                 extend: 'excelHtml5',

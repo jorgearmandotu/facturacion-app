@@ -463,10 +463,23 @@ return [
             'can' => 'exports'
         ],
         [
-            'text' => 'Configuracion de empresa',
-            'icon' => 'far fa-building',
-            'url' => 'admin/config-company',
-            'can' => 'config-company.index',
+            'text' => 'Configuracion',
+            'icon' => 'fas fa-cog',
+            //'can' => 'config-company.index',
+            'submenu' => [
+                [
+                    'text' => 'Datos de empresa',
+                    'icon' => 'far fa-building',
+                    'url' => 'admin/config-company',
+                    'can' => 'config-company.index',
+                ],
+                [
+                    'text' => 'Impuestos y metodos de pago',
+                    'icon' => 'fas fa-coins',
+                    'url' => 'admin/config-data',
+                    'can' => 'config-company.index',
+                ],
+            ],
         ],
         [
             'text' => 'Usuarios',
@@ -522,13 +535,46 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                    'asset' => true,//false
+                    // 'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                    'location' => 'vendor/datatables/js/jquery.dataTables.min.js',
+                    //php artisan adminlte:plugins install --plugin=datatable
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    'asset' => true,
+                    // 'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    'location' => 'vendor/datatables/js/dataTables.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/dataTables.buttons.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/jszip.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/pdfmake.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/vfs_fonts.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/buttons.html5.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/buttons.print.min.js',
                 ],
                 [
                     'type' => 'css',

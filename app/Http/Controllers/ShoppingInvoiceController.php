@@ -47,7 +47,9 @@ class ShoppingInvoiceController extends Controller
     }
 
     public function create(){
-        $paymentMethods = CpaymentMethods::all();
+        $paymentMethods = CpaymentMethods::join('cstates', 'cstates.id', 'cpayment_methods.cstate_id')
+                                ->where('cstates.value', 'Activo')
+                                ->select('cpayment_methods.id as id', 'cpayment_methods.value as value')->get();
         $taxes = Tax::all();
         $suppliers = Tercero::where('supplier', true)->get();
         $locations = Location::join('cstates', 'locations.cstate_id', 'cstates.id')

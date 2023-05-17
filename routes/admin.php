@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConfigurationCompanyController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DischargeController;
 use App\Http\Controllers\ExportsController;
 use App\Http\Controllers\GestionDocumentsController;
@@ -75,7 +76,11 @@ Route::middleware([
 
     Route::post('resolutionStore', [ConfigurationCompanyController::class, 'resolutionStore']);
     Route::resource('config-company', ConfigurationCompanyController::class);
-    Route::post('paymentMethodsStore',[ConfigurationCompanyController::class, 'paymentMethodsStore']);
+
+    Route::post('paymentMethodsStore',[ConfigurationController::class, 'paymentMethodsStore']);
+    Route::get('listPaymentMethods', [ConfigurationController::class, 'paymentMethods']);
+    Route::put('statePaymentMethods/{id}', [ConfigurationController::class, 'statePaymentMethods']);
+    Route::resource('config-data', ConfigurationController::class);
 
     Route::get('printRemision/{remision}', [RemisionController::class, 'printRemision']);
     Route::get('listRemisiones', [RemisionController::class, 'listRemisiones']);

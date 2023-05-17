@@ -1,7 +1,7 @@
-$(document).ready(function () {
+jQuery(function ($) {
     $('#remisionesTable').DataTable({
         responsive: true,
-        dom: 'lBfrtip',
+        dom: 'Bflrtipl',
         buttons: [
             {
                 extend: 'excelHtml5',

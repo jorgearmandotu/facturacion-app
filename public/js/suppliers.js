@@ -1,9 +1,37 @@
 let suppliersTable;
 
-$(document).ready(function () {
+jQuery(function ($) {
     suppliersTable = $('#suppliersTable').DataTable({
         ajax: '/admin/suppliers-list',
         responsive: true,
+        dom: 'Bflrtipl',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-success',
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'Exportar a Pdf',
+                className: 'btn btn-danger',
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'Exportar a csv',
+                className: 'btn btn-warning',
+            },
+            {
+                extend: 'print',
+                text: '<i class="fas fa-print"></i>',
+                titleAttr: 'Imprimir',
+                className: 'btn btn-info',
+            },
+            // 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         autoWidth: false,
         language: {
             lengthMenu: "Mostrar _MENU_ registro por página",

@@ -9,10 +9,38 @@ let checkSupplier = document.querySelector('#customControlAutosizing');
 let edit = false;
 let client_id;
 
-$(document).ready(function () {
+jQuery(function ($) {
     clientsTable = $('#clientsTable').DataTable({
         ajax: '/admin/listClients',
         responsive: true,
+        dom: 'Bflrtipl',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="far fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-success',
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="far fa-file-pdf"></i>',
+                titleAttr: 'Exportar a Pdf',
+                className: 'btn btn-danger',
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fas fa-file-csv"></i>',
+                titleAttr: 'Exportar a csv',
+                className: 'btn btn-warning',
+            },
+            {
+                extend: 'print',
+                text: '<i class="fas fa-print"></i>',
+                titleAttr: 'Imprimir',
+                className: 'btn btn-info',
+            },
+            // 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         autoWidth: false,
         language: {
             lengthMenu: "Mostrar _MENU_ registro por página",
@@ -27,11 +55,7 @@ $(document).ready(function () {
             infoEmpty: "No hay coincidencias",
             infoFiltered: "(Filtrado de _MAX_ registros totales)",
         },
-        lengthMenu: [
-            [10, 20, 30],//-1 para all
-            //[5, 10, 50, "All"],
-            [10, 20, 30],
-        ],
+        lengthMenu: [10, 20, 30],
         columns: [
             {data: 'document_type'},
             {data: 'dni'},
@@ -40,7 +64,7 @@ $(document).ready(function () {
             {data: 'address'},
             {data: 'email'},
             {
-                data: null,
+                data: 'id',
                 render: (row) => {
                     //const isActivo = row.state == 'Activo';
                     //const classBtn = isActivo ? 'btn-success' : 'btn-danger';

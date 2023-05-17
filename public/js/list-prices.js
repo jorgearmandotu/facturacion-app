@@ -1,4 +1,4 @@
-$(document).ready(function () {
+jQuery(function ($) {
     //productsTable = $('#productsTable');
     try{
 

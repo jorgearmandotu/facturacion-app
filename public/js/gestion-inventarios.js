@@ -2,7 +2,7 @@ let linesTable;
 let groupsTable;
 let locationsTable;
 
-$(document).ready(function () {
+jQuery(function ($) {
     linesTable = $('#linesTable').DataTable({
         ajax: '/admin/lines',
         responsive: true,

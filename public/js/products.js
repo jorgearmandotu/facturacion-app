@@ -26,12 +26,12 @@ function changeCosto(){
     }
 }
 
-$(document).ready(function () {
+jQuery(function ($) {
     //productsTable = $('#productsTable');
     try{
 
             productsTable = $('#productsTable').DataTable({
-                dom: 'lBfrtip',//lBfrtip agregará la opción de longitud de página (l), los botones de exportación (B), la búsqueda (f), la tabla en sí (r), la información de paginación (t) y los botones de proceso (i y p)
+                dom: 'Bflrtipl',//lBfrtip agregará la opción de longitud de página (l), los botones de exportación (B), la búsqueda (f), la tabla en sí (r), la información de paginación (t) y los botones de proceso (i y p)
                 buttons: [
                     {
                         extend: 'excelHtml5',

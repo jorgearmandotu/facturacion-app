@@ -48,7 +48,7 @@ async function crearCategory(e){
     }
 }
 
-$(document).ready(function(){
+jQuery(function($){
     tableCategory = $('#categoriesTable').DataTable({
         ajax: 'categoriesDischargeList',
         responsive: true,

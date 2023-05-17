@@ -32,7 +32,9 @@ class InvoiceController extends Controller
 
     public function index(){
         $products = Product::join('cstates', 'cstate_id', 'cstates.id')->where('value', '==', 'Activo')->get();
-        $paymentMethods = CpaymentMethods::all();
+        $paymentMethods = CpaymentMethods::join('cstates', 'cstates.id', 'cpayment_methods.cstate_id')
+                            ->where('cstates.value', 'Activo')
+                            ->select('cpayment_methods.id as id', 'cpayment_methods.value as value')->get();
         return view('admin.invoices', compact('products', 'paymentMethods'));
     }
 

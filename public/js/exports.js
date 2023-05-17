@@ -1,4 +1,4 @@
-$(document).ready(function () {
+jQuery(function ($) {
     $(".selectProducts").select2({
         placeholder: 'Seleccione un producto',
     });
