@@ -14,6 +14,7 @@
 <h1>Configuraciones</h1>
 
 <h3>Metodos de pago autorizados</h3>
+<x-messages_flash />
         <form action="paymentMethodsStore" method="post">
             @csrf
             <div class="form-row">
@@ -35,17 +36,65 @@
                         {{-- <th>Opciones</th> --}}
                     </tr>
                 </thead>
-                    {{-- <tbody> --}}
-                        {{-- @foreach ($methods_payment as $method)
-                        <tr>
-                            <td>{{ $method->value }}</td>
-                            <td>{{ $method->state->value }}</td>
-                        </tr>
-                        @endforeach --}}
-                    {{-- </tbody> --}}
             </table>
         </div>
         <hr>
+        <h3>Impuestos</h3>
+        <div class="col-md-8">
+            <div class="p-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taxModal">
+                    Crear Nuevo
+                </button>
+            </div>
+            <table id="taxesTable" class="table table-striped table-bordered bg-light" >
+                <thead>
+                    <tr>
+                        <th>Impuesto</th>
+                        <th>Valor en %</th>
+                        <th>Descripción</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <hr>
+
+        <!-- Modal -->
+        <div class="modal fade" id="taxModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="taxModalLabel">Nuevo Impúesto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" id="formTax">
+                            @csrf
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="nameTax">Nombre</label>
+                                    <input type="text" name="nameTax" id="nameTax" class="form-control">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="valueTax">valor %</label>
+                                    <input type="number" name="valueTax" id="valueTax" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="description">Descripción</label>
+                                <input type="text" name="description" id="descriptionTax" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="saveTax()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 @stop
 
 @section('footer')

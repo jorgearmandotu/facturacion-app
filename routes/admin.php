@@ -79,6 +79,7 @@ Route::middleware([
 
     Route::post('paymentMethodsStore',[ConfigurationController::class, 'paymentMethodsStore']);
     Route::get('listPaymentMethods', [ConfigurationController::class, 'paymentMethods']);
+    Route::get('listTaxes', [ConfigurationController::class, 'listTaxes']);
     Route::put('statePaymentMethods/{id}', [ConfigurationController::class, 'statePaymentMethods']);
     Route::resource('config-data', ConfigurationController::class);
 

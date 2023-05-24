@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\CpaymentMethods;
 use App\Models\Cstate;
+use App\Models\Tax;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
+use Yajra\DataTables\Contracts\DataTable;
 
 class ConfigurationController extends Controller
 {
@@ -16,6 +19,11 @@ class ConfigurationController extends Controller
     public function paymentMethods(){
         $methods_payment = CpaymentMethods::join('cstates', 'cstates.id', 'cstate_id')->select('cpayment_methods.id as id', 'cpayment_methods.value as value', 'cstates.value as state')->get();
         return DataTables()->collection($methods_payment)->toJson();
+    }
+
+    public function listTaxes() {
+        $taxes = Tax::all();
+        return DataTables()->collection($taxes)->toJson();
     }
 
     public function statePaymentMethods(Request $request, $id){
@@ -31,6 +39,14 @@ class ConfigurationController extends Controller
     }
 
     public function paymentMethodsStore(Request $request){
+        $validated = $request->validate([
+            'value' => 'required|unique:cpayment_methods,value|max:70',
+        ],
+        [
+        'value.required' => 'El nombre de metodo dde pago es requerido.',
+        'value.unique' => 'El metodo de pago ya esta registrado.',
+        'value.max' => 'El número de varacteres permitidos para el metodo de pago excede la longitud admitida.',
+        ]);
         try{
             if($request->value == ''){
             return back()->with('fatal', 'El nombre de metodo de pago no puede ser vacio.');

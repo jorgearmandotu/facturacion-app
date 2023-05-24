@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('cpayment_methods', function (Blueprint $table) {
             $table->id();
-            $table->text('value', 50);
+            $table->char('value', 70)->unique();
             $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->timestamps();
         });
