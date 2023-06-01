@@ -73,9 +73,11 @@
                         <form action="" id="formTax">
                             @csrf
                             <div class="form-row">
+                                {{-- @method('PUT') --}}
                                 <div class="form-group col-md-8">
                                     <label for="nameTax">Nombre</label>
                                     <input type="text" name="nameTax" id="nameTax" class="form-control">
+                                    <input type="hidden" name="tax" id="tax" value="">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="valueTax">valor %</label>
@@ -84,7 +86,7 @@
                             </div>
                             <div class="form-row">
                                 <label for="description">Descripción</label>
-                                <input type="text" name="description" id="descriptionTax" class="form-control">
+                                <input type="text" name="descriptionTax" id="descriptionTax" class="form-control">
                             </div>
                         </form>
                     </div>

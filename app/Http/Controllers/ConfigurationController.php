@@ -26,6 +26,40 @@ class ConfigurationController extends Controller
         return DataTables()->collection($taxes)->toJson();
     }
 
+    public function taxData(Tax $tax) {
+        if($tax){
+            return response()->json($tax);
+        }
+        return response()->json(['msg' => 'No se encontraron datos'], 200);
+    }
+
+    public function createTax(Request $request){
+        try{
+            $tax = new Tax();
+            $tax->name = mb_strtoupper($request->nameTax, 'UTF-8');
+            $tax->value = $request->valueTax;
+            $tax->description = mb_strtoupper($request->descriptionTax, 'UTF-8');
+            $tax->save();
+            return response()->json(['msg' => 'Creación exitosa', 'status' => 200], 200);
+        }catch(\Exception $e){
+            return response()->json(['msg' => 'No fue posible ingresar la información, contacte al administrador del sistema', 'status' => '400'], 200);
+        }
+    }
+
+    public function updateTax($id, Request $request){
+        try{
+            $tax = Tax::find($id);
+            // return response()->json(['msg' => $request->name, 'status' => 200], 200);
+            $tax->name = mb_strtoupper($request->nameTax, 'UTF-8');
+            $tax->value = $request->valueTax;
+            $tax->description = mb_strtoupper($request->descriptionTax, 'UTF-8');
+            $tax->save();
+            return response()->json(['msg' => 'Datos actualizados', 'status' => 200], 200);
+        }catch(\Exception $e){
+            return response()->json(['msg' => 'No fue posible actualizar la información, contacte al administrador del sistema'. $e->getMessage(), 'status' => '400'], 200);
+        }
+    }
+
     public function statePaymentMethods(Request $request, $id){
         try{
             $method = CpaymentMethods::find($id);

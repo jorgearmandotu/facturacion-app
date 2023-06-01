@@ -3,6 +3,7 @@ let taxTable;
 let inputNameTax = document.querySelector('#nameTax');
 let inputValueTax = document.querySelector('#valueTax');
 let inputdescriptionTax = document.querySelector('#descriptionTax');
+let inputTax = document.querySelector('#tax');
 jQuery(function(){
     paymentMethodsTable = $('#methodsTable').DataTable({
         ajax: '/admin/listPaymentMethods',
@@ -82,7 +83,6 @@ jQuery(function(){
 async function changeState(id){
     const token = document.querySelector('input[name="_token"]').value;
     let url = `statePaymentMethods/${id}`;
-    console.log(url);
     try{
         const response = await fetch(url, {
             method: 'PUT',
@@ -109,10 +109,16 @@ async function changeState(id){
 
 async function editTax(id){
     //consultar informacion y cargar en modal
-    
-    inputNameTax.value = 'hola';
-    inputValueTax.value = '1';
-    inputdescriptionTax.value = 'daniela';
+    let response = await fetch(`taxData/${id}`);
+    if (!response.ok) {
+        messages('error', 'No fue pposible obtener la información', true)
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    let tax = await response.json();
+    inputNameTax.value = tax.name;
+    inputValueTax.value = tax.value;
+    inputdescriptionTax.value = tax.description;
+    inputTax.value = tax.id;
     $('#taxModal').modal('show');
 }
 
@@ -120,8 +126,46 @@ $('#taxModal').on('hidden.bs.modal', function (e) {
     inputNameTax.value = '';
     inputValueTax.value = '';
     inputdescriptionTax.value = '';
-  })
+    inputTax.value = '';
+  });
+
+
 
 async function saveTax(){
-    console.log('saveTax');
+    let tax = inputTax.value;
+    let url = 'createTax';
+    try{
+        let form = document.querySelector('#formTax');
+        let data = new FormData(form);
+    if(tax !== ''){
+        url = `updateTax/${tax}`;
+        data.append('_method', 'PUT')
+    }
+    // console.log(url);
+    //     const values = Object.fromEntries(data.entries());
+    //     console.log(values);
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: data,
+        });
+        if (!response.ok) {
+            console.log('error response');
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const res = await response.json();
+        if(res.status == 200){
+            messages('success', res.msg, false, 1500);
+            taxTable.ajax.reload(null, false);
+        }else{
+            messages('error', res.msg, true);
+        }
+    }catch(error){
+        console.error(error);
+        messages('error', 'Ocurio un error al procesar la solicitud', true);
+    }
+
+    $('#taxModal').modal('hide');
 }
