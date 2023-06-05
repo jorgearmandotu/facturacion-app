@@ -39,6 +39,7 @@ class ConfigurationController extends Controller
             $tax->name = mb_strtoupper($request->nameTax, 'UTF-8');
             $tax->value = $request->valueTax;
             $tax->description = mb_strtoupper($request->descriptionTax, 'UTF-8');
+            $tax->cstate_id = Cstate::where('value', 'Activo')->first()->id;
             $tax->save();
             return response()->json(['msg' => 'Creación exitosa', 'status' => 200], 200);
         }catch(\Exception $e){
@@ -47,12 +48,15 @@ class ConfigurationController extends Controller
     }
 
     public function updateTax($id, Request $request){
+        // return response()->json(['msg' => 'Datos actualizados '.$request->stateTax, 'status' => 400], 200);
+
         try{
             $tax = Tax::find($id);
             // return response()->json(['msg' => $request->name, 'status' => 200], 200);
             $tax->name = mb_strtoupper($request->nameTax, 'UTF-8');
             $tax->value = $request->valueTax;
             $tax->description = mb_strtoupper($request->descriptionTax, 'UTF-8');
+            $tax->cstate_id = ($request->stateTax) ? Cstate::where('value', 'Inactivo')->first()->id :  Cstate::where('value', 'Activo')->first()->id;
             $tax->save();
             return response()->json(['msg' => 'Datos actualizados', 'status' => 200], 200);
         }catch(\Exception $e){

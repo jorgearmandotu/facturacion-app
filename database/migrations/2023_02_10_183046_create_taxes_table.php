@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 20);
             $table->decimal('value');
             $table->string('description', 50);
+            $table->foreignId('cstate_id')->references('id')->on('cstates');
             $table->timestamps();
         });
     }

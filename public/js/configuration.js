@@ -141,9 +141,9 @@ async function saveTax(){
         url = `updateTax/${tax}`;
         data.append('_method', 'PUT')
     }
-    // console.log(url);
-    //     const values = Object.fromEntries(data.entries());
-    //     console.log(values);
+    console.log(url);
+        const values = Object.fromEntries(data.entries());
+        console.log(values);
         const response = await fetch(url, {
             method: 'POST',
             headers: {
