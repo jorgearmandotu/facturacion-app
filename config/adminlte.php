@@ -411,10 +411,29 @@ return [
                     'icon' => 'fas fa-truck-loading',
                 ],
                 [
-                    'text' => 'Traslados',
-                    'icon' => 'fas fa-dolly',
-                    'can' => 'transferLocations',
-                    'url' => 'admin/transfer-location'
+                    'text' => 'Notas',
+                    'can' => 'gestion-inventario',
+                    'icon' => 'far fa-sticky-note',
+                    'submenu' => [
+                        [
+                            'text' => 'Traslados',
+                            'icon' => 'fas fa-dolly',
+                            'can' => 'transferLocations',
+                            'url' => 'admin/transfer-location',
+                        ],
+                        [
+                            'text' => 'Notas de Entrada',
+                            'icon' => 'fas fa-sign-in-alt',
+                            'can' => '',
+                            'url' => '',
+                        ],
+                        [
+                            'text' => 'Notas de salida',
+                            'icon' => 'fas fa-sign-out-alt',
+                            'can' => '',
+                            'url' => '',
+                        ]
+                    ],
                 ],
                 [
                     'text' => 'Carge de facturas',
@@ -465,7 +484,7 @@ return [
         [
             'text' => 'Configuracion',
             'icon' => 'fas fa-cog',
-            //'can' => 'config-company.index',
+            'can' => ['config-company.index'],
             'submenu' => [
                 [
                     'text' => 'Datos de empresa',
