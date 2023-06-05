@@ -12,10 +12,15 @@ class Tax extends Model
         'name',
         'value',
         'description',
+        'cstate_id',
     ];
 
     public function products(){
         return $this->belongsToMany(products::class);
+    }
+
+    public function state(){
+        return $this->hasOne(Cstate::class, 'id', 'cstate_id');
     }
 
 }

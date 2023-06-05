@@ -23,11 +23,15 @@ class ConfigurationController extends Controller
 
     public function listTaxes() {
         $taxes = Tax::all();
+        foreach($taxes as $tax){
+            $state = $tax->state->value;
+        }
         return DataTables()->collection($taxes)->toJson();
     }
 
     public function taxData(Tax $tax) {
         if($tax){
+            $state = $tax->state->value;
             return response()->json($tax);
         }
         return response()->json(['msg' => 'No se encontraron datos'], 200);
@@ -39,7 +43,7 @@ class ConfigurationController extends Controller
             $tax->name = mb_strtoupper($request->nameTax, 'UTF-8');
             $tax->value = $request->valueTax;
             $tax->description = mb_strtoupper($request->descriptionTax, 'UTF-8');
-            $tax->cstate_id = Cstate::where('value', 'Activo')->first()->id;
+            $tax->cstate_id = (isset($request->stateTax)) ? Cstate::where('value', 'Activo')->first()->id :  Cstate::where('value', 'Inactivo')->first()->id;
             $tax->save();
             return response()->json(['msg' => 'Creación exitosa', 'status' => 200], 200);
         }catch(\Exception $e){
@@ -56,9 +60,22 @@ class ConfigurationController extends Controller
             $tax->name = mb_strtoupper($request->nameTax, 'UTF-8');
             $tax->value = $request->valueTax;
             $tax->description = mb_strtoupper($request->descriptionTax, 'UTF-8');
-            $tax->cstate_id = ($request->stateTax) ? Cstate::where('value', 'Inactivo')->first()->id :  Cstate::where('value', 'Activo')->first()->id;
+            $tax->cstate_id = (isset($request->stateTax)) ? Cstate::where('value', 'Activo')->first()->id :  Cstate::where('value', 'Inactivo')->first()->id;
             $tax->save();
             return response()->json(['msg' => 'Datos actualizados', 'status' => 200], 200);
+        }catch(\Exception $e){
+            return response()->json(['msg' => 'No fue posible actualizar la información, contacte al administrador del sistema'. $e->getMessage(), 'status' => '400'], 200);
+        }
+    }
+    public function updateStateTax($id, Request $request){
+        // return response()->json(['msg' => 'Datos actualizados '.$request->stateTax, 'status' => 400], 200);
+
+        try{
+            $tax = Tax::find($id);
+            // return response()->json(['msg' => $request->name, 'status' => 200], 200);
+            $tax->cstate_id = ($tax->state->value == 'Activo') ? Cstate::where('value', 'Inactivo')->first()->id : Cstate::where('value', 'Activo')->first()->id;
+            $tax->save();
+            return response()->json(['msg' => 'Operación exitosa', 'status' => 200], 200);
         }catch(\Exception $e){
             return response()->json(['msg' => 'No fue posible actualizar la información, contacte al administrador del sistema'. $e->getMessage(), 'status' => '400'], 200);
         }

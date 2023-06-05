@@ -91,10 +91,10 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="state">Estado</label>
-                                    <div class="custom-control custom-checkbox mr-sm-2">
-                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="stateTax"
+                                    <div class="">
+                                        <input type="checkbox" class="" id="stateTax" name="stateTax"
                                         checked>
-                                    <label class="custom-control-label" for="customControlAutosizing">Activo</label>
+                                    <label class="" for="stateTax">Activo</label>
                                     </div>
                                 </div>
                             </div>

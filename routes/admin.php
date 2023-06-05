@@ -83,6 +83,7 @@ Route::middleware([
     route::get('taxData/{tax}', [ConfigurationController::class, 'taxData']);
     route::post('createTax', [ConfigurationController::class, 'createTax']);
     route::put('updateTax/{tax}', [ConfigurationController::class, 'updateTax']);
+    route::put('updateStateTax/{tax}', [ConfigurationController::class, 'updateStateTax']);
     Route::put('statePaymentMethods/{id}', [ConfigurationController::class, 'statePaymentMethods']);
     Route::resource('config-data', ConfigurationController::class);
 

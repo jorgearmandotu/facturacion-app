@@ -122,10 +122,13 @@ class ProductsController extends Controller
 
     public function create(){
         $lines = Line::all();
-        $taxes = Tax::all();
-        $locations = Location::join('cstates', 'locations.cstate_id' , 'cstates.id')
-                    ->where('value', 'Activo')
-                    ->select('locations.id as id', 'name')->get();
+        $state = Cstate::where('value', 'Activo')->first();
+        $taxes = Tax::where('cstate_id', $state->id)->get();
+        // $locations = Location::join('cstates', 'locations.cstate_id' , 'cstates.id')
+        //             ->where('value', 'Activo')
+        //             ->select('locations.id as id', 'name')->get();
+        $locations = Location::where('cstate_id', $state->id)
+                    ->select('id', 'name')->get();
         return view('admin.create_products',compact('lines', 'taxes', 'locations'));
     }
 

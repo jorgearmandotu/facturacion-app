@@ -4,6 +4,7 @@ let inputNameTax = document.querySelector('#nameTax');
 let inputValueTax = document.querySelector('#valueTax');
 let inputdescriptionTax = document.querySelector('#descriptionTax');
 let inputTax = document.querySelector('#tax');
+let stateTax = document.querySelector('#stateTax');
 jQuery(function(){
     paymentMethodsTable = $('#methodsTable').DataTable({
         ajax: '/admin/listPaymentMethods',
@@ -73,7 +74,14 @@ jQuery(function(){
             {
                 data: 'id',
                 render: (data, type, row) => {
-                    return `<button class='jsgrid-button btn btn-warning ml-1' onclick="editTax(${data})" > <i class='far fa-edit'></i></button></div>`;
+                    let iconButton = '<i class="fas fa-times"></i>';
+                    let classBtn = 'jsgrid-button btn btn-danger ml-1';
+                    if(row.state.value === 'Activo'){
+                        iconButton = '<i class="fas fa-check"></i>';
+                        classBtn = 'jsgrid-button btn btn-success ml-1';
+                    }
+                    return `<div class="row"><button class='jsgrid-button btn btn-warning ml-1' onclick="editTax(${data})" > <i class='far fa-edit'></i></button>
+                    <button class='${classBtn}' onclick="editStateTax(${data})" > ${iconButton}</button></div>`;
                 }
             }
         ],
@@ -119,14 +127,21 @@ async function editTax(id){
     inputValueTax.value = tax.value;
     inputdescriptionTax.value = tax.description;
     inputTax.value = tax.id;
+    if(stateTax.checked){
+        (tax.state.value === 'Activo') ? '' : stateTax.click();
+    }else{
+        (tax.state.value === 'Activo') ? stateTax.click() : '';
+    }
     $('#taxModal').modal('show');
 }
+
 
 $('#taxModal').on('hidden.bs.modal', function (e) {
     inputNameTax.value = '';
     inputValueTax.value = '';
     inputdescriptionTax.value = '';
     inputTax.value = '';
+    (stateTax.checked) ? '' : stateTax.click();
   });
 
 
@@ -141,9 +156,8 @@ async function saveTax(){
         url = `updateTax/${tax}`;
         data.append('_method', 'PUT')
     }
-    console.log(url);
-        const values = Object.fromEntries(data.entries());
-        console.log(values);
+        // const values = Object.fromEntries(data.entries());
+        // console.log(values);
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -168,4 +182,34 @@ async function saveTax(){
     }
 
     $('#taxModal').modal('hide');
+}
+async function editStateTax(id){
+    let url = `updateStateTax/${id}`;
+    try{
+    let data = new FormData();
+    data.append('_method', 'PUT')
+        // const values = Object.fromEntries(data.entries());
+        // console.log(values);
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: data,
+        });
+        if (!response.ok) {
+            console.log('error response');
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const res = await response.json();
+        if(res.status == 200){
+            messages('success', res.msg, false, 1500);
+            taxTable.ajax.reload(null, false);
+        }else{
+            messages('error', res.msg, true);
+        }
+    }catch(error){
+        console.error(error);
+        messages('error', 'Ocurio un error al procesar la solicitud', true);
+    }
 }
