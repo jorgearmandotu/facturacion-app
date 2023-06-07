@@ -14,6 +14,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LinesController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\NotesController;
 use App\Http\Controllers\PendingInvoicesController;
 use App\Http\Controllers\PrintInvoiceController;
 use App\Http\Controllers\PrintReceiptController;
@@ -86,6 +87,8 @@ Route::middleware([
     route::put('updateStateTax/{tax}', [ConfigurationController::class, 'updateStateTax']);
     Route::put('statePaymentMethods/{id}', [ConfigurationController::class, 'statePaymentMethods']);
     Route::resource('config-data', ConfigurationController::class);
+
+    Route::resource('notes', NotesController::class);
 
     Route::get('printRemision/{remision}', [RemisionController::class, 'printRemision']);
     Route::get('listRemisiones', [RemisionController::class, 'listRemisiones']);

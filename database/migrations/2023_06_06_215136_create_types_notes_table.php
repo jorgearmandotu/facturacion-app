@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('ctypes_notes', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['Entrada', 'Salida']);
-            $table->foreignId('product_id')->references('id')->on('products');
-            $table->foreignId('location_id')->references('id')->on('locations');
-            $table->integer('quantity')->min(0);
-            $table->text('description', '250');
-            $table->decimal('costo');
+            $table->string('name', '50');
+            $table->text('description', '200')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('types_notes');
     }
 };

@@ -425,7 +425,7 @@ return [
                             'text' => 'Notas de Entrada',
                             'icon' => 'fas fa-sign-in-alt',
                             'can' => '',
-                            'url' => '',
+                            'url' => 'admin/notes',
                         ],
                         [
                             'text' => 'Notas de salida',
