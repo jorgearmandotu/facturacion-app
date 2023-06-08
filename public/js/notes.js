@@ -1,5 +1,6 @@
 let selectProduct = document.querySelector('#selectProducts');
 let inputQuantity = document.querySelector('#quantity');
+let inputDescription = document.querySelector('#descriptionNote');
 let itemsTotal = 0;
 let itemsView = 0;
 let formProducts = new FormData();
@@ -8,14 +9,18 @@ jQuery(function (){
     $('#selectProducts').select2({
         placeholder: 'Seleccione producto',
     });
+    $('#selectProducts').on('select2:open', function() {
+        // $("#selectSupplier").trigger('select2:open');
+        document.querySelector('.select2-search__field').focus();
+    });
 });
 
 function add(){
     let product = selectProduct.value;
     let quantity = inputQuantity.value;
     let productText = selectProduct.options[selectProduct.selectedIndex].text;
-
-    if(product == '' || quantity < 0 || typeof(quantity) !== 'number' || typeof(product !== 'number')){
+    if(product == '' || quantity < 0 ){
+        messages('error', 'Selecione producto e ingrese cantidad', 'true');
         return
     }
     itemsTotal++;
@@ -28,9 +33,8 @@ function add(){
     formProducts.append(`cant${itemsView}`, quantity);
 
     addRow(quantity, itemsView, productText, itemsTotal);
-    formProducts.reset();
     $('#selectProducts').val(null).trigger('change');
-
+    inputQuantity.value = '';
 }
 
 function addRow(quantity, itemsView, productText, itemsTotal) {
@@ -86,4 +90,95 @@ function addRow(quantity, itemsView, productText, itemsTotal) {
 
     rowForm.appendChild(row);
 
+}
+
+function rowRemove(item){
+    formProducts.delete(`item${item}`);
+    formProducts.delete(`product${item}`);
+    formProducts.delete(`cant${item}`);
+
+    itemsTotal--;
+    formProducts.append('totalItems', itemsTotal)
+
+    let row = document.getElementById(`row${item}`);
+    rowForm.removeChild(row);
+
+    let val = 1;
+    for(i = 0; i<itemsView; i++){
+        let input = document.getElementById(`number${i+1}`);
+        if(input !== null){
+            input.value = val;
+            val++;
+        }
+    }
+
+}
+
+function send(){
+    let formNote = document.querySelector('#formNote');
+    let dataNote = new FormData(formNote);
+    dataNote.append('description', inputDescription.value);
+    for (const [nombre, valor] of dataNote.entries()) {
+        formProducts.append(nombre, valor);
+      }
+    //    const values = Object.fromEntries(formProductsList.entries());
+
+      if(formProducts.get('typeNote') < 1 || formProducts.get('location') < 1){
+        return messages('error', 'Verifique tipo de nota y ubicación', true)
+      }
+
+      if(itemsTotal < 1 || formProducts.get('totalItems') < 1){
+        return messages('error', 'Ingrese productos en la nota', true)
+      }
+
+      //enviar a servidor nota
+      const values = Object.fromEntries(formProducts.entries());
+      console.log(values);
+      sendNote(formProducts);
+}
+
+async function sendNote(data){//recibo formData
+    try{
+        const response = await fetch('/admin/notes', {
+            method: 'Post',
+            body: data,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            }
+        });
+        if (!response.ok) {
+            messages('error', 'Ocurio un error interno contacte al administrador del sistema', true)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const res = await response.json();
+
+        if(res.status == 200){
+            //Livewire.emit('lineAdded')
+            messages('success', res.msg, false, 1500);
+            url =`../printShoppingInvoice/${res.invoice}`;
+            // window.location.replace(`printShoppingInvoice/${res.invoice}`);
+            var win = window.open(url, '_blank');
+            //win.focus();
+            //productsTable.ajax.reload(null, false);
+            //recargarTablas(table);
+        }else{
+            messages('error', res.msg, true);
+        }
+        //reset a formulario encabezados
+        document.querySelector('#formNote').reset();
+        $('#selectProduct').val(null).trigger('change');
+        //elimino listado de productos
+        const listProducts = document.getElementById('rowForm');
+        while (listProducts.firstChild) {
+            listProducts.removeChild(listProducts.firstChild);
+          }
+
+          itemsTotal = 0;
+          itemsView = 0;
+
+    }catch(error){
+        console.error(error);
+        return messages('error', 'Ocurio un error inesperado contacte al administrador del sistema', true)
+    }
 }

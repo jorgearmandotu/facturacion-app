@@ -112,16 +112,6 @@ function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, taxt
     inputTotalInvoice.value = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP",}).format(totalInvoice);
 }
 
-// function messages(icon, title, button, timer){
-//     Swal.fire({
-//         //position: 'center',
-//         type: icon,
-//         title: title,
-//         showConfirmButton: button,
-//         timer: timer
-//       })
-
-// }
 
 jQuery(function($) {
     $('#selectSupplier').select2({
@@ -289,5 +279,4 @@ async function sendInvoice(data){//recibo formData
 }
 
 selectProducts.addEventListener('change', (eventy) => {
-console.log('cambio');
 });
