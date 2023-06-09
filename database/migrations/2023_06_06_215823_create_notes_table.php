@@ -16,11 +16,8 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('type')->references('id')->on('ctypes_notes');
-            $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('location_id')->references('id')->on('locations');
-            $table->integer('quantity')->default(0);
-            $table->text('description', '250');
-            $table->decimal('costo');
+            $table->text('description', '250')->nullable();
             $table->timestamps();
         });
     }

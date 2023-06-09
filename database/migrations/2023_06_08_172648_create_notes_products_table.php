@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ctypes_notes', function (Blueprint $table) {
+        Schema::create('notes_products', function (Blueprint $table) {
             $table->id();
-            $table->string('name', '50');
-            $table->enum('action', ['entrada', 'salida']);
-            $table->text('description', '200')->nullable();
+            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('note_id')->references('id')->on('notes');
+            $table->integer('quantity');
+            $table->decimal('costo')->nullable();
+            $table->integer('position')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types_notes');
+        Schema::dropIfExists('notes_products');
     }
 };

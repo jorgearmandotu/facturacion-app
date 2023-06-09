@@ -422,17 +422,17 @@ return [
                             'url' => 'admin/transfer-location',
                         ],
                         [
-                            'text' => 'Notas de Entrada',
+                            'text' => 'Notas de ajuste',
                             'icon' => 'fas fa-sign-in-alt',
                             'can' => '',
                             'url' => 'admin/notes',
                         ],
-                        [
-                            'text' => 'Notas de salida',
-                            'icon' => 'fas fa-sign-out-alt',
-                            'can' => '',
-                            'url' => '',
-                        ]
+                        // [
+                        //     'text' => 'Notas de salida',
+                        //     'icon' => 'fas fa-sign-out-alt',
+                        //     'can' => '',
+                        //     'url' => '',
+                        // ]
                     ],
                 ],
                 [

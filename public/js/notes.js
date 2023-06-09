@@ -19,7 +19,7 @@ function add(){
     let product = selectProduct.value;
     let quantity = inputQuantity.value;
     let productText = selectProduct.options[selectProduct.selectedIndex].text;
-    if(product == '' || quantity < 0 ){
+    if(product == '' || quantity < 0 || quantity == '' ){
         messages('error', 'Selecione producto e ingrese cantidad', 'true');
         return
     }
@@ -147,11 +147,11 @@ async function sendNote(data){//recibo formData
             }
         });
         if (!response.ok) {
-            messages('error', 'Ocurio un error interno contacte al administrador del sistema', true)
+            messages('error', 'Ocurio un error interno contacte al administrador del sistema ', true)
             throw new Error(`HTTP error! status: ${response.status}`);
-          }
+        }
 
-          const res = await response.json();
+        const res = await response.json();
 
         if(res.status == 200){
             //Livewire.emit('lineAdded')

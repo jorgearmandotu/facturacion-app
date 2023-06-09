@@ -20,6 +20,7 @@
             <div class="row col-md-6">
                 <label for="typeNote">Tipo de nota</label>
                 <select name="typeNote" id="typeNote" class="form-control">
+                    {{-- <option value= "">Seleccione una ópcion.</option> --}}
                     @foreach($types as $type)
                     <option value="{{$type->id}}">{{$type->name}}</option>
                     @endforeach
@@ -28,6 +29,7 @@
             <div class="row col-md-6">
                 <label for="location">Ubicación</label>
                 <select name="location" id="locationNote" class="form-control">
+                    {{-- <option value="">Seleccione una ópcion.</option> --}}
                     @foreach($locations as $location)
                     <option value="{{$location->id}}">{{$location->name}}</option>
                     @endforeach

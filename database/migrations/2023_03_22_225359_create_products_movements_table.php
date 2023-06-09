@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('product_id')->references('id')->on('products');
             $table->integer('quantity');
             $table->integer('saldo');
-            $table->enum('document_type', ['Invoice', 'shopping_invoice', 'Anulacion', 'TransferLocation'])->nullable();
+            $table->enum('document_type', ['Invoice', 'shopping_invoice', 'Anulacion', 'TransferLocation', 'note', 'archivo_plano'])->nullable();
             $table->bigInteger('document_id')->nullable();
             $table->foreignId('location_id')->constrained('locations', 'id')->nullable();
             $table->timestamps();

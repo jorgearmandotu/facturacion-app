@@ -26,7 +26,7 @@ return new class extends Migration
             //$table->decimal('profit', 10, 2)->default(0);
             //$table->decimal('price')->default(0);
             $table->foreignId('cstate_id')->references('id')->on('cstates');
-            $table->date('date');
+            $table->date('date')->nullable();
             //ubicaciones bodegas
             $table->timestamps();
         });
