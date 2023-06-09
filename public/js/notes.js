@@ -156,9 +156,9 @@ async function sendNote(data){//recibo formData
         if(res.status == 200){
             //Livewire.emit('lineAdded')
             messages('success', res.msg, false, 1500);
-            url =`../printShoppingInvoice/${res.invoice}`;
+            //url =`../printShoppingInvoice/${res.invoice}`;
             // window.location.replace(`printShoppingInvoice/${res.invoice}`);
-            var win = window.open(url, '_blank');
+            //var win = window.open(url, '_blank');
             //win.focus();
             //productsTable.ajax.reload(null, false);
             //recargarTablas(table);
@@ -168,6 +168,7 @@ async function sendNote(data){//recibo formData
         //reset a formulario encabezados
         document.querySelector('#formNote').reset();
         $('#selectProduct').val(null).trigger('change');
+        inputDescription.value = '';
         //elimino listado de productos
         const listProducts = document.getElementById('rowForm');
         while (listProducts.firstChild) {
