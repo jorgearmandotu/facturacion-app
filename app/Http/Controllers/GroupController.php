@@ -30,9 +30,9 @@ class GroupController extends Controller
             if($request->name == ''){
                 return response()->json(['msg' => 'Datos invalidos'], 203);
             }
-            $group = Group::where('name', $request->name)->first();
+            $group = Group::where('name', $request->name)->where('line_id', $request->line)->first();
             if($group){
-                return response()->json(['msg' => 'Grupo "'.$request->name.'" ya esta registrado'], 203);
+                return response()->json(['msg' => 'Grupo "'.$request->name.'" ya esta registrado para esta linea'], 203);
             }
             if($request->state){
                 $state = Cstate::where('value', 'Activo')->first();

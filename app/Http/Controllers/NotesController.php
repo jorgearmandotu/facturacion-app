@@ -82,6 +82,7 @@ class NotesController extends Controller
                             $locationProduct = LocationProduct::where('location_id', $note->location_id)->where('product_id', $product)->first();
                             if($locationProduct){
                                 $locationProduct->stock = $locationProduct->stock + $quantity;
+                                $locationProduct->save();
                             }else{
                                 $locationProduct = new LocationProduct();
                                 $locationProduct->location_id = $note->location_id;
