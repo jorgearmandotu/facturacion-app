@@ -29,16 +29,27 @@ class ProductsMovements extends Model
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
 
+    public function documentType(){
+        return $this->hasOne(CtypesNotes::class, 'id', 'document_type');
+    }
+
     public function invoice(){
-        if($this->document_type == 'Invoice'){
-            return $this->hasOne(DataInvoices::class, 'invoice_id', 'document_id');
-        }else if($this->document_type == 'shopping_invoice'){
-            return $this->hasOne(DataInvoices::class, 'shopping_invoice_id', 'document_id');
-        }else if($this->document_type == 'Anulacion' && $this->type == 'Entrada'){
-            return $this->hasOne(DataInvoices::class, 'invoice_id', 'document_id');
-        }else if($this->document_type == 'Anulacion' && $this->type == 'Salida'){
-            return $this->hasOne(DataInvoices::class, 'shopping_invoice_id', 'document_id');
+        $documentType = CtypesNotes::find($this->document_type);
+        if($documentType){
+            if($documentType->name == 'Factura de venta'){
+                return $this->hasOne(DataInvoices::class, 'invoice_id', 'document_id');
+            }else if($documentType->name == 'Factura de compra'){
+                return $this->hasOne(DataInvoices::class, 'shopping_invoice_id', 'document_id');
+            }else if($documentType->name == 'Anulacion' && $this->type == 'Entrada'){
+                return $this->hasOne(DataInvoices::class, 'invoice_id', 'document_id');
+            }else if($documentType->name == 'Anulacion' && $this->type == 'Salida'){
+                return $this->hasOne(DataInvoices::class, 'shopping_invoice_id', 'document_id');
+            }
         }
+        return $this->hasOne(DataInvoices::class, 'shopping_invoice_id', 'document_id');//nunca deberia ejecutarse
+        // }else if($this->document_type == 'Anulacion' && $this->type == 'Salida'){
+        //     return $this->hasOne(DataInvoices::class, 'shopping_invoice_id', 'document_id');
+        // }
     }
 
     public function shoppingInvoice(){
@@ -47,6 +58,10 @@ class ProductsMovements extends Model
 
     public function transfer(){
         return $this->hasOne(TransferLocation::class, 'number', 'document_id');
+    }
+
+    public function note(){
+        return $this->hasOne(Notes::class, 'id', 'document_id');
     }
 
 }

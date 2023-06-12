@@ -6,6 +6,7 @@ use App\Models\CategoriesDischarge;
 use App\Models\CompanyData;
 use App\Models\CpaymentMethods;
 use App\Models\Cstate;
+use App\Models\CtypesNotes;
 use App\Models\DataInvoices;
 use App\Models\Discharge;
 use App\Models\ListPrices;
@@ -166,7 +167,9 @@ class ShoppingInvoiceController extends Controller
                     $productMovement->saldo = $totalProduct;
                     $productMovement->location_id = $request->location;
                     $productMovement->product_id = $product_select->id;
-                    $productMovement->document_type = 'shopping_invoice';
+                    $typeDocument = CtypesNotes::where('name', 'Factura de compra')->first();
+                    $productMovement->document_type = $typeDocument->id;
+                    // $productMovement->document_type = 'shopping_invoice';
                     $productMovement->document_id = $invoice->id;
                     $productMovement->save();
 

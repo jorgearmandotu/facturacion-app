@@ -41,5 +41,25 @@ class TypesNotesSeeder extends Seeder
             'action' => 'salida',
             'description' => 'Notas de salida por Mermas',
         ]);
+        DB::table('ctypes_notes')->insert([
+            'name' => 'Factura de venta',
+            'action' => 'salida',
+            'description' => 'Facturas de venta',
+        ]);
+        DB::table('ctypes_notes')->insert([
+            'name' => 'Factura de compra',
+            'action' => 'entrada',
+            'description' => 'Facturas de compra',
+        ]);
+        DB::table('ctypes_notes')->insert([
+            'name' => 'Traslados',
+            'action' => 'traslados',
+            'description' => 'Traslados de inventario',
+        ]);
+        DB::table('ctypes_notes')->insert([
+            'name' => 'Anulacion',
+            'action' => 'anulacion',
+            'description' => 'Anulacion de documentos',
+        ]);
     }
 }

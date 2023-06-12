@@ -27,10 +27,12 @@
         @endphp
         @foreach ($movements as $movement)
             @if (
+                $movement->document_type)
+            {{-- @if (
                 $movement->document_type == 'Invoice' ||
                     $movement->document_type == 'shopping_invoice' ||
                     $movement->document_type == 'Anulacion' ||
-                    $movement->document_type == 'TransferLocation')
+                    $movement->document_type == 'TransferLocation') --}}
                 @if ($primeraIteracion)
                     <tr>
                         <td></td>
@@ -49,26 +51,32 @@
                     <td>{{ $movement->type }}</td>
                     <td>{{ $movement->quantity }}</td>
                     <td>{{ $movement->saldo }}</td>
-                    @if ($movement->document_type == 'TransferLocation')
+                    @if (!$movement->documentType->name == 'Factura de compra' || !$movement->documentType->name == 'Factura de venta' || !$movement->documentType->name == 'Anulacion')
                         <td></td>
                         <td></td>
-                    @else
+                    @elseif($movement->invoice)
                         <td>{{ $movement->invoice->vlr_unit }}</td>
                         <td>{{ $movement->invoice->vlr_tax }}</td>
                     @endif
                     @if (
-                        $movement->document_type == 'shopping_invoice' ||
-                            ($movement->document_type == 'Anulacion' && $movement->type == 'Salida'))
+                        $movement->documentType->name == 'Factura de compra' ||
+                            ($movement->documentType->name == 'Anulacion' && $movement->type == 'Salida'))
                         <td>{{ $movement->shoppingInvoice->shoppingInvoice->number }}</td>
                         <td>{{ $movement->shoppingInvoice->shoppingInvoice->suppliers->name }}</td>
-                    @elseif($movement->document_type == 'Invoice' || ($movement->document_type == 'Anulacion' && $movement->type == 'Entrada'))
+                    @elseif($movement->documentType->name == 'Factura de venta' || ($movement->documentType->name == 'Anulacion' && $movement->type == 'Entrada'))
                         <td>{{ $movement->invoice->invoice->prefijo.'-'.$movement->invoice->invoice->number }}</td>
                         <td>{{ $movement->invoice->invoice->clients->name }}</td>
-                    @elseif($movement->document_type == 'TransferLocation')
+                    @elseif($movement->documentType->name == 'Traslados')
                         <td>{{ $movement->transfer->number }}</td>
                         <td></td>
+                    @elseif($movement->note)
+                        <td>{{ $movement->note->id }}</td>
+                        <td></td>
                     @endif
-                    @if ($movement->document_type && $movement->document_type == 'Invoice')
+                    @if($movement->document_type)
+                        <td>{{$movement->documentType->name}}</td>
+                    @endif
+                    {{-- @if ($movement->document_type && $movement->document_type == 'Invoice')
                         <td>Factura</td>
                     @elseif($movement->document_type && $movement->document_type == 'shopping_invoice')
                         <td>Factura de compra</td>
@@ -78,7 +86,7 @@
                         <td>Anulacion de factura</td>
                     @elseif($movement->document_type && $movement->document_type == 'TransferLocation')
                         <td>Traslado</td>
-                    @endif
+                    @endif --}}
                     <td>{{ $movement->location->name }}</td>
                 </tr>
             @else

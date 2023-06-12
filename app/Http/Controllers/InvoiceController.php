@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CpaymentMethods;
 use App\Models\Cstate;
+use App\Models\CtypesNotes;
 use App\Models\DataInvoices;
 use App\Models\Invoice as ModelsInvoice;
 use App\Models\Location;
@@ -154,7 +155,9 @@ class InvoiceController extends Controller
                     $productMovement->saldo = $totalProduct;
                     $productMovement->location_id = $stocks->location_id;
                     $productMovement->product_id = $product->id;
-                    $productMovement->document_type = 'Invoice';
+                    $typeDocument = CtypesNotes::where('name', 'Factura de venta')->first();
+                    // $productMovement->document_type = 'Invoice';
+                    $productMovement->document_type = $typeDocument->id;
                     $productMovement->document_id = $invoice->id;
                     $productMovement->save();
                 }

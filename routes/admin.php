@@ -132,6 +132,12 @@ Route::middleware([
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
 
     Route::get('listado-prueba', function() {
+        $data = ProductsMovements::where('products_movements.product_id', 114)
+            ->where('products_movements.created_at', '<=', '2023-12-30')
+            ->where('products_movements.created_at', '>=', '2023-01-01')
+            ->where('products_movements.location_id', '2')
+            ->get();
+        dd($data[0]->product->locations);
 
         $data = ProductsMovements::join('locations_products', function($join){
             $join->on('locations_products.product_id', '=', 'products_movements.product_id')->on('locations_products.location_id', '=','products_movements.location_id');

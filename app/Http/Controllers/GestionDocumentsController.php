@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cstate;
+use App\Models\CtypesNotes;
 use App\Models\DataInvoices;
 use App\Models\Discharge;
 use App\Models\Invoice;
@@ -60,7 +61,9 @@ class GestionDocumentsController extends Controller
                 $stocks = LocationProduct::where('product_id', $data->product_id)->first();
                 $stocks->stock = $stocks->stock + $data->quantity;//como se anula factra se devuelve producto al inventario
                 $stocks->save();
-                $productMovement = ProductsMovements::where('document_type', 'Invoice')
+                $typeDocument = CtypesNotes::where('name', 'Factura de venta')->first();
+                // $productMovement = ProductsMovements::where('document_type', 'Invoice')
+                $productMovement = ProductsMovements::where('document_type', $typeDocument->id)
                                                     ->where('document_id', $invoice->id)
                                                     ->where('product_id', $data->product_id)->first();
                 if(!$productMovement){
@@ -78,7 +81,9 @@ class GestionDocumentsController extends Controller
                 $productMovement->saldo = $totalProduct;
                 $productMovement->location_id = $stocks->location_id;
                 $productMovement->product_id = $data->product_id;
-                $productMovement->document_type = 'Anulacion';
+                // $productMovement->document_type = 'Anulacion';
+                $typeDocument = CtypesNotes::where('name', 'Anulacion')->first();
+                $productMovement->document_type = $typeDocument->id;
                 $productMovement->document_id = $invoice->id;
                 $productMovement->save();
             }
@@ -193,7 +198,9 @@ class GestionDocumentsController extends Controller
                 $stocks = LocationProduct::where('product_id', $data->product_id)->first();
                 $stocks->stock = $stocks->stock - $data->quantity;//como se anula factra se resta cantidad al inventario
                 $stocks->save();
-                $productMovement = ProductsMovements::where('document_type', 'shopping_invoice')
+                $typeDocument = CtypesNotes::where('name', 'Factura de venta')->first();
+                // $productMovement = ProductsMovements::where('document_type', 'shopping_invoice')
+                $productMovement = ProductsMovements::where('document_type', $typeDocument->id)
                                                     ->where('document_id', $invoice->id)
                                                     ->where('product_id', $data->product_id)->first();
                 if(!$productMovement){
@@ -211,7 +218,9 @@ class GestionDocumentsController extends Controller
                 $productMovement->saldo = $totalProduct;
                 $productMovement->location_id = $stocks->location_id;
                 $productMovement->product_id = $data->product_id;
-                $productMovement->document_type = 'Anulacion';
+                $typeDocument = CtypesNotes::where('name', 'Anulacion')->first();
+                $productMovement->document_type = $typeDocument->id;
+                // $productMovement->document_type = 'Anulacion';
                 $productMovement->document_id = $invoice->id;
                 $productMovement->save();
             }

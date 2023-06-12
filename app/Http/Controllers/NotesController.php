@@ -102,7 +102,7 @@ class NotesController extends Controller
                                 $totalProduct += $location->stock;
                             }
                             $productMovement->saldo = $totalProduct;
-                            $productMovement->document_type = 'note';
+                            $productMovement->document_type = $note->type;
                             $productMovement->document_id = $note->id;
                             $productMovement->location_id = $note->location_id;
                             $productMovement->save();
@@ -130,7 +130,7 @@ class NotesController extends Controller
                                 $totalProduct += $location->stock;
                             }
                             $productMovement->saldo = $totalProduct;
-                            $productMovement->document_type = 'note';
+                            $productMovement->document_type = $note->type;
                             $productMovement->document_id = $note->id;
                             $productMovement->location_id = $note->location_id;
                             $productMovement->save();

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('ctypes_notes', function (Blueprint $table) {
             $table->id();
             $table->string('name', '50');
-            $table->enum('action', ['entrada', 'salida']);
+            $table->enum('action', ['entrada', 'salida', 'traslados', 'anulacion']);
             $table->text('description', '200')->nullable();
             $table->timestamps();
         });

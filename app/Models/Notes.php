@@ -10,11 +10,8 @@ class Notes extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'location_id',
-        'product_id',
-        'quantity',
         'type',
-        'costo',
+        'location_id',
         'description',
     ];
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompanyData;
+use App\Models\CtypesNotes;
 use App\Models\Location;
 use App\Models\LocationProduct;
 use App\Models\Product;
@@ -89,7 +90,9 @@ class GestionInventarioController extends Controller
             $movement->product_id = $product->id;
             $movement->quantity = $quantity;
             $movement->saldo = $stockReal - $quantity;
-            $movement->document_type = 'TransferLocation';
+            $typeDocument = CtypesNotes::where('name', 'Traslados')->first();
+            $movement->document_type = $typeDocument->id;
+            // $movement->document_type = 'TransferLocation';
             $movement->document_id = $document->number;
             $movement->location_id = $locationFrom->id;
             $movement->save();
@@ -98,7 +101,9 @@ class GestionInventarioController extends Controller
             $movement->product_id = $product->id;
             $movement->quantity = $quantity;
             $movement->saldo = $stockReal;
-            $movement->document_type = 'TransferLocation';
+            $typeDocument = CtypesNotes::where('name', 'Traslados')->first();
+            $movement->document_type = $typeDocument->id;
+            // $movement->document_type = 'TransferLocation';
             $movement->document_id = $document->number;
             $movement->location_id = $locationTo->id;
             $movement->save();
@@ -179,7 +184,9 @@ class GestionInventarioController extends Controller
                     $movement->product_id = $product->id;
                     $movement->quantity = $quantity;
                     $movement->saldo = $stockReal - $quantity;
-                    $movement->document_type = 'TransferLocation';
+                    $typeDocument = CtypesNotes::where('name', 'Traslados')->first();
+                    $movement->document_type = $typeDocument->id;
+                    // $movement->document_type = 'TransferLocation';
                     $movement->document_id = $document->number;
                     $movement->location_id = $locationFrom->id;
                     $movement->save();
@@ -188,7 +195,7 @@ class GestionInventarioController extends Controller
                     $movement->product_id = $product->id;
                     $movement->quantity = $quantity;
                     $movement->saldo = $stockReal;
-                    $movement->document_type = 'TransferLocation';
+                    $movement->document_type = $typeDocument->id;
                     $movement->document_id = $document->number;
                     $movement->location_id = $locationTo->id;
                     $movement->save();
