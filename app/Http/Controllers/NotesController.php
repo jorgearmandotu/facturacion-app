@@ -45,6 +45,10 @@ class NotesController extends Controller
         DB::beginTransaction();
         try{
             $note = new Notes();
+            $typeNote = CtypesNotes::find($request->typeNote);
+            if( stripos($typeNote->description, 'nota')){
+            return response()->json(['msg' => 'verifique el tipo de nota.', 'status' => 400], 200);
+            }
             $note->type = $request->typeNote;
             $note->location_id = $request->location;
             $note->description = $request->description;
