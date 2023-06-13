@@ -19,7 +19,6 @@ for(let i=0; i<precios.length; i++){
 
 
 function changePrice(input){
-    console.log('precio');
     let valuePrice = precios[input].value;
     console.log(valuePrice);
     utilidad[input].value = (Number(valuePrice-costo)/costo*100).toFixed(2);
@@ -27,7 +26,6 @@ function changePrice(input){
 }
 
 function changeUtilidad(input){
-    console.log('utilidad');
     let valueUtilidad = utilidad[input].value;
     precios[input].value = (Number(costo)+costo*valueUtilidad/100).toFixed(0);
 }

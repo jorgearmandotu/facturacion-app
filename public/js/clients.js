@@ -65,7 +65,7 @@ jQuery(function ($) {
             {data: 'email'},
             {
                 data: 'id',
-                render: (row) => {
+                render: (data, type, row) => {
                     //const isActivo = row.state == 'Activo';
                     //const classBtn = isActivo ? 'btn-success' : 'btn-danger';
                     //const icon = isActivo ? 'fa-check' : 'fa-times';

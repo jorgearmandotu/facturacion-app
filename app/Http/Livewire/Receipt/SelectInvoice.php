@@ -28,6 +28,7 @@ class SelectInvoice extends Component
 
     public function mount(){
         //$this->remisiones = Remision::all();
+        $this->prefijo = '';
     }
     public function render()
     {
@@ -54,7 +55,7 @@ class SelectInvoice extends Component
     public function searchInvoice()
     {
         try{
-            if ($this->prefijo != '' && $this->invoiceNumber != '') {
+            if ( $this->invoiceNumber != '') {
                 $invoice = Invoice::join('cstates', 'cstates.id', 'cstate_id')
                 ->select('invoices.id as id', 'type', 'vlr_total', 'client_id')
                     ->where('prefijo', $this->prefijo)

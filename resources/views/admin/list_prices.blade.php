@@ -19,6 +19,7 @@
             <thead>
                 <tr>
                     {{-- <th>Tipo De Documento</th> --}}
+                    <th>Codigo</th>
                     <th>Producto</th>
                     <th>Ultimo costo</th>
                     <th>precios/ %utilidad</th>
@@ -28,6 +29,7 @@
             <tbody>
                 @foreach ($products as $product)
                 <tr>
+                    <td>{{$product->code}}</td>
                     <td>{{$product->name}}</td>
                     <td>$ {{ number_format($product->costo, '2', ',', '.') }}</td>
                     <td>

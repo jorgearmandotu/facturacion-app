@@ -151,7 +151,7 @@
                                 <div class="form-group col-md-12">
                                     <div class="form-check form-check-inline col-md-3">
                                         <input class="form-check-input group-all" type="checkbox" id="transferLocations" value="transferLocations" name="transferLocations">
-                                        <label class="form-check-label" for="transferLocations">Traslados por bodega</label>
+                                        <label class="form-check-label" for="transferLocations">Traslados por bodega y notas de ajuste</label>
                                     </div>
                                     <div class="form-check form-check-inline col-md-3">
                                         <input class="form-check-input group-all" type="checkbox" id="terceros" value="terceros" name="terceros">

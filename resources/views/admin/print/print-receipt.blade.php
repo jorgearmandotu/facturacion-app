@@ -73,7 +73,7 @@
             <tbody>
                 <tr>
                     <td class="border">1</td>
-                    <td class="border">{{ $invoice->prefijo }} - {{ $invoice->number }}</td>
+                    <td class="border">{{ 'Factura '.$invoice->prefijo }} - {{ $invoice->number }}</td>
                     <td class="border">{{ $invoice->clients->name }}</td>
                     <td class="border">{{ $invoice->clients->dni }}</td>
                     <td class="border">{{ number_format($receipt->vlr_payment, 2, ',', '.') }}</td>

@@ -17,6 +17,12 @@ use Illuminate\Validation\Rule;
 
 class NotesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:notasAjuste')->only([ 'index', 'store']);
+    }
+
     public function index(){
         $products = Product::all();
         $types = CtypesNotes::where('description', 'like', '%Nota%')->get();

@@ -26,7 +26,6 @@ class StoreReceiptRequest extends FormRequest
         return [
             'paymentMethod' => 'required',
             'vlr_payment' => 'required|numeric',
-            'prefijo' => 'required',
             'invoice_number' => 'required|numeric',
             //'remision' => 'required|numeric|min:1',
         ];

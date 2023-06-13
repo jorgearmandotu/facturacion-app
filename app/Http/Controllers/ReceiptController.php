@@ -31,8 +31,13 @@ class ReceiptController extends Controller
     public function store(StoreReceiptRequest $request) {
         DB::beginTransaction();
         try{
-            $invoice = Invoice::where('prefijo', $request->prefijo)
+            $prefijo = ($request->prefijo) ? $request->prefijo : '';
+            $invoice = Invoice::where('prefijo', $prefijo)
                         ->where('number', $request->invoice_number)->first();
+            if(!$invoice){
+                DB::rollBack();
+                return back()->with('fatal', 'No fue posible encontrar la factura, verifique la información.');
+            }
             $receipt = new Receipt();
             $receipt->type = $request->paymentMethod;
             $receipt->vlr_payment = $request->vlr_payment;

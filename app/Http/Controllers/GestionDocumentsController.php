@@ -35,7 +35,7 @@ class GestionDocumentsController extends Controller
         $prefijo = $request->prefijo;
         $number = $request->numberInvoice;
         if($prefijo == ''){
-            return back()->withInput()->with('fatal', 'Prefijo de factura es requerida');
+            $prefijo = '';
         }
         if($number == ''){
             return back()->withInput()->with('fatal', 'Número de factura es requerido');

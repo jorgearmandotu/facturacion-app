@@ -412,7 +412,7 @@ return [
                 ],
                 [
                     'text' => 'Notas',
-                    'can' => 'gestion-inventario',
+                    'can' => ['transferLocations', 'notasAjuste'],
                     'icon' => 'far fa-sticky-note',
                     'submenu' => [
                         [
@@ -424,7 +424,7 @@ return [
                         [
                             'text' => 'Notas de ajuste',
                             'icon' => 'fas fa-sign-in-alt',
-                            'can' => '',
+                            'can' => 'transferLocations',
                             'url' => 'admin/notes',
                         ],
                         // [

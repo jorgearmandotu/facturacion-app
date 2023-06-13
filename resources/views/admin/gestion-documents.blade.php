@@ -23,7 +23,7 @@
                 <div class="form-row form">
                     <div class="form-group col-md-3">
                         <label for="prefijo">Prefijo</label>
-                        <input type="text" class="form-control" name="prefijo" value="{{old('prefijo')}}" required>
+                        <input type="text" class="form-control" name="prefijo" value="{{old('prefijo')}}" >
                     </div>
                     <div class="form-group col-md-3">
                         <label for="numberInvoice">Número</label>
