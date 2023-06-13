@@ -45,18 +45,27 @@ class ConfigurationCompanyController extends Controller
 
     public function resolutionStore(StoreResolutionRequest $request){
         try{
+            $company = CompanyData::latest('id')->first();
+            $company->usa_resolucion_factura = ($request->stateResolution) ? true : false;
+            $company->save();
             $resolution = new Resolution();
-            $resolution->number = $request->resolution;
-            $resolution->date_resolution = $request->date;
-            $resolution->expiration_date = $request->expiration;
-            $resolution->validity = $request->validity;
-            $resolution->prefijo = strtoupper($request->prefijo);
-            $resolution->initial_number = $request->initial;
-            $resolution->final_number = $request->final;
-            $resolution->save();
+            if($request->stateResolution){
+                $resolution->number = $request->resolution;
+                $resolution->date_resolution = $request->date;
+                $resolution->expiration_date = $request->expiration;
+                $resolution->validity = $request->validity;
+                $resolution->prefijo = strtoupper($request->prefijo);
+                $resolution->initial_number = $request->initial;
+                $resolution->final_number = $request->final;
+                $resolution->save();
+            }else{
+                $resolution->initial_number = $request->initial;
+                $resolution->final_number = $request->final;
+                $resolution->save();
+            }
             return back()->with('success', 'Datos de resolución actualizados');
         }catch(\Exception $e){
-            return back()->with('fatal', 'No fue posible actualizar datos de resolución');
+            return back()->with('fatal', 'No fue posible actualizar datos de resolución, verifique que los datos sean correctos');
         }
     }
 

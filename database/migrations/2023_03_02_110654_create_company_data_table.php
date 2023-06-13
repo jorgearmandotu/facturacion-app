@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('email', 70);
             $table->string('regimen', 20);
             $table->string('actividad_economica', 50);
+            $table->boolean('usa_resolucion_factura')->default('true');
             $table->timestamps();
         });
     }

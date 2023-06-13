@@ -54,6 +54,9 @@ jQuery(function ($) {
         columns: [
             {data: 'dni'},
             {data: 'name'},
+            {data: 'phone'},
+            {data: 'address'},
+            {data: 'email'},
             // {
             //     data: null,
             //     render: (data, type, row) => {

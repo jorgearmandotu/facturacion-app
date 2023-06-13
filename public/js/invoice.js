@@ -61,6 +61,7 @@ function add() {
     $("#selectProducts").val(null).trigger("change");
     $("#selectPrice").val(null).trigger("change");
     $("#btnStatus").attr('disabled', true);
+    $("#selectProducts").focus();
 }
 
 function addRow(quantity, vlrUnit, VlrTotal, item, productText, itemsTotal, tax) {
@@ -205,8 +206,8 @@ function send(){
         return messages('error', 'Ingrese productos a facturar', true)
       }
 
-      let listado = Object.fromEntries(formProductsList.entries());
-      console.log(listado);
+    //   let listado = Object.fromEntries(formProductsList.entries());
+    //   console.log(listado);
       //enviar a servidor factura
       sendInvoice(formProductsList);
 }

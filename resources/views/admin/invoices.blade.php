@@ -24,8 +24,8 @@
                 <div class="form-group col-md-3">
                     <label for="type">Tipo de factura</label>
                     <select name="typeInvoice" class="form-control" id="selectTypeInvoice">
-                        <option value="CONTADO">Contado</option>
-                        <option value="CREDITO">Crédito</option>
+                        <option value="CONTADO">CONTADO</option>
+                        <option value="CREDITO">CRÉDITO</option>
                     </select>
                 </div>
 

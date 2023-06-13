@@ -84,10 +84,10 @@ class InvoiceController extends Controller
                 $state = Cstate::where('value', 'Pagado')->first();
             }
             $invoice->cstate_id = $state->id;
-            //se obtiene numero inicial de resolucion, y se compara si es mayor al ultim numero ingreado
+            //se obtiene numero inicial de resolucion, y se compara si es mayor al ultimo numero ingresado si resolucion no esta activo se toma solo la numeracion para agregar numero de factura.
             $resolution = Resolution::latest('id')->first();
             $invoice->prefijo = $resolution->prefijo;
-            $oldInvoice = ModelsInvoice::latest('id')->first();
+            $oldInvoice = ModelsInvoice::latest('id')->where('resolution', $resolution->id)->first();
             if($oldInvoice){
                 if($resolution->initial_number <= $oldInvoice->number){
                     //asigno numero de factura

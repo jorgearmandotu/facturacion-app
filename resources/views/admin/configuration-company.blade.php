@@ -110,25 +110,25 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="resolution">Número de resolucion</label>
-                    <input type="text" class="form-control" name="resolution" value="" required />
+                    <input type="text" class="form-control" name="resolution" value=""  />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="date">Fecha</label>
-                    <input type="date" class="form-control" name="date" value="" required>
+                    <input type="date" class="form-control" name="date" value="" >
                 </div>
                 <div class="form-group col-md-3">
                     <label for="expiration">Fecha de vencimiento</label>
-                    <input type="date" name="expiration" class="form-control" value="" required>
+                    <input type="date" name="expiration" class="form-control" value="" >
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="validity">Vigencia</label>
-                    <input type="text" class="form-control" name="validity" value="" required>
+                    <input type="text" class="form-control" name="validity" value="" >
                 </div>
                 <div class="form-group col-md-3">
                     <label for="prefijo">Prefijo</label>
-                    <input type="text" class="form-control" name="prefijo" value="" required>
+                    <input type="text" class="form-control" name="prefijo" value="" >
                 </div>
             </div>
             <div class="form-row">
@@ -139,6 +139,20 @@
                 <div class="form-group col-md-3">
                     <label for="initial">Numero final</label>
                     <input type="number" class="form-control" name="final" value="" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="state">Resolución de factura</label>
+                    <div class="">
+                        @if($company->usa_resolucion_factura)
+                        <input type="checkbox" class="" id="stateResolution" name="stateResolution"
+                        checked >
+                        @else
+                        <input type="checkbox" class="" id="stateResolution" name="stateResolution">
+                        @endif
+                    <label class="" for="stateResolution" data-toggle="tooltip" data-placement="top" title="Si está seleccionado se usara la configuración de resolución de factura suministrada, de lo contrario solo se tomara la numeración inicial y final para el proceso de generación de facturas.">Activo</label>
+                    </div>
                 </div>
             </div>
             <div class="form-row justify-content-center">

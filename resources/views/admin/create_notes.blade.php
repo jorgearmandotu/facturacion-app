@@ -19,7 +19,7 @@
         <div class="container-fluid bg-white p-2 ">
             <div class="row col-md-6">
                 <label for="typeNote">Tipo de nota</label>
-                <select name="typeNote" id="typeNote" class="form-control">
+                <select name="typeNote" id="typeNote" class="form-control" tabindex="5">
                     {{-- <option value= "">Seleccione una ópcion.</option> --}}
                     @foreach($types as $type)
                     <option value="{{$type->id}}">{{$type->name}}</option>
@@ -28,7 +28,7 @@
             </div>
             <div class="row col-md-6">
                 <label for="location">Ubicación</label>
-                <select name="location" id="locationNote" class="form-control">
+                <select name="location" id="locationNote" class="form-control" tabindex="6">
                     {{-- <option value="">Seleccione una ópcion.</option> --}}
                     @foreach($locations as $location)
                     <option value="{{$location->id}}">{{$location->name}}</option>
@@ -42,7 +42,7 @@
                 <div class="form-row col-md-12">
                     <div class="col-md-5">
                         <label for="product">Producto</label>
-                        <select name="product" id="selectProducts" class="form-control" style="width: 100%" onfocus="7">
+                        <select name="product" id="selectProducts" class="form-control" style="width: 100%" tabindex="0">
                             <option></option>
                             @foreach ($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->code }} - {{ $product->name }}</option>
@@ -51,12 +51,12 @@
                     </div>
                     <div class="col-md-2">
                         <label for="quantity">Cantidad</label>
-                        <input type="number" class="form-control" name="quantity" id="quantity" min="0">
+                        <input type="number" class="form-control" name="quantity" id="quantity" min="0" tabindex="1">
                     </div>
                 </div>
 
                 <div class="form-row justify-content-center p-4 mb-4 col-md-8">
-                    <button class="btn btn-info" type="button" onclick="add()">Agregar</button>
+                    <button class="btn btn-info" type="button" onclick="add()" tabindex="2">Agregar</button>
                 </div>
             </form>
 
@@ -80,10 +80,10 @@
 
             <div class="form-row col-md-12">
                 <label for="description">Observación</label>
-                <textarea name="description" id="descriptionNote" cols="30" rows="5" class="form-control" placeholder="Observación" maxlength="230">{{old('description')}}</textarea>
+                <textarea name="description" id="descriptionNote" cols="30" rows="5" class="form-control" placeholder="Observación" maxlength="230" tabindex="3">{{old('description')}}</textarea>
             </div>
             <div class="form-row p-2 justify-content-center col-md-8">
-                <button type="button" class="btn btn-success" onclick="send()">Generar</button>
+                <button type="button" class="btn btn-success" onclick="send()" tabindex="4">Generar</button>
             </div>
         </div>
 </div>

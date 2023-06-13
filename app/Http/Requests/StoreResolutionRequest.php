@@ -24,11 +24,6 @@ class StoreResolutionRequest extends FormRequest
     public function rules()
     {
         return [
-            'resolution' => 'required',
-            'date' => 'required|date',
-            'expiration' => 'required|date',
-            'validity' => 'required',
-            'prefijo' => 'required',
             'initial' => 'required|numeric',
             'final' => 'required|numeric',
         ];

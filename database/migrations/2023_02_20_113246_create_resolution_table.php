@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('resolutions', function (Blueprint $table) {
             $table->id();
-            $table->string('number', 50);
-            $table->date('date_resolution');
-            $table->date('expiration_date');
-            $table->string('validity');
-            $table->string('prefijo', 5);
+            $table->string('number', 50)->default('');
+            $table->date('date_resolution')->nullable();
+            $table->date('expiration_date')->nullable();
+            $table->string('validity')->default('');
+            $table->string('prefijo', 5)->default('');
             $table->integer('initial_number');
             $table->integer('final_number');
             $table->timestamps();

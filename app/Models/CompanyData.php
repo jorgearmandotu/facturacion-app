@@ -17,6 +17,7 @@ class CompanyData extends Model
         'phone',
         'regimen',
         'actividad_economica',
-        'email'
+        'email',
+        'usa_resolucion_factura',
     ];
 }

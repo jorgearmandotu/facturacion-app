@@ -132,9 +132,11 @@
     <hr>
     <div class="justify-content-center col-md-12 text-center">
         <span class="text-center">Favor revisar su mercancia andes de salir del establecimiento, una vez entregado no se aceptan Reclamaciones.<br></span>
-    <span class="">Numero de resolucion: {{ $resolution->number }}<br>
-    Aprovado en: {{ $resolution->date_resolution }} Vigencia: {{ $resolution->validity }}<br>
-    Prefijo: {{$resolution->prefijo }} del {{$resolution->initial_number}} hasta {{$resolution->final_number}}</span>
+    @if($company->usa_resolucion_factura)
+        <span class="">Numero de resolucion: {{ $resolution->number }}<br>
+        Aprovado en: {{ $resolution->date_resolution }} Vigencia: {{ $resolution->validity }}<br>
+        Prefijo: {{$resolution->prefijo }} del {{$resolution->initial_number}} hasta {{$resolution->final_number}}</span>
+    @endif
     </div>
     <div class="justify-content-center col-md-12 text-center">
         <button type="button" class="btn btn-primary d-print-none mt-2" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>

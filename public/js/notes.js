@@ -8,12 +8,26 @@ let formProducts = new FormData();
 jQuery(function (){
     $('#selectProducts').select2({
         placeholder: 'Seleccione producto',
+        selectOnclose: true,
     });
     $('#selectProducts').on('select2:open', function() {
         // $("#selectSupplier").trigger('select2:open');
         document.querySelector('.select2-search__field').focus();
     });
 });
+
+function keyPlus(){
+
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('input').forEach( node => node.addEventListener('keypress', e => {
+        if(e.key == 'Enter') {
+            e.preventDefault();
+        }
+    }))
+});
+
 
 function add(){
     let product = selectProduct.value;
@@ -35,6 +49,7 @@ function add(){
     addRow(quantity, itemsView, productText, itemsTotal);
     $('#selectProducts').val(null).trigger('change');
     inputQuantity.value = '';
+    $('#selectProducts').focus();
 }
 
 function addRow(quantity, itemsView, productText, itemsTotal) {
