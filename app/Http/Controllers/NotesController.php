@@ -10,6 +10,7 @@ use App\Models\Notes;
 use App\Models\NotesProducts;
 use App\Models\Product;
 use App\Models\ProductsMovements;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,6 +59,7 @@ class NotesController extends Controller
             $note->type = $request->typeNote;
             $note->location_id = $request->location;
             $note->description = $request->description;
+            $note->date_note = Carbon::now()->format('Y-m-d');
             $note->save();
             // foreach ($request->all() as $key => $value) {
                 //     if (strpos($key, 'product') === 0) {

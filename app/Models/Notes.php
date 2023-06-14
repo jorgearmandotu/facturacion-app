@@ -13,6 +13,7 @@ class Notes extends Model
         'type',
         'location_id',
         'description',
+        'date_note',
     ];
 
     public function typeNote() {

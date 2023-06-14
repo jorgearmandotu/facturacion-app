@@ -31,7 +31,7 @@ class DischargeController extends Controller
 
     //crea egreso
     public function create(){
-        $categories = CategoriesDischarge::all();
+        $categories = CategoriesDischarge::orderBy('id', 'DESC')->get();
         $date = Carbon::now()->isoFormat('dddd D [de] MMMM [de] YYYY');
         $paymentMethods = CpaymentMethods::join('cstates', 'cstates.id', 'cpayment_methods.cstate_id')
                                         ->where('cstates.value', 'Activo')

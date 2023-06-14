@@ -29,7 +29,6 @@ class ShoppingInvoicesExport implements FromView, ShouldAutoSize
     }
 
     public function view() : View {
-        return view('exports.shoppingInvoiceExport', ['invoices' => ShoppingInvoice::where('shopping_invoices.date_invoice', '>=', $this->initial)
-                                ->where('shopping_invoices.date_invoice', '<=', $this->final)->get()]);
+        return view('exports.shoppingInvoiceExport', ['invoices' => ShoppingInvoice::where('shopping_invoices.date_invoice', '>=', $this->initial)->where('shopping_invoices.date_invoice', '<=', $this->final)->get()]);
     }
 }

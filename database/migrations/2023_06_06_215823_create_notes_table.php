@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('type')->references('id')->on('ctypes_notes');
             $table->foreignId('location_id')->references('id')->on('locations');
             $table->text('description', '250')->nullable();
+            $table->date('date_note');
             $table->timestamps();
         });
     }

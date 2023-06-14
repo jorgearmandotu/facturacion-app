@@ -59,6 +59,7 @@ class ConfigurationCompanyController extends Controller
                 $resolution->final_number = $request->final;
                 $resolution->save();
             }else{
+                $resolution->prefijo = ($request->prefijo) ? $request->prefijo : '';
                 $resolution->initial_number = $request->initial;
                 $resolution->final_number = $request->final;
                 $resolution->save();
