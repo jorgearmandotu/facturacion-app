@@ -123,6 +123,9 @@ class AdminUsersController extends Controller
                 if($request->profile){
                     $user->givePermissionTo('profile');
                 }
+                if($request->estadisticas){
+                    $user->givePermissionTo('estadisticas');
+                }
 
                 $user->save();
                 return response()->json(['msg' => 'Usuario creado con exito', 'status' => 200], 200);
@@ -280,6 +283,11 @@ class AdminUsersController extends Controller
                     $user->givePermissionTo('profile');
                 }else{
                     $user->revokePermissionTo('profile');
+                }
+                if($request->estadisticas){
+                    $user->givePermissionTo('estadisticas');
+                }else{
+                    $user->revokePermissionTo('estadisticas');
                 }
 
                 $user->save();

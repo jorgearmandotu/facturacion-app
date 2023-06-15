@@ -131,7 +131,14 @@ Route::middleware([
 
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
 
+    Route::get('/dailySalesCash', [HomeController::class, 'dailySalesCash']);
+
     Route::get('listado-prueba', function() {
+        $user = App\Models\User::find(1); // Recupera el usuario por su ID, aquí se asume que el ID del usuario es 1
+//use App\Models\User;
+
+        $user->givePermissionTo('estadisticas');
+return;
         $data = ProductsMovements::where('products_movements.product_id', 114)
             ->where('products_movements.created_at', '<=', '2023-12-30')
             ->where('products_movements.created_at', '>=', '2023-01-01')

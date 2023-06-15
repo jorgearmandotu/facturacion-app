@@ -28,6 +28,7 @@ let checkgestionDocuments = document.querySelector('#gestionDocuments');
 let checkDischarges = document.querySelector('#discharges');
 let checkTransferLocations = document.querySelector('#transferLocations');
 let checkProfile = document.querySelector('#profile');
+let checkEstadisticas = document.querySelector('#estadisticas');
 
 
 btnForm.addEventListener('click', function (e){
@@ -252,6 +253,9 @@ async function edit(userId){
                 break;
             case 'profile':
                 checkProfile.checked = true;
+                break;
+            case 'estadisticas':
+                checkEstadisticas.checked = true;
                 break;
         }
         //   if(permiso.name == 'remision.index'){

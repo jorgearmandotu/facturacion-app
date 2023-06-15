@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Proveedores')
+@section('title', 'Usuarios')
 
 @section('css')
     <link rel="stylesheet" href="../../css/main.css">
@@ -190,11 +190,16 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <div class="form-check form-check-inline col-md-6">
+                                    <div class="form-check form-check-inline col-md-3">
                                         <input class="form-check-input group-all" type="checkbox" id="configurationCompany"
                                             value="configCompany" name="configCompany">
                                         <label class="form-check-label" for="configurationCompany">Configuración de
                                             empresa</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-3">
+                                        <input class="form-check-input group-all" type="checkbox" id="estadisticas"
+                                            value="estadisticas" name="estadisticas">
+                                        <label class="form-check-label" for="estadisticas">Ver estadisticas</label>
                                     </div>
                                 </div>
                             </div>
