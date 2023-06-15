@@ -54,9 +54,11 @@
                     @if (!$movement->documentType->name == 'Factura de compra' || !$movement->documentType->name == 'Factura de venta' || !$movement->documentType->name == 'Anulacion')
                         <td></td>
                         <td></td>
-                    @elseif($movement->invoice)
-                        <td>{{ $movement->invoice->vlr_unit }}</td>
-                        <td>{{ $movement->invoice->vlr_tax }}</td>
+                    @elseif($movement->documentType->name == 'Factura de compra' || $movement->documentType->name == 'Factura de venta')
+                        @if($movement->invoice)
+                            <td>{{ $movement->invoice->vlr_unit }}</td>
+                            <td>{{ $movement->invoice->vlr_tax }}</td>
+                        @endif
                     @endif
                     @if (
                         $movement->documentType->name == 'Factura de compra' ||

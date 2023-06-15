@@ -36,7 +36,7 @@ class VentaProductExport implements FromView, ShouldAutoSize
                 ->join('data_invoices', 'invoices.id', 'data_invoices.invoice_id')
                 ->join('products', 'products.id', 'data_invoices.product_id')
                 ->where('products.id', $this->product->id)
-                ->where('cstates.value', 'Finalizado')
+                ->where('cstates.value','<>', 'Anulado')
                 ->select('products.name as product', 'data_invoices.vlr_unit as vlr_unit', 'data_invoices.vlr_tax as tax', 'data_invoices.quantity as quantity', 'date_invoice', 'prefijo', 'invoices.number')->get();
         return view('exports.ventaProduct', ['movements' => $data]);
     }

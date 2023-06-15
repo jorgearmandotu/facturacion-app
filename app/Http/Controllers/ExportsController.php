@@ -81,7 +81,7 @@ class ExportsController extends Controller
         if($dateFinal == ''){
             $dateFinal = Carbon::now()->format('Y-m-d');
         }
-        return Excel::download(new IngresosExport($dateInitial, $dateFinal), 'recaudo por fecha'.$dateInitial.'-'.$dateFinal.'xlsx');
+        return Excel::download(new IngresosExport($dateInitial, $dateFinal), 'recaudo por fecha_'.$dateInitial.'-'.$dateFinal.'.xlsx');
     }
 
     public function exportEgresos(Request $request) {
@@ -96,6 +96,7 @@ class ExportsController extends Controller
         return Excel::download(new EgresosExport($dateInitial, $dateFinal), 'egresos por fecha '.$dateInitial.'-'.$dateFinal.'.xlsx');
     }
 
+    //export auxiliar por documento
     public function exportIngresosDischarge(Request $request) {
         $dateInitial = $request->dateInitial;
         $dateFinal = $request->dateFinal;

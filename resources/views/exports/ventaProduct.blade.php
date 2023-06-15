@@ -20,9 +20,9 @@
 
         @foreach($movements as $movement)
             <tr>
+                <td>{{ $movement->date_invoice }}</td>
                 <td>{{ $movement->prefijo }}</td>
                 <td>{{ $movement->number }}</td>
-                <td>{{ $movement->date_invoice }}</td>
                 <td>{{ $movement->product }}</td>
                 <td>{{ $movement->quantity }}</td>
                 <td>{{ $movement->vlr_unit }}</td>
