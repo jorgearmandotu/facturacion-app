@@ -1,5 +1,7 @@
 let graphicDailyCash;
 graficar();
+let labels;
+let data;
 async function graficar() {
     //buscar producto y cargar formulario con datos
     let uri = `admin/dailySalesCash`;
@@ -14,13 +16,13 @@ async function graficar() {
     let users = [];
     // console.log(sales);
 
-    // const uniqueModels = [...new Set(sales.map(venta => venta.user))];
+    //  const uniqueModels = [...new Set(sales.map(venta => venta.user))];
 
     // let datos = models.map(currentModel => sales.filter(venta => venta.user === currentModel).user);
-    // let datos = sales.map(currentModel => uniqueModels.filter(venta === currentModel.user).total);
+    //  let datos = uniqueModels.map(currentModel => sales.filter(sal => sal.user ===currentModel));
     // console.log(uniqueModels);
     // console.log(models);
-    // console.log(datos);
+    //  console.log(datos);
 
     for (sale of sales) {
         let userSelect = {
@@ -37,10 +39,10 @@ async function graficar() {
             users.push(userSelect);
         }
     }
-    let labels = users.map(function (objeto) {
+    labels = users.map(function (objeto) {
         return objeto.name;
     });
-    let data = users.map(function (objeto) {
+    data = users.map(function (objeto) {
         return objeto.sales;
     });
 
@@ -85,20 +87,49 @@ async function graficar() {
     });
 }
 let a = 0;
-let refresh = setInterval(prueba, 60000);
-function prueba(){
-    graphicDailyCash.clear();
-    graphicDailyCash.destroy();
-    graficar();
+let refresh = setInterval(reloadGraph, 60000);
+function reloadGraph(){
+    // graphicDailyCash.clear();
+    // graphicDailyCash.destroy();
+    // graficar();
+    actualizarData();
 }
 
-// var intervalID = setInterval(myCallback, 500, 'parámetro 1', 'parámetro 2');
-// let b = 1;
-// function myCallback(a, b) {
-//     // Tu código debe ir aquí
-//     // Los parámetros son totalmente opcionales
-//     console.log(a);
-//     console.log(b);
-//     a++;
-//     b++;
-// }
+async function actualizarData(){
+    let uri = `admin/dailySalesCash`;
+    let response = await fetch(uri);
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const sales = await response.json();
+
+    let users = [];
+
+    for (sale of sales) {
+        let userSelect = {
+            name: sale.user,
+            sales: sale.total,
+        };
+        // console.log(userSelect);
+        let user = users.find(function (usuario) {
+            return usuario.name === userSelect.name;
+        });
+        if (user) {
+            user.sales = parseFloat(user.sales) + parseFloat(userSelect.sales);
+        } else {
+            users.push(userSelect);
+        }
+    }
+    labels = users.map(function (objeto) {
+        return objeto.name;
+    });
+    data = users.map(function (objeto) {
+        return objeto.sales;
+    });
+
+    graphicDailyCash.data.datasets[0].data = data;
+    graphicDailyCash.update();
+}
+
