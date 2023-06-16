@@ -57,8 +57,9 @@ async function graficar() {
                     label: "Monto recaudado",
                     data: data,//[12, 19, 3, 5, 2, 3],
                     borderWidth: 1,
+                    borderColor: [ 'rgba(54, 162, 235)',],
                     backgroundColor: [
-                        'rgba(54, 162, 235)',
+                        'rgba(54, 162, 235, 0.4)',
                         // 'rgba(255, 159, 64)',
                         // 'rgba(153, 102, 255)',
                         // 'rgba(75, 192, 192)',
