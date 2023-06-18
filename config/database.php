@@ -63,6 +63,37 @@ return [
             ]) : [],
         ],
 
+        'department1' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_DEPARTMENT1', '127.0.0.1'),
+            'port' => env('DB_PORT_DEPARTMENT1', '3306'),
+            'database' => env('DB_DATABASE_DEPARTMENT1', 'forge'),
+            'username' => env('DB_USERNAME_DEPARTMENT1', 'forge'),
+            'password' => env('DB_PASSWORD_DEPARTMENT1', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'department2' => [
+            'driver' => 'mysql',
+            'host' => 'department2_db_host',
+            'port' => 'department2_db_port',
+            'database' => 'department2_db_name',
+            'username' => 'department2_db_username',
+            'password' => 'department2_db_password',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
