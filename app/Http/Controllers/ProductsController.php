@@ -196,7 +196,7 @@ class ProductsController extends Controller
                     ->join('list_prices', 'products.id', 'list_prices.product_id')
                     ->where('products.id', $product)
                     ->where('list_prices.name', 'precio 1')
-                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo',  'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main', 'utilidad')->first();
+                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo', 'costo_promedio', 'costo_fijo',  'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main', 'utilidad')->first();
         return response()->json($product);
     }
 

@@ -189,6 +189,8 @@ async function edit(id){
     let inputCode = document.getElementById('inputCode');
     let inputName = document.getElementById('inputName');
     let inputCosto = document.getElementById('inputCosto');
+    let inputCostoPromedio = document.getElementById('input_costo_promedio');
+    let inputCostoFijo = document.getElementById('input_costo_fijo');
     let inputProfit = document.getElementById('inputProfit');
     let inputPrice = document.getElementById('inputPrice');
     let inputReference = document.getElementById('inputReference');
@@ -200,6 +202,8 @@ async function edit(id){
     inputCode.value = product.code;
     inputName.value = product.name;
     inputCosto.value = product.costo;
+    inputCostoPromedio.value = product.costo_promedio;
+    inputCostoFijo.value = product.costo_fijo;
     inputProfit.value = product.utilidad;
     inputPrice.value = product.price;
     inputReference.value = (product.reference ) ? product.reference : '';

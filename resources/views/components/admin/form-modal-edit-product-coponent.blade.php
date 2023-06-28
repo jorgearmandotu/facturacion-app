@@ -27,7 +27,17 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="costo">Costo</label>
+                                <label for="costo_promedio">Costo Promedio</label>
+                                <input type="number" class="form-control" name="costo_promedio" id="input_costo_promedio">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="costo_fijo">Costo fijo</label>
+                                <input type="number" class="form-control" name="costo_fijo" id="input_costo_fijo">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="costo">Último costo</label>
                                 <input type="number" class="form-control" name="costo" id="inputCosto"
                                     onchange="changeCosto()" />
                             </div>
