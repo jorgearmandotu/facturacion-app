@@ -28,11 +28,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="costo_promedio">Costo Promedio</label>
-                                <input type="number" class="form-control" name="costo_promedio" id="input_costo_promedio">
+                                <input type="number" class="form-control" name="costo_promedio" id="input_costo_promedio" disabled>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="costo_fijo">Costo fijo</label>
-                                <input type="number" class="form-control" name="costo_fijo" id="input_costo_fijo">
+                                <input type="number" class="form-control" name="costo_fijo" id="input_costo_fijo" onchange="changeCosto()">
                             </div>
                         </div>
                         <div class="form-row">
@@ -41,6 +41,16 @@
                                 <input type="number" class="form-control" name="costo" id="inputCosto"
                                     onchange="changeCosto()" />
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="costoSeleccionado">Costo a utilizar</label>
+                                <select name="costoSeleccionado" class="form-control" id="selectCosto" onchange="changeCosto()">
+                                    <option value="ultimo_costo">Último costo</option>
+                                    <option value="costo_promedio">Costo promedio</option>
+                                    <option value="costo_fijo">Costo Fijo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="impuesto">Iva</label>
                                 <select name="tax" class="form-control" id="selectTax">

@@ -144,6 +144,14 @@ class ShoppingInvoiceController extends Controller
                     $dataInvoice->vlr_tax = $vlrTax;
                     $dataInvoice->save();
                     $total += ($quantity * ($vlrUnit+$vlrUnit*$vlrTax/100));
+
+                    //actualizo costo promedio
+                    $product_select->costo_promedio = DB::select('select AVG(vlr_unit) AS promedio FROM data_invoices di
+                    where shopping_invoice_id is not null and product_id = '.$product_select->id.'
+                    GROUP BY product_id
+                    limit 100;')[0]->promedio;
+                    $product_select->save();
+
                     //incrementar cantidad a stock
                     $locationProducts = LocationProduct::where('product_id', $product_select->id)
                                                     ->where('location_id', $request->location)->first();
@@ -172,6 +180,7 @@ class ShoppingInvoiceController extends Controller
                     // $productMovement->document_type = 'shopping_invoice';
                     $productMovement->document_id = $invoice->id;
                     $productMovement->save();
+
 
                     //actualizo listado de precio
                     $listprices =  ListPrices::where('product_id',$product_select->id)->get();

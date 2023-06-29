@@ -18,7 +18,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Referencia</th>
-                <th>Costo</th>
+                <th>Último Costo</th>
                 <th>Precio 1</th>
                 <th>% utilidad</th>
                 <th>Existencias</th>

@@ -10,7 +10,9 @@ use App\Models\Location;
 use App\Models\LocationProduct;
 use App\Models\Product;
 use App\Models\ProductsMovements;
+use App\Models\ProductsShoppingInvoice;
 use App\Models\ProductsTaxes;
+use App\Models\ShoppingInvoice;
 use App\Models\Tax;
 use Carbon\Carbon;
 use Exception;
@@ -38,11 +40,14 @@ class ProductsController extends Controller
         // }
         // return $list;
         // $products = DB::select('select p.id as id, p.name as name, l.name as line, g.name as "group", p.code as code, c.value as state, reference , costo, price, profit from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id join cstates c on p.cstate_id = c.id ');
-        // $products = DB::unprepared('SELECT p.id AS id, p.name AS name, l.name AS line, g.name AS "group", p.code AS code, c.value AS state, reference , costo, price, profit, sum(lp.stock) as total
-        // from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id join cstates c on p.cstate_id = c.id join locations_products lp
-        // on lp.product_id = p.id group by p.id');
+        $products = DB::select('SELECT p.id AS id, p.name AS name, l.name AS line, g.name AS "group", p.code AS code,
+        c.value AS state, reference , costo, lpc.utilidad as profit, sum(lp.stock) as total, lpc.price as price, l2.name as locationMain
+        from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id
+        join cstates c on p.cstate_id = c.id join locations_products lp on lp.product_id = p.id
+        JOIN list_prices lpc on lpc.product_id = p.id join locations l2 on l2.id = p.location_main  WHERE lpc.name = "precio 1" group by p.id, p.name, l.name, g.name, p.code,
+        c.value, p.reference, p.costo, lpc.utilidad, lpc.price, locationMain;');
 
-         $products = DB::select('select * from products_list_view');
+//$products = DB::select('select * from products_list_view');
          return DataTables()->collection($products)->toJson();
         //
     }
@@ -74,6 +79,9 @@ class ProductsController extends Controller
             $product->code = $request->code;
             $product->name = mb_strtoupper($request->name,"UTF-8");
             $product->costo = $request->costo;
+            $product->costo_fijo = $request->costo_fijo;
+            $product->costo_promedio = $request->costo;
+            $product->select_costo = $request->costoSeleccionado;
             // $product->profit = $request->profit;
             //$product->price = $request->price;
             $product->reference = $request->reference;
@@ -158,6 +166,8 @@ class ProductsController extends Controller
             $product->bar_code = $request->bar_code;
             $product->reference = $request->reference;
             $product->costo = $request->costo;
+            $product->costo_fijo = $request->costo_fijo;
+            $product->select_costo = $request->costoSeleccionado;
             //$product->profit = $request->profit;
             //$product->price = $request->price;
             $state = (!$request->state) ? Cstate::where('value', 'Inactivo')->first() : Cstate::where('value', 'Activo')->first();
@@ -194,9 +204,12 @@ class ProductsController extends Controller
                     ->join('taxes', 'tax_id', 'taxes.id')
                     ->join('cstates', 'products.cstate_id', 'cstates.id')
                     ->join('list_prices', 'products.id', 'list_prices.product_id')
+                    //->join('data_invoices', 'data_invoices.product_id', 'products.id')
                     ->where('products.id', $product)
                     ->where('list_prices.name', 'precio 1')
-                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo', 'costo_promedio', 'costo_fijo',  'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main', 'utilidad')->first();
+                    //->whereNotNull('shopping_invoice_id')
+                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo', 'costo_promedio', 'costo_fijo', 'select_costo',  'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main', 'utilidad')->first();
+        $products_shopping = ProductsShoppingInvoice::where('product_id', $product)->get();
         return response()->json($product);
     }
 

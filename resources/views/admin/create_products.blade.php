@@ -34,9 +34,23 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label for="costo">Costo</label>
+                    <label for="costo">Último costo</label>
                     <input type="number" class="form-control" name="costo"  id="inputCosto" onchange="changeCosto()" min="0" value="{{ old('costo') }}"/>
                 </div>
+                <div class="form-group col-md-3">
+                    <label for="costo_fijo">Costo Fijo</label>
+                    <input type="number" class="form-control" name="costo_fijo" id="input_costo_fijo" min="0" onchange="changeCosto()" value="{{old('costo_fijo')}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="costoSeleccionado">Costo a utilizar</label>
+                    <select name="costoSeleccionado" class="form-control" id="selectCosto" onchange="changeCosto()">
+                        <option value="ultimo_costo" selected>Último costo</option>
+                        <option value="costo_promedio">Costo promedio</option>
+                        <option value="costo_fijo">Costo Fijo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="impuesto">Iva</label>
                     <select name="tax" class="form-control" id="impuesto" >

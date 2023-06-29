@@ -17,6 +17,8 @@ class Product extends Model
         'bar_code',
         'reference',
         'costo',
+        'costo_promedio',
+        'costo_fijo',
         'profit',
         'location_main',
         'cstate_id',

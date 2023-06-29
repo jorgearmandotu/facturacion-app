@@ -1,16 +1,21 @@
 let costoInput = document.getElementById('inputCosto');
+let costoFijoInput = document.getElementById('input_costo_fijo');
+let costoPromedioInput = document.getElementById('input_costo_promedio');
 let percentInput = document.getElementById('inputProfit');
 let priceInput = document.getElementById('inputPrice');
+let selectCosto = document.getElementById('selectCosto');
 let productsTable;
 
 function changePercent(){
-    let costo = costoInput.value;
+    let costo_seleccionado = selectCosto.value;
+    let costo = (costo_seleccionado === 'ultimo_costo') ? costoInput.value : (costo_seleccionado === 'costo_fijo') ? costoFijoInput.value : (costoPromedioInput) ? costoPromedioInput.value : costoInput.value;
     let percent = percentInput.value;
     priceInput.value = (Number(costo)+costo*percent/100).toFixed(0);
 }
 
 function changePrice(){
-    let costo = costoInput.value;
+    let costo_seleccionado = selectCosto.value;
+    let costo = (costo_seleccionado === 'ultimo_costo') ? costoInput.value : (costo_seleccionado === 'costo_fijo') ? costoFijoInput.value : (costoPromedioInput) ? costoPromedioInput.value : costoInput.value;
     let price = priceInput.value;
     percentInput.value = (Number(price-costo)/costo*100).toFixed(2);
 }
@@ -19,7 +24,7 @@ function changeCosto(){
     //let costo = costoInput.value;
     let percent = percentInput.value;
     let price = priceInput.value;
-    if(percent === "" && price!== ""){
+    if(percent === "" && price !== ""){
         changePrice();
     }else{
         changePercent();
@@ -198,12 +203,14 @@ async function edit(id){
     let inputId = document.getElementById('inputId');
     let selectTax = document.getElementById('selectTax');
     let checkActivo = document.getElementById('checkState');
-    let selectLocationMain = document.getElementById('locationMain')
+    let selectLocationMain = document.getElementById('locationMain');
+    let selectCosto = document.getElementById('selectCosto');
     inputCode.value = product.code;
     inputName.value = product.name;
     inputCosto.value = product.costo;
     inputCostoPromedio.value = product.costo_promedio;
     inputCostoFijo.value = product.costo_fijo;
+    selectCosto.value = product.select_costo;
     inputProfit.value = product.utilidad;
     inputPrice.value = product.price;
     inputReference.value = (product.reference ) ? product.reference : '';

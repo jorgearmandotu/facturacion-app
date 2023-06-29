@@ -84,6 +84,8 @@ class NotesController extends Controller
                         $dataNote->product_id = $product;
                         $dataNote->note_id = $note->id;
                         $dataNote->quantity = $quantity;
+                        $dataNote->position = $position;
+                        $dataNote->costo = Product::find($product)->costo;//obtengo el ultimo costo registrado
                         $dataNote->save();
 
                         //actualizo inventario

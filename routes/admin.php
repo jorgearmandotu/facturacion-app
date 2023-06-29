@@ -134,28 +134,49 @@ Route::middleware([
     Route::get('/dailySalesCash', [HomeController::class, 'dailySalesCash']);
 
     Route::get('listado-prueba', function() {
-        $user = App\Models\User::find(1); // Recupera el usuario por su ID, aquí se asume que el ID del usuario es 1
-//use App\Models\User;
 
-        $user->givePermissionTo('estadisticas');
-return;
-        $data = ProductsMovements::where('products_movements.product_id', 114)
-            ->where('products_movements.created_at', '<=', '2023-12-30')
-            ->where('products_movements.created_at', '>=', '2023-01-01')
-            ->where('products_movements.location_id', '2')
-            ->get();
-        dd($data[0]->product->locations);
+        $res = DB::select('select AVG(vlr_unit) AS promedio
+        FROM data_invoices di
+        where shopping_invoice_id is not null and product_id = 122
+        GROUP BY product_id
+        limit 100;');
 
-        $data = ProductsMovements::join('locations_products', function($join){
-            $join->on('locations_products.product_id', '=', 'products_movements.product_id')->on('locations_products.location_id', '=','products_movements.location_id');
-        })->where('products_movements.product_id', '7')
-        // ->where('products_movements.created_at', '<=', $this->dateFinal)
-        // ->where('products_movements.created_at', '>=', $this->dateInitial)
-        ->where('products_movements.location_id', '1')
-        ->select('type', 'products_movements.product_id', 'quantity', 'document_type', 'document_id', 'products_movements.location_id', 'products_movements.created_at')->get();
-        dd($data);
-        $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = 1;');
-        dd($locations[0]->total);
+        return $res[0]->promedio;
+
+        $product = App\models\Product::join('products_taxes', 'product_id', 'products.id')
+                    ->join('taxes', 'tax_id', 'taxes.id')
+                    ->join('cstates', 'products.cstate_id', 'cstates.id')
+                    ->join('list_prices', 'products.id', 'list_prices.product_id')
+                    //->join('data_invoices', 'data_invoices.product_id', 'products.id')
+                    ->where('products.id', 122)
+                    ->where('list_prices.name', 'precio 1')
+                    //->whereNotNull('shopping_invoice_id')
+                    ->select('products.id as id', 'products.name as name', 'list_prices.price as price', 'code', 'costo', 'costo_promedio', 'costo_fijo', 'select_costo',  'reference', 'bar_code', 'taxes.id as tax', 'cstates.value as state', 'group_id as group', 'location_main', 'utilidad')->first();
+
+                    return$product;
+
+//         $user = App\Models\User::find(1); // Recupera el usuario por su ID, aquí se asume que el ID del usuario es 1
+// //use App\Models\User;
+
+//         $user->givePermissionTo('estadisticas');
+// return;
+//         $data = ProductsMovements::where('products_movements.product_id', 114)
+//             ->where('products_movements.created_at', '<=', '2023-12-30')
+//             ->where('products_movements.created_at', '>=', '2023-01-01')
+//             ->where('products_movements.location_id', '2')
+//             ->get();
+//         dd($data[0]->product->locations);
+
+//         $data = ProductsMovements::join('locations_products', function($join){
+//             $join->on('locations_products.product_id', '=', 'products_movements.product_id')->on('locations_products.location_id', '=','products_movements.location_id');
+//         })->where('products_movements.product_id', '7')
+//         // ->where('products_movements.created_at', '<=', $this->dateFinal)
+//         // ->where('products_movements.created_at', '>=', $this->dateInitial)
+//         ->where('products_movements.location_id', '1')
+//         ->select('type', 'products_movements.product_id', 'quantity', 'document_type', 'document_id', 'products_movements.location_id', 'products_movements.created_at')->get();
+//         dd($data);
+//         $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = 1;');
+//         dd($locations[0]->total);
         // $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
         //                     ->where('invoices.date_invoice', '<=', '2023-04-05')->get();
         // $remisiones = Remision::where('date_remision', '<=', '2023-04-05')->where('date_remision', '>=', '2023-04-01')->get();
