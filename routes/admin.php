@@ -134,6 +134,7 @@ Route::middleware([
     Route::get('/dailySalesCash', [HomeController::class, 'dailySalesCash']);
 
     Route::get('listado-prueba', function() {
+<<<<<<< HEAD
 
         $res = DB::select('select AVG(vlr_unit) AS promedio
         FROM data_invoices di
@@ -177,6 +178,30 @@ Route::middleware([
 //         dd($data);
 //         $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = 1;');
 //         dd($locations[0]->total);
+=======
+        $user = App\Models\User::find(4); // Recupera el usuario por su ID, aquí se asume que el ID del usuario es 1
+//use App\Models\User;
+
+        $user->givePermissionTo('notas');
+return;
+        $data = ProductsMovements::where('products_movements.product_id', 114)
+            ->where('products_movements.created_at', '<=', '2023-12-30')
+            ->where('products_movements.created_at', '>=', '2023-01-01')
+            ->where('products_movements.location_id', '2')
+            ->get();
+        dd($data[0]->product->locations);
+
+        $data = ProductsMovements::join('locations_products', function($join){
+            $join->on('locations_products.product_id', '=', 'products_movements.product_id')->on('locations_products.location_id', '=','products_movements.location_id');
+        })->where('products_movements.product_id', '7')
+        // ->where('products_movements.created_at', '<=', $this->dateFinal)
+        // ->where('products_movements.created_at', '>=', $this->dateInitial)
+        ->where('products_movements.location_id', '1')
+        ->select('type', 'products_movements.product_id', 'quantity', 'document_type', 'document_id', 'products_movements.location_id', 'products_movements.created_at')->get();
+        dd($data);
+        $locations = DB::select('select sum(locations_products.stock) as total from locations_products where product_id = 1;');
+        dd($locations[0]->total);
+>>>>>>> 79976eadd3c73e2aded1f2ae2c3fd7b7d3af1411
         // $invoices = Invoice::where('invoices.date_invoice', '>=', '2023-04-01')
         //                     ->where('invoices.date_invoice', '<=', '2023-04-05')->get();
         // $remisiones = Remision::where('date_remision', '<=', '2023-04-05')->where('date_remision', '>=', '2023-04-01')->get();
