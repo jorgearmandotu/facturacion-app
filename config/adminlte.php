@@ -393,6 +393,12 @@ return [
                     'icon' => 'fas fa-tshirt',
                 ],
                 [
+                    'text' => 'Productos por ubicación',
+                    'url' => 'admin/products',
+                    'can' => 'products-list',
+                    'icon' => 'fas fa-boxes',
+                ],
+                [
                     'text' => 'listado de precios',
                     'icon_color' => 'red',
                     'can' => 'list-prices',

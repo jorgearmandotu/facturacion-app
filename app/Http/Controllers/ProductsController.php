@@ -33,23 +33,35 @@ class ProductsController extends Controller
     }
 
     public function index() {
-        // $products = Product::all();
-        // $list = [];
-        // foreach($products as $product){
-        //     $list[] = $product->groups->lines;
-        // }
-        // return $list;
-        // $products = DB::select('select p.id as id, p.name as name, l.name as line, g.name as "group", p.code as code, c.value as state, reference , costo, price, profit from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id join cstates c on p.cstate_id = c.id ');
-        $products = DB::select('SELECT p.id AS id, p.name AS name, l.name AS line, g.name AS "group", p.code AS code,
-        c.value AS state, reference , costo, lpc.utilidad as profit, sum(lp.stock) as total, lpc.price as price, l2.name as locationMain
-        from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id
-        join cstates c on p.cstate_id = c.id join locations_products lp on lp.product_id = p.id
-        JOIN list_prices lpc on lpc.product_id = p.id join locations l2 on l2.id = p.location_main  WHERE lpc.name = "precio 1" group by p.id, p.name, l.name, g.name, p.code,
-        c.value, p.reference, p.costo, lpc.utilidad, lpc.price, locationMain;');
 
-//$products = DB::select('select * from products_list_view');
-         return DataTables()->collection($products)->toJson();
-        //
+        if(request()->ajax()){
+
+            // $products = Product::all();
+            // $list = [];
+            // foreach($products as $product){
+            //     $list[] = $product->groups->lines;
+            // }
+            // return $list;
+            // $products = DB::select('select p.id as id, p.name as name, l.name as line, g.name as "group", p.code as code, c.value as state, reference , costo, price, profit from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id join cstates c on p.cstate_id = c.id ');
+            $products = DB::select('SELECT p.id AS id, p.name AS name, l.name AS line, g.name AS "group", p.code AS code,
+            c.value AS state, reference , costo, lpc.utilidad as profit, sum(lp.stock) as total, lpc.price as price, l2.name as locationMain
+            from products p join `groups` g ON p.group_id = g.id join `lines` l on l.id = g.line_id
+            join cstates c on p.cstate_id = c.id join locations_products lp on lp.product_id = p.id
+            JOIN list_prices lpc on lpc.product_id = p.id join locations l2 on l2.id = p.location_main  WHERE lpc.name = "precio 1" group by p.id, p.name, l.name, g.name, p.code,
+            c.value, p.reference, p.costo, lpc.utilidad, lpc.price, locationMain;');
+
+            //$products = DB::select('select * from products_list_view');
+             return DataTables()->collection($products)->toJson();
+        }
+        $products = DB::select('select p.id as id, p.name as product, p.code as codigo, l.name as line, g.name as grupo, c.value as estado, l2.name as ubicacion, lp.stock as stock
+        from products p
+        join groups g on p.group_id  = g.id
+        join `lines` l on l.id = g.line_id
+        join cstates c on p.cstate_id = c.id
+        join locations_products lp  on lp.product_id = p.id
+        join locations l2 on l2.id = lp.location_id
+        group by p.id, p.name, l.name, g.name, c.value, l2.name, lp.stock, p.code');
+        return view('admin.products.products_locations', compact('products'));
     }
 
     public function viewProducts(){
