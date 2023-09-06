@@ -11,12 +11,24 @@
 @stop
 
 @section('content')
-<h1>Editar precios</h1>
+<h1><strong>Editar precios</strong></h1>
 <h2>{{$product->name}}</h2>
-<h3>Ultimo costo {{number_format($product->costo, 2, ',', '.')}}</h3>
-@foreach ($product->taxes as $tax)
-<h4>IVA {{$tax->name}}</h4>
-@endforeach
+<ul>
+    <li>
+        <span>Ultimo costo: {{number_format($product->costo, 2, ',', '.')}}</span>
+    </li>
+    <li>
+        <span>Costo promedio: {{number_format($product->costo_promedio, 2, ',', '.')}}</span>
+    </li>
+    <li>
+        <span>Costo fijo: {{number_format($product->costo_fijo, 2, ',', '.')}}</span>
+    </li>
+    @foreach ($product->taxes as $tax)
+    <li>
+        <p>{{$tax->name}} IVA</p>
+    </li>
+    @endforeach
+</ul>
 <x-messages_flash />
 <div class="row">
     <div class="col-md-3">Precio</div>

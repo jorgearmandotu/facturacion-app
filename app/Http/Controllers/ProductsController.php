@@ -211,8 +211,10 @@ class ProductsController extends Controller
                     switch($product->select_costo){
                         case 'costo_fijo':
                             $price->price = $product->costo_fijo+(($product->costo_fijo*$price->utilidad)/100);
+                            break;
                         case 'ultimo_costo':
                             $price->price = $product->costo+(($product->costo*$price->utilidad)/100);
+                            break;
                         case 'costo_promedio':
                             $price->price = $product->costo_promedio+(($product->costo_promedio*$price->utilidad)/100);
                             break;
