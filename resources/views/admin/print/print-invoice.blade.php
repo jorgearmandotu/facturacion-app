@@ -14,7 +14,7 @@
 
 <div class="container col-md-10">
     <div class="d-print-none">
-        <h1>Detalle de factura</h1>
+        <h1>Detalle de pedido</h1>
     </div>
     <div class="row justify-content-center container-fluid col-md-12">
         <div class="col col-md-12 text-center">
