@@ -71,7 +71,6 @@
                     <label for="">Agregar Productos</label>
                     <form id="formProducts">
                     <livewire:shopping-invoice.search-products/>
-                    <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="vlr-Unitario">Costo Unitario</label>
                             <input type="number" class="form-control" id="inputVlrUnitario" placeholder="$ 0"

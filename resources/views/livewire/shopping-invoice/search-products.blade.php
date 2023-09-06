@@ -1,7 +1,7 @@
 <div>
     <div class="form-row">
-        <div class="form-group col-md-7" wire:ignore>
-            <label for="proveedor">Producto</label>
+        <div class="form-group col-xs-6" wire:ignore>
+            <label for="product">Producto</label><br>
             <select name="product" id="selectProducts" class="js-example-theme-single form-control">
                 {{-- <option value="-1">Seleccione Producto</option> --}}
                 <option value=""></option>
@@ -10,13 +10,17 @@
                 @endforeach
             </select>
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-xs-2">
             <label for="quantity">Cantidad</label>
             <input type="number" class="form-control" id="inputQuantity" onchange="changeVlrUnit()">
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-xs-2">
             <label for="ult.costo">Ultimo Costo</label>
             <label for="" class="form-control" id="ult-costo" >@if($product){{number_format($product->costo, 2, ',', '.')}}@endif</label>
+        </div>
+        <div class="form-group col-xs-2">
+            <label for="costo-promedio">Costo Promedio</label>
+            <label for="" class="form-control" id="costo-promedio" >@if($product){{number_format($product->costo_promedio, 2, ',', '.')}}@endif</label>
         </div>
     </div>
 

@@ -12,8 +12,8 @@
 
 @section('content')
 <h1>Productos</h1>
-<div class="container col-md-11 tables">
-    <table id="productsTable" class="table table-striped table-bordered bg-light" style="width:100%">
+<div class="tables">
+    <table id="productsTable" class="table table-striped table-bordered bg-light" style="width:80%">
         <thead>
             <tr>
                 <th>Nombre</th>

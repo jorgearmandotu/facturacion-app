@@ -55,6 +55,8 @@ Route::middleware([
     Route::get('prices_product/{product}', [ProductsController::class, 'showProductPrices']);
     Route::get('products-list', [ProductsController::class, 'viewProducts'])->name('viewProducts', 'products-list');
     Route::resource('products', ProductsController::class)->name('store','products');
+    Route::put('updateProduct/{product}', [ProductsController::class, 'update']);
+    // Route::put('updateProduct/{product}', [ProductsController::class, 'update']);
     Route::put('updatePrices/{product}' , [ProductsController::class, 'updatePrices']);
 
     Route::get('suppliers-list', [SupplierController::class, 'list'])->name('proveedores');

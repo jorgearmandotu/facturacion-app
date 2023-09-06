@@ -93,6 +93,9 @@ class ProductsController extends Controller
             $product->costo = $request->costo;
             $product->costo_fijo = $request->costo_fijo;
             $product->costo_promedio = $request->costo;
+            if($request->costo > 0){
+                $product->quantity_costos = 1;
+            }
             $product->select_costo = $request->costoSeleccionado;
             // $product->profit = $request->profit;
             //$product->price = $request->price;
@@ -195,10 +198,33 @@ class ProductsController extends Controller
                 $locationProduct->stock = 0;
                 $locationProduct->save();
             }
-            $listPrice = ListPrices::where('product_id', $product->id)->where('name', 'precio 1')->first();
-            $listPrice->price = $request->price;
-            $listPrice->utilidad = $request->profit;
-            $listPrice->save();
+
+            //actualizar listados de precios
+            $listPrices = ListPrices::where('product_id', $product->id)->get();
+            foreach($listPrices as $price){
+                if( $price->name == 'precio 1'){
+                    $price->utilidad = $request->profit;
+                    $price->price = $request->price;
+                    $price->save();
+                }else{
+                    //agregar precio de acuerdo a porcentaje de utilidad y costo seleccionado de producto
+                    switch($product->select_costo){
+                        case 'costo_fijo':
+                            $price->price = $product->costo_fijo+(($product->costo_fijo*$price->utilidad)/100);
+                        case 'ultimo_costo':
+                            $price->price = $product->costo+(($product->costo*$price->utilidad)/100);
+                        case 'costo_promedio':
+                            $price->price = $product->costo_promedio+(($product->costo_promedio*$price->utilidad)/100);
+                            break;
+                    }
+                    $price->save();
+                }
+            }
+
+            // $listPrice = ListPrices::where('product_id', $product->id)->where('name', 'precio 1')->first();
+            // $listPrice->price = $request->price;
+            // $listPrice->utilidad = $request->profit;
+            // $listPrice->save();
             $product_taxes = ProductsTaxes::where('product_id', $product->id)->first();
             $product_taxes->product_id = $product->id;
             $product_taxes->tax_id = $request->tax;

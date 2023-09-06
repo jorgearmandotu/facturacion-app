@@ -146,11 +146,21 @@ class ShoppingInvoiceController extends Controller
                     $total += ($quantity * ($vlrUnit+$vlrUnit*$vlrTax/100));
 
                     //actualizo costo promedio
-                    $product_select->costo_promedio = DB::select('select AVG(vlr_unit) AS promedio FROM data_invoices di
-                    where shopping_invoice_id is not null and product_id = '.$product_select->id.'
-                    GROUP BY product_id
-                    limit 100;')[0]->promedio;
-                    $product_select->save();
+                    if($product_select->quantity_costos == 0 && $product_select->costo > 0) {
+                        $product_select->costo_promedio = DB::select('select AVG(vlr_unit) AS promedio FROM data_invoices di
+                        where shopping_invoice_id is not null and product_id = '.$product_select->id.'
+                        GROUP BY product_id
+                        limit 100;')[0]->promedio;
+                        $product_select->quantity_costos = DB::select('select count(vlr_unit) AS quantity_costos FROM data_invoices di
+                        where shopping_invoice_id is not null and product_id = '.$product_select->id.'
+                        GROUP BY product_id
+                        limit 100;')[0]->quantity_costos;
+                        $product_select->save();
+                    }else{
+                        $product_select->costo_promedio = (($product_select->costo_promedio * $product_select->quantity_costos)+$dataInvoice->vlr_unit)/($product_select->quantity_costos+1);
+                        $product_select->quantity_costos += 1;
+                        $product_select->save();
+                    }
 
                     //incrementar cantidad a stock
                     $locationProducts = LocationProduct::where('product_id', $product_select->id)
@@ -206,7 +216,7 @@ class ShoppingInvoiceController extends Controller
             return response()->json(['msg' => 'Ingreso Exitoso', 'invoice' => $invoice->id, 'status' => 200], 200);
         }catch(Exception $e){
             DB::rollBack();
-            return response()->json(['msg' => 'Verifique Datos Ingresados. ', 'status' => 400], 200);
+            return response()->json(['msg' => 'Verifique Datos Ingresados. '.$e, 'status' => 400], 200);
         }
     }
 

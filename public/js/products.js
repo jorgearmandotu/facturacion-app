@@ -279,11 +279,11 @@ async function edit(id){
 
 async function updateProduct(e){
     e.preventDefault();
-    let form = document.querySelector('#formProduct');
-    let data = new FormData(form);
-    const values = Object.fromEntries(data.entries());
+    // const values = Object.fromEntries(data.entries());
     try{
-        const response = await fetch(`/admin/products/${values.id}`,{
+        let form = document.querySelector('#formProduct');
+        let data = new FormData(form);
+        const response = await fetch(`updateProduct/${data.get('id')}`,{
             method: 'POST',
             body: data,
             headers: {
@@ -310,7 +310,7 @@ async function updateProduct(e){
         }
     }catch(error){
         console.error(error);
-        messages('error', 'Ocurio un error al procesar la solicitud', true);
+        messages('error', 'Ocurio un error al procesar la solicitud '+error, true);
     }
 }
 
