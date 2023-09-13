@@ -16,11 +16,11 @@
         </div>
         <div class="form-group col-xs-2">
             <label for="ult.costo">Ultimo Costo</label>
-            <label for="" class="form-control" id="ult-costo" >@if($product){{number_format($product->costo, 2, ',', '.')}}@endif</label>
+            <label for="" class="form-control" id="ult-costo" >@if($product){{number_format($product->costo, 0, ',', '.')}}@endif</label>
         </div>
         <div class="form-group col-xs-2">
             <label for="costo-promedio">Costo Promedio</label>
-            <label for="" class="form-control" id="costo-promedio" >@if($product){{number_format($product->costo_promedio, 2, ',', '.')}}@endif</label>
+            <label for="" class="form-control" id="costo-promedio" >@if($product){{number_format($product->costo_promedio, 0, ',', '.')}}@endif</label>
         </div>
     </div>
 

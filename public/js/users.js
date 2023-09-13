@@ -29,7 +29,7 @@ let checkDischarges = document.querySelector('#discharges');
 let checkTransferLocations = document.querySelector('#transferLocations');
 let checkProfile = document.querySelector('#profile');
 let checkEstadisticas = document.querySelector('#estadisticas');
-
+let checkListPrices = document.querySelector('#listPrices');
 
 btnForm.addEventListener('click', function (e){
     e.preventDefault();
@@ -257,6 +257,8 @@ async function edit(userId){
             case 'estadisticas':
                 checkEstadisticas.checked = true;
                 break;
+            case 'list-prices':
+                checkListPrices.checked = true;
         }
         //   if(permiso.name == 'remision.index'){
         //       checkRemision.checked = true;

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Creación de egresos')
+@section('title', __('titles.create discharge') )
 
 @section('css')
     <link rel="stylesheet" href="../../css/main.css">
@@ -11,10 +11,10 @@
 @stop
 
 @section('content')
-    <h1>creación de de egreso</h1>
+    <h1>{{ __('Expenses') }}</h1>
     @if($invoice)
-        <h2>Cruce con facura de compra No. {{$invoice->number}}</h2>
-        <h2>Saldo total: ${{ number_format($invoice->total, 2, ',', '.') }}</h2>
+        <h2>{{ __('Cross with purchase invoice No. ') }} {{$invoice->number}}</h2>
+        <h2>{{ __('Outstanding Balance') }} ${{ number_format($invoice->total, 2, ',', '.') }}</h2>
     @endif
     <div class="container-fluid">
         <x-messages_flash/>
@@ -24,7 +24,7 @@
                 @csrf
                 <div class="row">
                     <div class="form-group">
-                        <label for="category">Categoria</label>
+                        <label for="category">{{ __('Category') }}</label>
                         <select name="category" id="" class="form-control">
                             @foreach ($categories as $category)
                             @if( old('category') == $category->id )
@@ -39,11 +39,11 @@
                 <livewire:invoice.search-suppliers :invoice="$invoice"/>
                 <div class="row">
                     <div class="form-group col-md-4">
-                        <label for="mount">Monto $</label><label id="aPagar" class="text-primary"></label>
+                        <label for="mount">{{ __('Amount') }} $</label><label id="aPagar" class="text-primary"></label>
                         <input type="number" class="form-control" name="mount" value="{{ old('mount')}}" id="inputValor">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="method_payment">Forma de pago</label>
+                        <label for="method_payment">{{ __('Way to Pay') }}</label>
                         <select name="method_payment" id="" class="form-control">
                             @foreach($paymentMethods as $method)
                                 @if(old('method_payment') && old('method_payment')== $method->value)
@@ -59,15 +59,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="description">Descripción</label>
+                    <label for="description">{{ __('Description') }}</label>
                     @if($invoice)
-                    <textarea name="description" id="" cols="30" rows="10" class="form-control" placeholder="Ingrese motivo del egreso"> Cruze cón factura No. {{ $invoice->number}}, del proveedor {{$invoice->suppliers->name}} identificado con {{$invoice->suppliers->documentType->name }}: {{$invoice->suppliers->dni }}</textarea>
+                    <textarea name="description" id="" cols="30" rows="10" class="form-control" placeholder="{{ __('Enter reason for discharge') }}"> {{ __('Cross with invoice No.') }} {{ $invoice->number}}, {{ __('from the provider') }} {{$invoice->suppliers->name}} identificado con {{$invoice->suppliers->documentType->name }}: {{$invoice->suppliers->dni }}</textarea>
                     @else
-                    <textarea name="description" id="" cols="30" rows="10" class="form-control" placeholder="Ingrese motivo del egreso">{{old('description')}}</textarea>
+                    <textarea name="description" id="" cols="30" rows="10" class="form-control" placeholder="{{ __('Enter reason for discharge') }}">{{old('description')}}</textarea>
                     @endif
                 </div>
                 <div class="form-group row">
-                    <button class="btn btn-success" type="submit">Generar egreso</button>
+                    <button class="btn btn-success" type="submit">{{ __('Add') }}</button>
                 </div>
             </form>
         </div>

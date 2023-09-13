@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Remisiones')
+@section('title', __('titles.pending remision') )
 
 @section('css')
 <link rel="stylesheet" href="../../css/main.css">
@@ -11,20 +11,20 @@
 @stop
 
 @section('content')
-<h1>Remisiones pendientes</h1>
+<h1>{{ __('Pending Referrals') }}</h1>
 <div class="container">
     <div class="container tables">
         <table id="remisionesTable" class="table table-striped table-bordered bg-light" style="width:100%">
             <thead>
                 <tr>
                     {{-- <th>Tipo De Documento</th> --}}
-                    <th>No. remision</th>
-                    <th>Identificación</th>
-                    <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th>Abono</th>
-                    <th>valor total</th>
-                    <th>opciones</th>
+                    <th>{{ __('Number') }}</th>
+                    <th>{{ __('Identification') }}</th>
+                    <th>{{ __('Name') }}</th>
+                    <th>{{ __('Number Phone') }}</th>
+                    <th>{{ __('Paid') }}</th>
+                    <th>{{ __('Total') }}</th>
+                    <th>{{ __('Options') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                     <td>{{ $remision->clients->phone }}</td>
                     <td>{{ number_format($remision->vlr_payment, 2, ',', '.') }}</td>
                     <td>{{ number_format($remision->vlr_total, 2, ',', '.') }}</td>
-                    <td><a href="printRemision/{{ $remision->id}}">Ver</a> </td>
+                    <td><a href="printRemision/{{ $remision->id}}">{{ __('View') }}</a> </td>
                 </tr>
                 @endforeach
             </tbody>

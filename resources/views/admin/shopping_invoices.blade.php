@@ -27,12 +27,12 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="proveedor">Proveedor</label>
-                        <select name="supplier_id" id="selectSupplier" class="form-control col-md-12 select2" autofocus>
+                        <label for="proveedor">Proveedor</label><br>
+                        <select name="supplier_id" id="selectSupplier" class="form-control col select2" autofocus style="width: 100%">
                             {{-- <option value="-1">Seleccione Proveedor</option> --}}
                             <option value=""></option>
                             @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->dni }} - {{ $supplier->name }}</option>
+                                <option value="{{ $supplier->id }}">{{ $supplier->name }} {{ $supplier->dni }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -70,39 +70,40 @@
                 <div class="container bg-white">
                     <label for="">Agregar Productos</label>
                     <form id="formProducts">
-                    <livewire:shopping-invoice.search-products/>
-                        <div class="form-group col-md-3">
-                            <label for="vlr-Unitario">Costo Unitario</label>
-                            <input type="number" class="form-control" id="inputVlrUnitario" placeholder="$ 0"
+                        <livewire:shopping-invoice.search-products/>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="vlr-Unitario">Costo Unitario</label>
+                                <input type="number" class="form-control" id="inputVlrUnitario" placeholder="$ 0"
                                 onchange="changeVlrUnit()">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="tax">IVA</label>
-                            <select name="tax" class="form-control" id="selectTax" >
-                                @foreach($taxes as $tax)
-                                    @if(old('tax'))
-                                        @if(old('tax') == $tax->id)
-                                            <option value="{{$tax->value}}" selected>{{$tax->name}}</option>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="tax">IVA</label>
+                                <select name="tax" class="form-control" id="selectTax" >
+                                    @foreach($taxes as $tax)
+                                        @if(old('tax'))
+                                            @if(old('tax') == $tax->id)
+                                                <option value="{{$tax->value}}" selected>{{$tax->name}}</option>
+                                            @else
+                                                <option value="{{$tax->value}}">{{$tax->name}}</option>
+                                            @endif
                                         @else
                                             <option value="{{$tax->value}}">{{$tax->name}}</option>
                                         @endif
-                                    @else
-                                        <option value="{{$tax->value}}">{{$tax->name}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="vlr-Total">Costo Total</label>
+                                <span class="form-control" id="inputVlrTotal"></span>
+                                {{-- <input type="number" class="form-control" id="inputVlrTotal" placeholder="$ 0" tabindex="-1" disabled> --}}
+                            </div>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="vlr-Total">Costo Total</label>
-                            <span class="form-control" id="inputVlrTotal"></span>
-                            {{-- <input type="number" class="form-control" id="inputVlrTotal" placeholder="$ 0" tabindex="-1" disabled> --}}
-                        </div>
-                    </div>
                     <div class="form-row justify-content-center pb-4 mb-4">
                         <button class="btn btn-info" type="button" onclick="add()">Agregar</button>
                     </div>
-                    </form>
-                </div>
+                </form>
+            </div>
             </div>
 
             <div class="border border-primary p-1 pl-2">

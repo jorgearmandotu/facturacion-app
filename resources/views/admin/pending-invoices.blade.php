@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'facturas-pendientes')
+@section('title', __('titles.pending invoices') )
 
 @section('css')
 <link rel="stylesheet" href="../../css/main.css">
@@ -11,19 +11,19 @@
 @stop
 
 @section('content')
-<h1>Facturas credito pendientes</h1>
+<h1>{{ __('Pending Credit Invoices') }}</h1>
 
-<div class="container">
-    <div class="container col-md-11 tables">
+<div class="containers container-fluid col-md-10">
+    <div class="tables">
         <table id="pendingInvoicesTable" class="table table-striped table-bordered bg-light" style="width:100%">
             <thead>
                 <tr>
-                    <th>Prefijo</th>
-                    <th>Numero</th>
-                    <th>Cliente</th>
-                    <th>Identificación</th>
-                    <th>vlr total</th>
-                    <th>Saldo pendiente</th>
+                    <th>{{ __('Prefix') }}</th>
+                    <th>{{ __('Number') }}</th>
+                    <th>{{ __('Client') }}</th>
+                    <th>{{ __('Identification') }}</th>
+                    <th>{{ __('Total') }}</th>
+                    <th>{{ __('Outstanding Balance') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,9 +36,9 @@
                     <td>{{$invoice->clients->dni}}</td>
                     <td>{{ number_format($invoice->vlr_total, 2, ',', '.') }}</td>
                     @php
-                        $receipts = App\Models\Receipt::where('invoice_id', $invoice->id)->get();
+                        //$receipts = App\Models\Receipt::where('invoice_id', $invoice->id)->get();
                         $saldo = $invoice->vlr_total;
-                        foreach ($receipts as $receipt) {
+                        foreach ($invoice->receipts as $receipt) {
                             $saldo -= $receipt->vlr_payment;
                             if($receipt->remision){
                                 $saldo -= $receipt->remision->vlr_payment;
@@ -46,7 +46,7 @@
                         }
                     @endphp
                     <td>{{ number_format($saldo, 2, ',', '.') }}</td>
-                    <td><a href="printInvoice/{{$invoice->id}}">Ver</a></td>
+                    <td><a href="printInvoice/{{$invoice->id}}">{{ __('View') }}</a></td>
                 </tr>
                 @endforeach
             </tbody>

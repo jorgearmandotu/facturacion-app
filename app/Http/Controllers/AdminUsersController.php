@@ -288,6 +288,10 @@ class AdminUsersController extends Controller
                     $user->givePermissionTo('estadisticas');
                 }else{
                     $user->revokePermissionTo('estadisticas');
+                }if($request->listPrices){
+                    $user->givePermissionTo('list-prices');
+                }else{
+                    $user->revokePermissionTo('list-prices');
                 }
 
                 $user->save();

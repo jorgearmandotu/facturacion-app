@@ -174,6 +174,11 @@
                                         <input class="form-check-input group-all" type="checkbox" id="gestionDocuments" value="gestionDocuments" name="gestionDocuments">
                                         <label class="form-check-label" for="gestionDocuments">Anular Documentos</label>
                                     </div>
+                                    <div class="form-check form-check-inline col-md-3">
+                                        <input class="form-check-input group-all" type="checkbox" id="listPrices"
+                                            value="listPrices" name="listPrices">
+                                        <label class="form-check-label" for="listPrices">Listado de precios</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

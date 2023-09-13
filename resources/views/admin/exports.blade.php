@@ -73,7 +73,7 @@
             </div>
         </form>
         <hr>
-        <label for="">Exportar recaudos en efectivo por fecha</label>
+        <label for="">Exportar recaudos por fecha</label>
         <form action="exportIngresos" method="post">
             @csrf
             <div class="form-row form">
